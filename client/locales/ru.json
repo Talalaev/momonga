@@ -1,0 +1,8 @@
+{
+  "HELLO": "Привет {{value}}!",
+  "HOME": {
+    "TITLE": "Привет Angular 2 с ngx-translate!",
+    "SELECT": "Выбирите язык"
+  },
+  "LAZY": "Я ленивый загрузчик!"
+}

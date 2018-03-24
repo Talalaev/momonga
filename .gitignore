@@ -1,0 +1,16 @@
+$ cat .gitignore
+*~
+*.css.map
+info.txt
+.idea
+.sass-cache/
+bower_components/
+node_modules/
+img/
+source/**/node_modules/
+nginx/html
+nginx/logs
+
+#_/components/javascripts/working/*.js
+#_/components/styles/bootstrap3/*.css
+/nbproject/private/

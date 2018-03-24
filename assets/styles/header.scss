@@ -1,0 +1,40 @@
+.header {
+    background-image: url("../../../public/img/bg.jpg");
+    background-position: center top;
+    background-size: 100% auto;
+    height: 635px;
+    width: 100%;
+    color: $marengo;
+
+    .container {
+        position: relative;
+        z-index: 2;
+    }
+
+    .menu {
+        position: relative;
+        z-index: 2;
+    }
+
+    .greeting {
+        bottom: 0;
+        height: 230px;
+        left: 0;
+        margin: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 760px;
+        z-index: 2;
+        text-align: center;
+    }
+
+    #bird {
+        height: 635px !important;
+        width: 100% !important;
+        position: absolute;
+        top: 0;
+        opacity: 0.9;
+        z-index: 1;
+    }
+}

@@ -1,0 +1,57 @@
+doctype html
+html(lang="ru")
+    head
+        meta(content="text/html;charset=UTF-8" http-equiv="Content-Type")
+        meta(http-equiv="Cache-Control" content="no-store")
+        meta(name="viewport" content="width=device-width, initial-scale=1")
+        title.
+            #{appName} - Учет затрат
+            
+        link(href='https://fonts.googleapis.com/css?family=PT+Serif:400,400italic,700' rel='stylesheet' type='text/css')
+        link(rel="shortcut icon" href="favicon.ico")
+        
+        link(rel="stylesheet" type="text/css" href="css/bootstrap.min.css")
+        
+        link(rel="stylesheet" type="text/css" href="css/style.css")
+        link(rel="stylesheet" type="text/css" href="css/momonga-icon.css")
+        
+        script(src="/js/jquery.min.js")
+        script(src="/js/bootstrap.min.js")
+        script(src="/js/script.js")
+    
+    body
+        span(style="font-size: 50px;") 
+            |Mom
+            span(class="icon-momonga")|nga
+        img( src="img/bg.jpg" )
+        
+        h1.
+            Привет и добро пожаловать в гости к #{appName}! 
+        p= __("Hello!")
+        img(src="/img/momonga.jpg")
+        h3.
+            Мы должны знать сколько тратим и на что!
+        p.
+            Приложение призванно дать вам контроль над финансовыми ресурсами, организовать расходы с целью недопустить траты денег на ветер. 
+        
+        h3.
+            Но мы не можем тратить время на унылое ведение подсчетов!
+        p.
+            Задача приложения сделать процесс учета быстрым и удобным.
+            
+        h3.
+            Мы не должны откладывать все на последний момент!
+        p.
+            Деньги как молоко на плите, не подавая вида могут резко "убежать" чуть только мы расслабимся.
+            
+        h3.
+            Но мы не должны жить в режиме постоянной боевой готовности!
+        p.
+            Задача приложения дать вам знать заранее когда деньги начинают вести себя как молоко.
+        
+        h3.
+            Цель приложения разрешить выше приведенные противоречия!
+            
+        h4 Мысли в слух
+        p.
+            Как дать человеку возможность правильно оценить риск между быстрым получением желаемого и финансовой устойчивостью. Например, купить автомобиль и оказаться в долгах или ждать сдерживая желание и не иметь долгов. Наверняка данный процесс можно оптимизировать. т.е. найти такой компромис между скоростью получения желаемого и финансовой стабильностью. Пусть программа считает когда, при каких входных данных (условиях) будут наилучие выходные данные. Под выходными даными подразумеваем лучшее соотношение между финансовой устойчивостью и временем для достижения желаемого.

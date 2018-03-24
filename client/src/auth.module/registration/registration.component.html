@@ -1,0 +1,147 @@
+<div class="uk-section uk-section-default">
+    <div class="uk-container uk-width-1-3@m">
+        <div class="uk-card uk-card-default uk-card-body uk-transform-origin-top-center">
+            <h1>
+                Registration
+            </h1>
+            <form class="uk-form-stacked" [formGroup]="form">
+                <example-field
+                    formControlName="login"
+                    [(ngModel)]="form.controls.login.value">
+                </example-field>
+                <div class="uk-margin">
+                    <label class="uk-form-label">
+                        Login
+                        <span
+                            *ngIf="form.controls.login.pending"
+                            class="uk-text-primary">searching...</span>
+                    </label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span
+                            *ngIf="formState.login"
+                            class="uk-form-icon uk-form-icon-flip uk-text-success"
+                            uk-icon="icon: check"></span>
+                        <span class="uk-form-icon uk-text-primary" uk-icon="icon: user"></span>
+                        <input
+                            required
+                            formControlName="login"
+                            [(ngModel)]="form.controls.login.value"
+                            class="uk-input mom-input-double-padding"
+                            type="text">
+                    </div>
+                    <div
+                        uk-alert
+                        [hidden]="!formErrors.login"
+                        class="uk-alert-warning uk-inline uk-width-1-1">
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>
+                            {{ formErrors.login }}
+                        </p>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label">
+                        E-mail
+                    </label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span
+                            *ngIf="formState.email"
+                            class="uk-form-icon uk-form-icon-flip uk-text-success"
+                            uk-icon="icon: check"></span>
+                        <span class="uk-form-icon uk-text-warning" uk-icon="icon: mail"></span>
+                        <input
+                            required
+                            formControlName="email"
+                            class="uk-input mom-input-double-padding"
+                            type="text">
+                    </div>
+                    <div
+                        uk-alert
+                        [hidden]="!formErrors.email"
+                        class="uk-alert-warning uk-inline uk-width-1-1">
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>
+                            {{ formErrors.email }}
+                        </p>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label">
+                        Password
+                    </label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span
+                            *ngIf="formState.password"
+                            class="uk-form-icon uk-form-icon-flip uk-text-success"
+                            uk-icon="icon: check"></span>
+                        <span
+                            *ngIf="formState.password"
+                            class="uk-form-icon uk-text-success" uk-icon="icon: lock"></span>
+                        <span
+                            *ngIf="!formState.password"
+                            class="uk-form-icon uk-text-danger" uk-icon="icon: lock"></span>
+                        <input
+                            required
+                            formControlName="password"
+                            class="uk-input mom-input-double-padding"
+                            type="password">
+                    </div>
+                    <div
+                        uk-alert
+                        [hidden]="!formErrors.password"
+                        class="uk-alert-warning uk-inline uk-width-1-1">
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>
+                            {{ formErrors.password }}
+                        </p>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <label class="uk-form-label">
+                        Repeat password
+                    </label>
+                    <div class="uk-form-controls uk-inline uk-width-1-1">
+                        <span
+                            *ngIf="formState.repeatPassword"
+                            class="uk-form-icon uk-form-icon-flip uk-text-success"
+                            uk-icon="icon: check"></span>
+                        <span
+                            *ngIf="formState.repeatPassword"
+                            class="uk-form-icon uk-text-success" uk-icon="icon: lock"></span>
+                        <span
+                            *ngIf="!formState.repeatPassword"
+                            class="uk-form-icon uk-text-danger" uk-icon="icon: unlock"></span>
+                        <input
+                            required
+                            formControlName="repeatPassword"
+                            class="uk-input mom-input-double-padding"
+                            type="password">
+                    </div>
+                    <div
+                        uk-alert
+                        [hidden]="!formErrors.repeatPassword"
+                        class="uk-alert-warning uk-inline uk-width-1-1">
+                        <a class="uk-alert-close" uk-close></a>
+                        <p>
+                            {{ formErrors.repeatPassword }}
+                        </p>
+                    </div>
+                </div>
+                <div class="uk-margin">
+                    <button
+                        (click)="onSubmit()"
+                        type="button"
+                        class="uk-button uk-button-default">
+                        Submit
+                    </button>
+                </div>
+            </form>
+            <a
+                (click)="router.navigate(['/login'])"
+                href="javascript:void(0)"
+                class="uk-button uk-button-primary">
+                Login
+            </a>
+        </div>
+    </div>
+</div>

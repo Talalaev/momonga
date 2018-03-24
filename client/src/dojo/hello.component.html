@@ -1,0 +1,12 @@
+<div *ngIf="state">
+    <p>
+        Добро пожаловать!
+    </p>
+    <button (click)="closeDojo.emit()" class="uk-button uk-button-secondary">Закрыть додзё</button>
+</div>
+<div *ngIf="!state">
+    <p>
+        Сегодня додзё закрыто
+    </p>
+    <button (click)="openDojo.emit()" class="uk-button uk-button-primary">Открыть додзё</button>
+</div>

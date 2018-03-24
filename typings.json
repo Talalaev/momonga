@@ -1,0 +1,5 @@
+{
+  "globalDependencies": {
+    "uikit": "registry:dt/uikit#2.27.0+20170120001024"
+  }
+}

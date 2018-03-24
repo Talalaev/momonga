@@ -1,0 +1,43 @@
+doctype html
+html(lang="ru")
+    head
+        include ../../templates/partials/head.pug
+        
+        link(rel="stylesheet" type="text/css" href="public/main/main.css")
+
+    body
+        .mom-choose-lang
+            .uk-button-group.uk-float-right
+                for locale in locales
+                    if locale === lang
+                        a(href="?lang=" + locale).uk-button.uk-button-primary.uk-button-small.uk-active
+                            = locale
+                    else
+                        a(href="?lang=" + locale).uk-button.uk-button-primary.uk-button-small
+                            = locale
+        .uk-section
+            .mom-content-wrapper.uk-container.uk-container-large
+                include ../../templates/logo-svg-black.pug
+                h1.uk-text-center
+                    | Momonga
+                p.uk-text-center
+                    strong
+                        = __("cost accounting")
+                blockquote(cite="https://github.com/talalaev/momonga")
+                    p.uk-margin-small-bottom
+                        = __("app description")
+                    footer
+                        = __("app repository")
+                        | :&nbsp;
+                        site
+                            a(href="https://github.com/talalaev/momonga")
+                                | https://github.com/talalaev/momonga
+                a.uk-button.uk-button-primary.uk-button-large.uk-width-1-1.uk-margin-large-bottom(
+                    href="/app"
+                )
+                    = __("go to app")
+                    | !
+
+
+        script(src="public/common/common.js")
+        script(src="public/main/main.js")

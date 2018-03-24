@@ -1,0 +1,130 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font: inherit;
+  font-size: 100%;
+  vertical-align: baseline;
+}
+
+html {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption, th, td {
+  text-align: left;
+  font-weight: normal;
+  vertical-align: middle;
+}
+
+q, blockquote {
+  quotes: none;
+}
+q:before, q:after, blockquote:before, blockquote:after {
+  content: "";
+  content: none;
+}
+
+a img {
+  border: none;
+}
+
+article, aside, details, figcaption, figure, footer, header, hgroup, main, menu, nav, section, summary {
+  display: block;
+}
+
+h1 {
+  font-size: 2.5em;
+}
+
+p {
+  padding: 10px 0;
+}
+
+.container {
+  width: 1100px;
+  margin: 0 auto;
+}
+
+body {
+  height: 1000px;
+  font-family: "PT Serif", serif, "Open Sans", "Arial";
+}
+
+.header {
+  background-image: url("../img/bg.jpg");
+  background-position: center top;
+  background-size: 100% auto;
+  height: 635px;
+  width: 100%;
+  color: #4c5866;
+}
+.header .container {
+  position: relative;
+  z-index: 2;
+}
+.header .menu {
+  position: relative;
+  z-index: 2;
+}
+.header .greeting {
+  bottom: 0;
+  height: 230px;
+  left: 0;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 760px;
+  z-index: 2;
+  text-align: center;
+}
+.header #bird {
+  height: 635px !important;
+  width: 100% !important;
+  position: absolute;
+  top: 0;
+  opacity: 0.9;
+  z-index: 1;
+}
+
+.mom__logo-text {
+  font-size: 4.5em;
+  line-height: 1.33em;
+  cursor: pointer;
+}
+.mom__logo-text .icon-momonga {
+  font-size: 70%;
+}
+
+.mom__choose-lang {
+  bottom: 0;
+  display: inline-block;
+  float: right;
+  height: 34px;
+  margin: auto;
+  position: absolute;
+  right: 0;
+  top: 0;
+}

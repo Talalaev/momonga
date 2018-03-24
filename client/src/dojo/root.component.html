@@ -1,0 +1,13 @@
+<div class="uk-section">
+    <div class="uk-container uk-container-large">
+        <h1>Додзё</h1>
+        <span>dojoState: {{isOpen | async}}</span>
+        <br><br>
+        <router-outlet></router-outlet>
+        <br><br>
+        <logout-container #lc="logout-container">
+            <logout-component (logout)="lc.logout()"></logout-component>
+        </logout-container>
+        <div>isLoggedIn: {{ authService.getIsLoggedIn() | async }}</div>
+    </div>
+</div>
