@@ -19,13 +19,14 @@ const locale = require('koa-locale');
 const sessionStore = require('./libs/sessionStore');
 const sessionUseExample = require('./middlewares/sessionUseExample');
 
-const mongoose = require('./libs/mongoose');
-
-let db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-    console.log('db connected!');
-});
+const sequelize = require('./libs/sequelize');
+// const mongoose = require('./libs/mongoose');
+//
+// let db = mongoose.connection;
+// db.on('error', console.error.bind(console, 'connection error:'));
+// db.once('open', function() {
+//     console.log('db connected!');
+// });
 
 const allowHosts = require('./middlewares/allowHosts');
 app.use(allowHosts());
