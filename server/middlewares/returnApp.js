@@ -5,7 +5,8 @@ function returnApp() {
         let user = null;
 
         if (ctx.session.passport) {
-            user = await User.findOne({_id: ctx.session.passport.user}).exec();
+            user = await User.findOne({where: {id: ctx.session.passport.user}});
+
             if (user) {
                 console.log('\x1b[32m%s\x1b[0m', "---------\nIs the user authorized? -> true\n---------");
             } else {

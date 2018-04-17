@@ -29,17 +29,27 @@ const sequelize = require('./libs/sequelize');
 // });
 
 const allowHosts = require('./middlewares/allowHosts');
+app.use(convert(bodyParser()));
+app.use(cookie());
+
 app.use(allowHosts());
 app.use(logger());
 
 app.keys = config.keys;
-app.use(convert(session({
+app.use(session({
     store: sessionStore
-})));
+}));
+// app.use(convert(session({
+//     store: sessionStore,
+//     olling: true,
+//     cookie: {
+//         maxage: 30 * 60 * 1000
+//     }
+// })));
+// app.use(convert(session({
+//     store: sessionStore
+// })));
 // app.use(sessionUseExample());
-
-app.use(convert(bodyParser()));
-app.use(cookie());
 
 locale(app);
 app.use(views(roots.projectRoot, {

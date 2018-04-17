@@ -8,7 +8,9 @@ passport.serializeUser((user, done) => {
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id, done); // callback version checks id validity automatically
+    User.findById(id).then(user => {
+        done(null, user.get());
+    }); // callback version checks id validity automatically
 });
 
 // done(null, user)
@@ -19,22 +21,22 @@ passport.use(new LocalStrategy({
         passwordField: 'password'
     },
     function(email, password, done) {
-        User.findOne({ email: email }, function (err, user) {
-            if (err) {
-                return done(err);
-            }
-            if (!user || !user.checkPassword(password)) {
-                // don't say whether the user exists
-                return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
-            }
+        User
+            .findOne({where: { email: email }})
+            .then(user => {
+                if (!user || !user.checkPassword(password)) {
+                    // don't say whether the user exists
+                    return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
+                }
 
-            return done(null, user);
-        });
+                return done(null, user.get());
+            })
+            .catch(err => done(err));
     }
 ));
 
-
 const passportInitialize = passport.initialize();
+
 module.exports = function() {
     return passport.initialize();
 };

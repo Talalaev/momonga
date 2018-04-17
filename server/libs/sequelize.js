@@ -1,6 +1,7 @@
+const config = require('config');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('momonga', 'root', 'vb355216031', {
-    host: '127.0.0.1',
+const sequelize = new Sequelize(config.mysql.database, config.mysql.user, config.mysql.password, {
+    host: config.mysql.host,
     dialect: 'mysql',
     operatorsAliases: false,
     pool: {

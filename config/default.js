@@ -16,6 +16,12 @@ module.exports = {
             }
         }
     },
+    mysql: {
+        user: "root",
+        password: "password",
+        database: "momonga",
+        host: "127.0.0.1"
+    },
     crypto: {
         hash: {
             length: 128,

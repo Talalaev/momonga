@@ -70,6 +70,7 @@
     "yargs": "^4.7.1"
   },
   "dependencies": {
+    "koa-mysql-session": "0.0.2",
     "mysql2": "^1.5.3",
     "sequelize": "^4.37.6"
   }

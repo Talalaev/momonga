@@ -1,8 +1,16 @@
-const mongooseStore = require('koa-session-mongoose');
+// const MemoryStore = require('koa-session-memory');
+//
+// module.exports = new MemoryStore();
+const MysqlStore = require('koa-mysql-session');
+const config = require('config');
 
-module.exports = mongooseStore.create({
-  model: 'Session'
-});
+module.exports = new MysqlStore(config.mysql);
+
+// const mongooseStore = require('koa-session-mongoose');
+//
+// module.exports = mongooseStore.create({
+//   model: 'Session'
+// });
 
 // in-memory store by default (use the right module instead)
 

@@ -12,12 +12,12 @@ auth
             return;
         }
 
-        let user = await User.findOne({where: {id: ctx.session.passport.user}});
+        let user = await User.findOne({_id: ctx.session.passport.user}).exec();
 
         if (user) {
             ctx.status = 200;
             ctx.body = {
-                name: user.login,
+                name: user.displayName,
                 email: user.email
             };
 
@@ -34,7 +34,7 @@ auth
     .get('/is-login-taken', async (ctx, next) => {
         const login = ctx.request.query.login;
 
-        const user = await User.findOne({where: {login}});
+        const user = await User.findOne({displayName: login});
 
         ctx.status = 200;
         if (user) {
@@ -46,14 +46,15 @@ auth
         ctx.body = {taken: false};
     })
     .post("/login", function (ctx, next) {
-        return passport.authenticate('local', async function(err, user, info) {
+        // console.log(ctx.request.body);
+        return passport.authenticate('local', function(err, user, info) {
             if (err) throw err;
 
             ctx.response.set('Content-Type', 'application/json');
 
             if (user === false) {
                 ctx.status = 401;
-                ctx.body = { title: "Auth error", message: info.message };
+                ctx.body = "Auth error";
                 //ctx.redirect("/");
 
                 return;
@@ -61,24 +62,22 @@ auth
 
             ctx.status = 200;
             ctx.body = {
-                name: user.login,
+                name: user.displayName,
                 email: user.email
             };
-
-            ctx.login(user);
+            return ctx.login(user);
             // ctx.isAuthenticated()
         })(ctx, next);
     })
     .post("/regist", async (ctx, next) => {
         let user = {
-            login: ctx.request.body.login,
+            displayName: ctx.request.body.login,
             email: ctx.request.body.email,
             password: ctx.request.body.password
         };
 
         try {
-            user = await User.create(user);
-
+            user = await new User(user).save();
             ctx.status = 200;
             ctx.body = "ok";
             ctx.login(user);
