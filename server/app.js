@@ -1,5 +1,6 @@
 const Koa = require("koa");
 const app = new Koa();
+
 const path = require('path');
 const config = require('config');
 const favicon = require('koa-favicon');
