@@ -17,8 +17,9 @@ const i18n = require('koa-i18n');
 const convert = require('koa-convert');
 const locale = require('koa-locale');
 
-const sessionStore = require('./libs/sessionStore');
-const sessionUseExample = require('./middlewares/sessionUseExample');
+const sessionStores = require('./libs/sessionStore');
+// const sessionUseExample = require('./middlewares/sessionUseExample');
+// app.use(sessionUseExample());
 
 const sequelize = require('./libs/sequelize');
 // const mongoose = require('./libs/mongoose');
@@ -30,27 +31,15 @@ const sequelize = require('./libs/sequelize');
 // });
 
 const allowHosts = require('./middlewares/allowHosts');
+app.use(allowHosts());
 app.use(convert(bodyParser()));
 app.use(cookie());
-
-app.use(allowHosts());
 app.use(logger());
 
 app.keys = config.keys;
 app.use(session({
-    store: sessionStore
+    store: sessionStores.mysql
 }));
-// app.use(convert(session({
-//     store: sessionStore,
-//     olling: true,
-//     cookie: {
-//         maxage: 30 * 60 * 1000
-//     }
-// })));
-// app.use(convert(session({
-//     store: sessionStore
-// })));
-// app.use(sessionUseExample());
 
 locale(app);
 app.use(views(roots.projectRoot, {
@@ -88,7 +77,6 @@ app.use(returnApp());
 app.on('error', async function (err) {
     this.body = 'server error' + err;
 });
-
 
 module.exports = app;
 
