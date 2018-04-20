@@ -1,5 +1,6 @@
 const defer = require('config/defer').deferConfig;
 const path = require('path');
+const mysqlPass = require('./mysqlPass');
 
 module.exports = {
     // secret data can be moved to env variables
@@ -18,7 +19,7 @@ module.exports = {
     },
     mysql: {
         user: "root",
-        password: "password",
+        password: mysqlPass.password,
         database: "momonga",
         host: "127.0.0.1"
     },

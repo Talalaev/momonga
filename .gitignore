@@ -10,6 +10,7 @@ img/
 source/**/node_modules/
 nginx/html
 nginx/logs
+config/mysqlPass.json
 
 #_/components/javascripts/working/*.js
 #_/components/styles/bootstrap3/*.css
