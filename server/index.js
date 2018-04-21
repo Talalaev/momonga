@@ -1,3 +1,5 @@
 const app = require('./app');
-app.listen(8888);
+const server = app.listen(8888);
 console.log("start!");
+
+module.exports = server;
