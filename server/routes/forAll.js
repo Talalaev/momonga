@@ -1,52 +1,22 @@
 const Router = require("koa-router");
 const forAll = new Router();
 const locales = require('config').locales;
-const swaggerJSDoc = require('swagger-jsdoc');
-
-// initialize swagger-jsdoc
-let swaggerSpec = swaggerJSDoc({
-    // import swaggerDefinitions
-    swaggerDefinition: {
-        info: {
-            title: 'Node Swagger API',
-            version: '1.0.0',
-            description: 'Demonstrating how to describe a RESTful API with Swagger',
-        },
-        host: 'localhost:3000',
-        basePath: '/',
-    },
-    // path to the API docs
-    apis: ['./server/routes/*.js'],
-});
+const swaggerSpec = require('../libs/apiDocs');
 
 /**
  * @swagger
  * /swagger.json:
  *   get:
  *     tags:
- *       - Puppies
- *     description: Returns all puppies
+ *       - swagger JSON
+ *     description: Служебный роут необходимый для работы документации
  *     produces:
  *       - application/json
  *     responses:
  *       200:
- *         description: An array of puppies
+ *         description: возвращает swagger спецификацию
  *         schema:
- *           $ref: '#/definitions/Puppy'
- */
-/**
- * @swagger
- * definitions:
- *   Puppy:
- *     properties:
- *       name:
- *         type: string
- *       breed:
- *         type: string
- *       age:
- *         type: integer
- *       sex:
- *         type: string
+ *           $ref: '#/definitions/Purchase'
  */
 forAll
     .get("/", async (ctx, next) => {

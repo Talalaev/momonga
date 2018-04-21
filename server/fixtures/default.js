@@ -1,7 +1,7 @@
 const oid = require('../libs/db/oid');
 
 require('../models/user');
-require('../models/buying');
+require('../models/purchase');
 
 exports.User = [
     {
