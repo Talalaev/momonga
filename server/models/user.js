@@ -21,6 +21,10 @@
  *         type: integer
  *       passwordHash:
  *         type: string
+ *       createdAt:
+ *         type: date
+ *       updatedAt:
+ *         type: date
  */
 const crypto = require('crypto');
 const config = require('config');
@@ -81,6 +85,12 @@ let
         salt: {
             type: Sequelize.STRING,
             required: true
+        },
+        createdAt: {
+            type: Sequelize.DATE
+        },
+        updatedAt: {
+            type: Sequelize.DATE
         }
     },
     options = {

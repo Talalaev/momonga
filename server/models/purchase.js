@@ -19,6 +19,10 @@
  *         type: string
  *       price:
  *         type: integer
+ *       createdAt:
+ *         type: date
+ *       updatedAt:
+ *         type: date
  */
 const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
@@ -57,6 +61,12 @@ let
         price: {
             type: Sequelize.INTEGER,
             required: true
+        },
+        createdAt: {
+            type: Sequelize.DATE
+        },
+        updatedAt: {
+            type: Sequelize.DATE
         }
     },
     options = {};
