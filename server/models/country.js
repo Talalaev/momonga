@@ -35,7 +35,9 @@ let
             required: true
         }
     },
-    options = {};
+    options = {
+        timestamps: false
+    };
 
 const Country = sequelize.define('country', model, options);
 

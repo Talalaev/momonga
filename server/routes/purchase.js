@@ -13,3 +13,18 @@
  *         schema:
  *           $ref: '#/definitions/Purchase'
  */
+const Router = require("koa-router");
+const purchase = new Router();
+const Purchase = require('../models/purchase');
+
+purchase
+    .get("/purchase", async (ctx, next) => {
+        try {
+            let purchase = await Purchase.findOne();
+            ctx.body = purchase;
+        } catch(err) {
+            ctx.body = 'server error ' + err;
+        }
+    });
+
+module.exports = purchase;

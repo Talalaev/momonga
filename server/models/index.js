@@ -1,11 +1,11 @@
-import Category from './category';
-import Country from './country';
-import Group from './group';
-import Invitation from './invitation';
-import Purchase from './purchase';
-import User from './user';
+const Category = require('./category');
+const Country = require('./country');
+const Group = require('./group');
+const Invitation = require('./invitation');
+const Purchase = require('./purchase');
+const User = require('./user');
 
-export const models = {
+exports.models = {
     Category,
     Country,
     Group,

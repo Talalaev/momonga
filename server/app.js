@@ -66,10 +66,8 @@ const initPassport = require('./middlewares/passportInitialize');
 app.use(initPassport());
 app.use(passport.session());
 
-const forAll = require('./routes/forAll');
-app.use(forAll.routes());
-const auth = require('./routes/auth');
-app.use(auth.routes());
+const routers = require('./routes');
+for (let name of Object.keys(routers)) app.use(routers[name].routes());
 
 const returnApp = require('./middlewares/returnApp');
 app.use(returnApp());

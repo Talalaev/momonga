@@ -13,3 +13,18 @@
  *         schema:
  *           $ref: '#/definitions/Invitation'
  */
+const Router = require("koa-router");
+const invitation = new Router();
+const Invitation = require('../models/user');
+
+invitation
+    .get("/invitation", async (ctx, next) => {
+        try {
+            let invitation = await Invitation.findOne();
+            ctx.body = invitation;
+        } catch(err) {
+            ctx.body = 'server error ' + err;
+        }
+    });
+
+module.exports = invitation;

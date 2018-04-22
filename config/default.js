@@ -20,7 +20,7 @@ module.exports = {
     mysql: {
         user: "root",
         password: mysqlPass.password,
-        database: "momonga",
+        database: process.env.NODE_ENV == 'production' ? "momonga" : "momonga_test",
         host: "127.0.0.1"
     },
     crypto: {

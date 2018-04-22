@@ -1,8 +1,3 @@
-const Router = require("koa-router");
-const forAll = new Router();
-const locales = require('config').locales;
-const swaggerSpec = require('../libs/apiDocs');
-
 /**
  * @swagger
  * /swagger.json:
@@ -18,6 +13,11 @@ const swaggerSpec = require('../libs/apiDocs');
  *         schema:
  *           $ref: '#/definitions/Purchase'
  */
+const Router = require("koa-router");
+const forAll = new Router();
+const locales = require('config').locales;
+const swaggerSpec = require('../libs/apiDocs');
+
 forAll
     .get("/", async (ctx, next) => {
         try {

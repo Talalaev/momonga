@@ -13,3 +13,18 @@
  *         schema:
  *           $ref: '#/definitions/Group'
  */
+const Router = require("koa-router");
+const group = new Router();
+const Group = require('../models/group');
+
+group
+    .get("/group", async (ctx, next) => {
+        try {
+            let group = await Group.findOne();
+            ctx.body = group;
+        } catch(err) {
+            ctx.body = 'server error ' + err;
+        }
+    });
+
+module.exports = group;
