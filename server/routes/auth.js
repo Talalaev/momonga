@@ -1,3 +1,26 @@
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description:
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: объект с именем и почтой
+ * /regist:
+ *   post:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description:
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: "ok"
+ */
 const Router = require("koa-router");
 const auth = new Router();
 const passport = require('koa-passport');
