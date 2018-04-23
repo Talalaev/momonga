@@ -2,6 +2,9 @@
  * @swagger
  * /country:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - Country - работа со странами
  *     description: Возвращает список стран

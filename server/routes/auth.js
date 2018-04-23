@@ -4,9 +4,15 @@
  *   post:
  *     tags:
  *       - Auth - работа с авторизацией и регистрацией
- *     description:
+ *     description: Вход в учетную запись
  *     produces:
  *       - application/json
+ *     parameters:
+ *      - name: body
+ *        description: Почта
+ *        in: body
+ *        required: true
+ *        example: {email: 'momo@momonga.ru', password: '123456'}
  *     responses:
  *       200:
  *         description: объект с именем и почтой
@@ -14,7 +20,17 @@
  *   post:
  *     tags:
  *       - Auth - работа с авторизацией и регистрацией
- *     description:
+ *     description: Регистрация новой учетной записи
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: "ok"
+ * /logout:
+ *   get:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description: Выйти из учетной записи
  *     produces:
  *       - application/json
  *     responses:

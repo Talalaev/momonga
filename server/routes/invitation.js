@@ -2,6 +2,9 @@
  * @swagger
  * /invitation:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - Invitation - работа с приглашениями
  *     description: Возвращает список приглашений

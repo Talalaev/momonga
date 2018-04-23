@@ -2,6 +2,9 @@
  * @swagger
  * /user:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - User - работа с пользователями
  *     description: Возвращает список пользователей

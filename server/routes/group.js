@@ -2,6 +2,9 @@
  * @swagger
  * /group:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - Group - работа с группами
  *     description: Возвращает список групп

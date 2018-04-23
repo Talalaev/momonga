@@ -2,6 +2,9 @@
  * @swagger
  * /purchase:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - Purchase - работа с покупками
  *     description: Возвращает список покупок

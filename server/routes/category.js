@@ -2,6 +2,9 @@
  * @swagger
  * /category:
  *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
  *     tags:
  *       - Category - работа с категориями
  *     description: Возвращает список категорий
@@ -20,6 +23,7 @@ const Category = require('../models/category');
 category
     .get("/category", async (ctx, next) => {
         try {
+            console.log(ctx.isAuthenticated());
             let category = await Category.findOne();
             ctx.body = category;
         } catch(err) {
