@@ -67,7 +67,11 @@ app.use(initPassport());
 app.use(passport.session());
 
 const routers = require('./routes');
-for (let name of Object.keys(routers)) app.use(routers[name].routes());
+app.use(routers.forAll.routes());
+for (let name of Object.keys(routers.api)) {
+    routers.api[name].prefix(config.apiBasePath);
+    app.use(routers.api[name].routes());
+}
 
 const returnApp = require('./middlewares/returnApp');
 app.use(returnApp());

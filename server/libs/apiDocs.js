@@ -1,4 +1,5 @@
 const swaggerJSDoc = require('swagger-jsdoc');
+const config = require('config');
 
 // initialize swagger-jsdoc
 let swaggerSpec = swaggerJSDoc({
@@ -10,7 +11,7 @@ let swaggerSpec = swaggerJSDoc({
             description: 'Демонстрирует как использовать RESTful API',
         },
         host: 'localhost:3000',
-        basePath: '/',
+        basePath: config.apiBasePath,
     },
     // path to the API docs
     apis: ['./server/routes/*.js', './server/models/*.js'],

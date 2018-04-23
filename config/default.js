@@ -43,6 +43,7 @@ module.exports = {
         })
     },
     projectRoot: process.cwd(),
+    apiBasePath: '/api',
     locales: [
         'ru',
         'en'

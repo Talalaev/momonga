@@ -21,12 +21,14 @@ const purchase = require('./purchase');
 const user = require('./user');
 
 module.exports = {
-    auth,
-    category,
-    country,
     forAll,
-    group,
-    invitation,
-    purchase,
-    user
+    api: {
+        auth,
+        category,
+        country,
+        group,
+        invitation,
+        purchase,
+        user
+    }
 };
