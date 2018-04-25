@@ -1,5 +1,14 @@
 /**
  * @swagger
+ * securityDefinitions:
+ *   APIKeyQueryParam:
+ *     type: apiKey
+ *     in: query
+ *     name: token
+ *   cookieAuth:
+ *     type: apiKey
+ *     in: cookie
+ *     name: koa.sid
  * /login:
  *   post:
  *     tags:

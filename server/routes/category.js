@@ -19,6 +19,7 @@
 const Router = require("koa-router");
 const category = new Router();
 const Category = require('../models/category');
+const isAuthenticated = require('../libs/isAuthenticated');
 
 category
     .get("/category", async (ctx, next) => {

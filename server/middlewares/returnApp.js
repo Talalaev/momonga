@@ -19,6 +19,8 @@ function returnApp() {
         } catch(e) {
             ctx.body = 'Page not found: ' + e;
         }
+
+        next();
     };
 }
 

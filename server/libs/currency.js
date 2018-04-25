@@ -1,3 +1,14 @@
+// код получения данных с wikidepia
+// var arr = []; $($(".wikitable.wide")[0]).find("tbody > tr").each(function (index) {if (index < 2) return; arr.push({
+//     curency: $(this).find("td:nth-child(1)").text(),
+//     countryName: $(this).find("td:nth-child(2)").text(),
+//     iso4217Leters: $(this).find("td:nth-child(3)").text(),
+//     iso4217Numbers: $(this).find("td:nth-child(4)").text()
+// })});
+// var res = {};
+// arr.forEach(function(item) {res[item.iso4217Leters] = item});
+// console.log(JSON.stringify(res));
+
 module.exports = {
     "MGA": {
         "curency": "Ариари",

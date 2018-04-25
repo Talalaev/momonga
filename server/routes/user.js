@@ -19,16 +19,19 @@
 const Router = require("koa-router");
 const user = new Router();
 const User = require('../models/user');
+const isAuthenticated = require('../libs/isAuthenticated');
 
 user
     .get("/user", async (ctx, next) => {
+        isAuthenticated(ctx);
+
         try {
             let user = await User.findOne({
                 attributes: { exclude: ["passwordHash", "salt"] }
             });
             ctx.body = user;
         } catch(err) {
-            ctx.body = 'server error ' + err;
+            ctx.throw(422, err, {cause: {...err}})
         }
     });
 

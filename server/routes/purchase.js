@@ -19,6 +19,7 @@
 const Router = require("koa-router");
 const purchase = new Router();
 const Purchase = require('../models/purchase');
+const isAuthenticated = require('../libs/isAuthenticated');
 
 purchase
     .get("/purchase", async (ctx, next) => {

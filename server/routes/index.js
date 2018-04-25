@@ -1,16 +1,3 @@
-/**
- * @swagger
- * securityDefinitions:
- *   APIKeyQueryParam:
- *     type: apiKey
- *     in: query
- *     name: token
- *   cookieAuth:
- *     type: apiKey
- *     in: cookie
- *     name: koa.sid
- * */
-
 const auth = require('./auth');
 const category = require('./category');
 const country = require('./country');
