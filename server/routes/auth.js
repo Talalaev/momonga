@@ -97,24 +97,9 @@ auth
         return passport.authenticate('local', async function(err, user, info) {
             if (err) throw err;
 
-            ctx.response.set('Content-Type', 'application/json');
-
-            if (user === false) {
-                ctx.status = 401;
-                ctx.body = { title: "Auth error", message: info.message };
-                //ctx.redirect("/");
-
-                return;
-            }
-
-            ctx.status = 200;
-            ctx.body = {
-                name: user.login,
-                email: user.email
-            };
-
+            ctx.assert(user, 401, info.message);
+            ctx.body = user;
             ctx.login(user);
-            // ctx.isAuthenticated()
         })(ctx, next);
     })
     .post("/regist", async (ctx, next) => {

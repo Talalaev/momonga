@@ -7,7 +7,7 @@
  *       - cookieAuth: []
  *     tags:
  *       - User - работа с пользователями
- *     description: Возвращает список пользователей
+ *     description: Возвращает авторизованного пользователя
  *     produces:
  *       - application/json
  *     responses:
@@ -26,9 +26,11 @@ user
         isAuthenticated(ctx);
 
         try {
-            let user = await User.findOne({
+            let user = await User.findById(ctx.session.passport.user, {
                 attributes: { exclude: ["passwordHash", "salt"] }
             });
+
+            ctx.assert(user, 404, 'Пользователь не существует!');
             ctx.body = user;
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}})

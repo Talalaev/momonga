@@ -26,10 +26,14 @@ passport.use(new LocalStrategy({
             .then(user => {
                 if (!user || !user.checkPassword(password)) {
                     // don't say whether the user exists
-                    return done(null, false, { message: 'Нет такого пользователя или пароль неверен.' });
+                    return done(null, false, { message: 'Нет такого пользователя или пароль неверен!' });
                 }
 
-                return done(null, user.get());
+                user = user.get();
+                delete user.passwordHash;
+                delete user.salt;
+
+                return done(null, user, { message: 'Успешно!' });
             })
             .catch(err => done(err));
     }
