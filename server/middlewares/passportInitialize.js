@@ -29,11 +29,7 @@ passport.use(new LocalStrategy({
                     return done(null, false, { message: 'Нет такого пользователя или пароль неверен!' });
                 }
 
-                user = user.get();
-                delete user.passwordHash;
-                delete user.salt;
-
-                return done(null, user, { message: 'Успешно!' });
+                return done(null, user.toJson(), { message: 'Успешно!' });
             })
             .catch(err => done(err));
     }

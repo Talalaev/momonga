@@ -22,9 +22,9 @@
  *       passwordHash:
  *         type: string
  *       createdAt:
- *         type: date
+ *         type: string
  *       updatedAt:
- *         type: date
+ *         type: string
  */
 const crypto = require('crypto');
 const config = require('config');
@@ -135,6 +135,13 @@ User.prototype.checkPassword = function(password) {
     ).toString('hex');
 
     return passwodHash == this.passwordHash;
+};
+User.prototype.toJson = function() {
+    let user = this.get();
+    delete user.passwordHash;
+    delete user.salt;
+
+    return user;
 };
 
 module.exports = User;
