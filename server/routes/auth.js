@@ -123,7 +123,10 @@ auth
     .post('regist', '/regist', async (ctx, next) => {
         try {
             let user = ctx.request.body;
-            user = await User.create(user);
+            user  = await User.findOne({where: { email: user.email }});
+            ctx.assert(!user, 422, `E-mail ${user.email} уже зарегистрирован!`);
+
+            user = await User.create(ctx.request.body);
 
             ctx.body = 'ok';
             ctx.login(user);

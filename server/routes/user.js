@@ -15,6 +15,21 @@
  *         description: Array => [User]
  *         schema:
  *           $ref: '#/definitions/User'
+ * /users:
+ *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
+ *     tags:
+ *       - User - работа с пользователями
+ *     description: Возвращает список всех пользователей
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: Array => [User]
+ *         schema:
+ *           $ref: '#/definitions/User'
  * /user/{id}:
  *   patch:
  *     security:
@@ -84,6 +99,18 @@ user
             ctx.throw(422, err, {cause: {...err}});
         }
     })
+    .get('users', '/users', async (ctx, next) => {
+        isAuthenticated(ctx);
+
+        try {
+            let users = await User.findAll({limit: 50});
+
+            ctx.assert(user, 404, 'Пользователи не найдены!');
+            ctx.body = users.map(user => user.toJson());
+        } catch(err) {
+            ctx.throw(422, err, {cause: {...err}});
+        }
+    })
     .patch('patch-user', '/user/:id', async (ctx, next) => {
         isAuthenticated(ctx);
 
@@ -100,7 +127,11 @@ user
 
         try {
             let user = await User.findById(ctx.params.id);
-            // user = await user.destroy();
+            ctx.assert(user, 404, `Пользователя с id:${ctx.params.id} не существует!`);
+
+            if (ctx.session.passport.user === ctx.params.id) ctx.logout();
+
+            user = await user.destroy();
             ctx.body = user.toJson();
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
