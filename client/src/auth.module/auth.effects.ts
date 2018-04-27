@@ -33,7 +33,7 @@ export class AuthEffects {
             });
 
             return this.http
-                .post(`http://localhost:8888/login`, user, options)
+                .post(`http://localhost:8888/api/login`, user, options)
                 .map(action => {
                     // this.isLoggedIn = true;
                     this.router.navigate([redirectUrl ? redirectUrl : '/dojo']);
@@ -57,7 +57,7 @@ export class AuthEffects {
         // для выполнения асинхронного действия нужно переключиться через switchMap
         .switchMap(action => {
             return this.http
-                .get("logout")
+                .get("api/logout")
                 .map(action => {
                     this.router.navigate(['/login']);
                     return createAction(C.LOGOUT);
@@ -83,7 +83,7 @@ export class AuthEffects {
                 withCredentials: true
             });
             return this.http
-                .post("regist", user, options)
+                .post("api/regist", user, options)
                 .map(action => {
                     return createAction(C.SUCCESS_REGISTRATION);
                 })

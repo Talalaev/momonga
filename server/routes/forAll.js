@@ -1,18 +1,3 @@
-/**
- * @swagger
- * /swagger.json:
- *   get:
- *     tags:
- *       - swagger JSON
- *     description: Служебный роут необходимый для работы документации
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: возвращает swagger спецификацию
- *         schema:
- *           $ref: '#/definitions/Purchase'
- */
 const Router = require("koa-router");
 const forAll = new Router();
 const locales = require('config').locales;

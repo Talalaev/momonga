@@ -23,7 +23,7 @@ export class AuthService {
 
     verifyAuth(): Observable<boolean> {
         return this.http
-            .get("verify-auth")
+            .get("api/verify-auth")
             .map(res => {
                 this.actions.login(res.json());
                 return true

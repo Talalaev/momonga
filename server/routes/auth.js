@@ -9,6 +9,43 @@
  *     type: apiKey
  *     in: cookie
  *     name: koa.sid
+ * /verify-auth:
+ *   get:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description: Проверяет авторизирован ли пользователь. В дальнейшем будет удален! Используйте -> /auth-user
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: "ok"
+ * /is-login-taken:
+ *   get:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description: Проверяет занят ли логин
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *      - name: login
+ *        description: логин
+ *        in: query
+ *        type: string
+ *        required: true
+ *        example: 'test'
+ *     responses:
+ *       200:
+ *         description: '{taken: false} or {taken: true}'
+ * /logout:
+ *   get:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description: Выйти из учетной записи
+ *     produces:
+ *       - application/json
+ *     responses:
+ *       200:
+ *         description: "ok"
  * /login:
  *   post:
  *     tags:
@@ -32,16 +69,14 @@
  *     description: Регистрация новой учетной записи
  *     produces:
  *       - application/json
- *     responses:
- *       200:
- *         description: "ok"
- * /logout:
- *   get:
- *     tags:
- *       - Auth - работа с авторизацией и регистрацией
- *     description: Выйти из учетной записи
- *     produces:
- *       - application/json
+ *     parameters:
+ *      - name: user
+ *        description: Новый объект данных user
+ *        in: body
+ *        required: true
+ *        example:
+ *        schema:
+ *          $ref: '#/definitions/User'
  *     responses:
  *       200:
  *         description: "ok"
@@ -50,50 +85,33 @@ const Router = require("koa-router");
 const auth = new Router();
 const passport = require('koa-passport');
 const User = require('../models/user');
+const isAuthenticated = require('../libs/isAuthenticated');
 
 auth
-    .get("/verify-auth", async (ctx, next) => {
-        if (!ctx.session.passport) {
-            ctx.status = 401;
-            ctx.body = { msg: "Auth error" };
-
-            return;
-        }
-
-        let user = await User.findOne({where: {id: ctx.session.passport.user}});
-
-        if (user) {
-            ctx.status = 200;
-            ctx.body = {
-                name: user.login,
-                email: user.email
-            };
-
-            return;
-        }
-
-        ctx.status = 401;
-        ctx.body = { msg: "Auth error" };
+    .get('verify-auth', '/verify-auth', async (ctx, next) => {
+        isAuthenticated(ctx);
+        let user = await User.findById(ctx.session.passport.user);
+        ctx.body = user.toJson();
     })
-    .get('/logout', (ctx, next) => {
-        ctx.status = 200;
+    .get('is-login-taken', '/is-login-taken', async (ctx, next) => {
+        try {
+            const login = ctx.request.query.login;
+            const user = await User.findOne({where: {login}});
+            if (user) {
+                ctx.body = {taken: true};
+
+                return;
+            }
+
+            ctx.body = {taken: false};
+        } catch(err) {
+            ctx.throw(422, err, {cause: {...err}});
+        }
+    })
+    .get('loguot', '/logout', (ctx, next) => {
         ctx.logout();
     })
-    .get('/is-login-taken', async (ctx, next) => {
-        const login = ctx.request.query.login;
-
-        const user = await User.findOne({where: {login}});
-
-        ctx.status = 200;
-        if (user) {
-            ctx.body = {taken: true};
-
-            return;
-        }
-
-        ctx.body = {taken: false};
-    })
-    .post("/login", function (ctx, next) {
+    .post('login', '/login', function (ctx, next) {
         return passport.authenticate('local', async function(err, user, info) {
             if (err) throw err;
 
@@ -102,32 +120,15 @@ auth
             ctx.login(user);
         })(ctx, next);
     })
-    .post("/regist", async (ctx, next) => {
-        let user = {
-            login: ctx.request.body.login,
-            email: ctx.request.body.email,
-            password: ctx.request.body.password
-        };
-
+    .post('regist', '/regist', async (ctx, next) => {
         try {
+            let user = ctx.request.body;
             user = await User.create(user);
 
-            ctx.status = 200;
-            ctx.body = "ok";
+            ctx.body = 'ok';
             ctx.login(user);
-        } catch(e) {
-            ctx.status = 400;
-            if (11000 === e.code || 11001 === e.code) {
-                return ctx.body = {
-                    status: 409,
-                    msgs: ['Duplicate Email']
-                };
-            }
-
-            ctx.body = {
-                code: e.code,
-                msg: e.errmsg
-            };
+        } catch(err) {
+            ctx.throw(422, err, {cause: {...err}});
         }
     });
 

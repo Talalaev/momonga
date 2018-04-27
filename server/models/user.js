@@ -30,6 +30,7 @@ const crypto = require('crypto');
 const config = require('config');
 const Sequelize = require('sequelize');
 const sequelize = require('../libs/sequelize');
+const avaliableLanguages = require('../locales/avaliableLanguages');
 
 let
     model = {
@@ -40,51 +41,55 @@ let
         },
         login: {
             type: Sequelize.STRING,
-            required: "Имя пользователя отсутствует."
+            validate: {
+                is: {
+                    args: /^.{4}/,
+                    msg: 'Минимальная длинна для логина 4 символов!'
+                }
+            }
         },
         email: {
             type: Sequelize.STRING,
-            unique: true,
-            required: "E-mail пользователя не должен быть пустым.",
             validate: {
                 isEmail: {
-                    msg: 'Укажите, пожалуйста, корректный email.'
-                },
-                checkEmail(value) {
-                    if (!~/^[-.\w]+@([\w-]+\.)+[\w-]{2,12}$/.test(value)) {
-                        throw new Error('Укажите, пожалуйста, корректный email.');
-                    }
+                    msg: 'Укажите, пожалуйста, корректный email!'
                 }
             }
         },
         currencyID: {
             type: Sequelize.INTEGER,
-            required: true
+            allowNull: true
         },
         countryID: {
             type: Sequelize.INTEGER,
-            required: true
+            allowNull: true
         },
         city: {
             type: Sequelize.STRING,
-            required: true
+            is: {
+                args: /^.{2}/,
+                msg: 'Минимальная длинна для города 2 символа!'
+            }
         },
         language: {
             type: Sequelize.STRING,
-            required: true
+            validate: {
+                checkLanguage(value) {
+                    if (!~avaliableLanguages.indexOf(value)) {
+                        throw new Error('Язык не поддерживается!');
+                    }
+                }
+            }
         },
         autoChangeLanguage: {
             type: Sequelize.INTEGER,
             defaultValue: 0,
-            required: true
         },
         passwordHash: {
-            type: Sequelize.STRING,
-            required: true
+            type: Sequelize.STRING
         },
         salt: {
-            type: Sequelize.STRING,
-            required: true
+            type: Sequelize.STRING
         },
         createdAt: {
             type: Sequelize.DATE
@@ -102,8 +107,8 @@ let
         setterMethods: {
             password(password) {
                 if (password !== undefined) {
-                    if (password.length < 4) {
-                        this.invalidate('password', 'Пароль должен быть минимум 4 символа.');
+                    if (password.length < 6) {
+                        throw new Error('Минимальная длинна паролья 6 символов!');
                     }
                 }
 

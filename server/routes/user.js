@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /authUser:
+ * /auth-user:
  *   get:
  *     security:
  *       - APIKeyQueryParam: []
@@ -72,7 +72,7 @@ const User = require('../models/user');
 const isAuthenticated = require('../libs/isAuthenticated');
 
 user
-    .get('authUser', '/authUser', async (ctx, next) => {
+    .get('auth-user', '/auth-user', async (ctx, next) => {
         isAuthenticated(ctx);
 
         try {
@@ -81,10 +81,12 @@ user
             ctx.assert(user, 404, 'Пользователь не существует!');
             ctx.body = user.toJson();
         } catch(err) {
-            ctx.throw(422, err, {cause: {...err}})
+            ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .patch('patchUser', '/user/:id', async (ctx, next) => {
+    .patch('patch-user', '/user/:id', async (ctx, next) => {
+        isAuthenticated(ctx);
+
         try {
             let user = await User.findById(ctx.params.id);
             user = await user.update(ctx.request.body);
@@ -93,7 +95,9 @@ user
             ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .delete('deleteUser', '/user/:id', async (ctx, next) => {
+    .delete('delete-user', '/user/:id', async (ctx, next) => {
+        isAuthenticated(ctx);
+
         try {
             let user = await User.findById(ctx.params.id);
             // user = await user.destroy();
@@ -101,7 +105,6 @@ user
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
         }
-
     });
 
 module.exports = user;
