@@ -97,6 +97,7 @@ auth
         try {
             const login = ctx.request.query.login;
             const user = await User.findOne({where: {login}});
+
             if (user) {
                 ctx.body = {taken: true};
 
@@ -108,28 +109,45 @@ auth
             ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .get('loguot', '/logout', (ctx, next) => {
-        ctx.logout();
+    .get('logout', '/logout', (ctx, next) => {
+        try {
+            ctx.logout();
+            ctx.body = {res: 'ok'};
+        } catch(e) {
+            ctx.throw(422, err, {cause: {...err}});
+        }
     })
     .post('login', '/login', function (ctx, next) {
         return passport.authenticate('local', async function(err, user, info) {
             if (err) throw err;
 
             ctx.assert(user, 401, info.message);
-            ctx.body = user;
             ctx.login(user);
+            ctx.body = user;
         })(ctx, next);
     })
-    .post('regist', '/regist', async (ctx, next) => {
+    .post('register', '/register', async (ctx, next) => {
         try {
             let user = ctx.request.body;
-            user  = await User.findOne({where: { email: user.email }});
-            ctx.assert(!user, 422, `E-mail ${user.email} уже зарегистрирован!`);
+            let [userDuplicateEmail, userWithDuplicateLogin] = await Promise.all([
+                User.findOne({where: { email: user.email }}),
+                User.findOne({where: { login: user.login }})
+            ]);
+            ctx.assert(
+                !userDuplicateEmail,
+                422,
+                userDuplicateEmail ? `E-mail: ${userDuplicateEmail.email} уже зарегистрирован!` : ``
+            );
+            ctx.assert(
+                !userWithDuplicateLogin,
+                422,
+                userWithDuplicateLogin ? `Login: ${userWithDuplicateLogin.login} уже зарегистрирован!` : ``
+            );
 
             user = await User.create(ctx.request.body);
 
-            ctx.body = 'ok';
             ctx.login(user);
+            ctx.body = user.toJson();
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
         }

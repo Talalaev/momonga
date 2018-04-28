@@ -5,8 +5,8 @@ const should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Swagger JSON', () => {
-    it('should check authorization of user /swagger.json GET', done => {
+describe('For all', () => {
+    it('should return data', done => {
         chai
             .request(server)
             .get('/swagger.json')
