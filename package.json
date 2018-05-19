@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack -w --colors",
     "start-app": "nodemon server/index.js",
-    "test": "mocha server/tests/*.js"
+    "test": "mocha server/tests/*.js",
+    "add-fixtures": "node_modules/.bin/sequelize db:seed:all",
+    "undo-fixtures": "node_modules/.bin/sequelize db:seed:undo:all"
   },
   "repository": {
     "type": "git",
@@ -70,6 +72,7 @@
     "resolve-url-loader": "^2.0.2",
     "sass-loader": "^6.0.3",
     "sequelize": "^4.37.6",
+    "sequelize-cli": "^4.0.0",
     "style-loader": "^0.16.1",
     "swagger-jsdoc": "^1.9.7",
     "typescript": "^2.2.2",
