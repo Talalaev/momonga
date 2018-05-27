@@ -2,10 +2,10 @@ const fixtures = require('../fixtures/default');
 
 module.exports = {
     up: (queryInterface, Sequelize) => {
-        return queryInterface.bulkInsert('purchases', fixtures.purchases, {});
+        return queryInterface.bulkInsert('categories', fixtures.categories, {});
     },
 
     down: (queryInterface, Sequelize) => {
-        return queryInterface.bulkDelete('purchases', null, {});
+        return queryInterface.bulkDelete('categories', null, {});
     }
 };

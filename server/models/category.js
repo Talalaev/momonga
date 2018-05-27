@@ -26,6 +26,9 @@ let
             type: Sequelize.STRING,
             required: true
         },
+        ownerID: {
+            type: Sequelize.INTEGER
+        },
         createdAt: {
             type: Sequelize.DATE
         },

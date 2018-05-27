@@ -28,6 +28,9 @@ let
             type: Sequelize.STRING,
             required: true
         },
+        ownerID: {
+            type: Sequelize.INTEGER,
+        },
         description: {
             type: Sequelize.STRING,
             required: true
