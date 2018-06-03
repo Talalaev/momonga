@@ -165,6 +165,38 @@ const invitations = [
         updatedAt
     }
 ];
+const usersGroups = [
+    {
+        userID: 1,
+        groupID: 1,
+        createdAt,
+        updatedAt
+    },
+    {
+        userID: 2,
+        groupID: 1,
+        createdAt,
+        updatedAt
+    },
+    {
+        userID: 3,
+        groupID: 1,
+        createdAt,
+        updatedAt
+    },
+    {
+        userID: 2,
+        groupID: 2,
+        createdAt,
+        updatedAt
+    },
+    {
+        userID: 4,
+        groupID: 2,
+        createdAt,
+        updatedAt
+    }
+];
 
 try {
     exports.users = generateUsers();
@@ -172,6 +204,7 @@ try {
     exports.purchases = generatePurchase(generateUsers().map(user => user.id));
     exports.groups = groups;
     exports.invitations = invitations;
+    exports.usersGroups = usersGroups;
 } catch(e) {
     console.log(e);
 }
