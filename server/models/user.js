@@ -6,7 +6,7 @@
  *       id:
  *         type: integer
  *       login:
- *         type: integer
+ *         type: string
  *       email:
  *         type: string
  *       currencyID:

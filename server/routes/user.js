@@ -30,7 +30,28 @@
  *         description: Array => [User]
  *         schema:
  *           $ref: '#/definitions/User'
- * /user/{id}:
+ * /users/{id}:
+ *   get:
+ *     security:
+ *       - APIKeyQueryParam: []
+ *       - cookieAuth: []
+ *     tags:
+ *       - User - работа с пользователями
+ *     description: Возвращает пользователя по его id
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *      - name: id
+ *        description: id пользователя
+ *        in: path
+ *        type: integer
+ *        required: true
+ *        example: 1
+ *     responses:
+ *       200:
+ *         description: Array => User
+ *         schema:
+ *           $ref: '#/definitions/User'
  *   patch:
  *     security:
  *       - APIKeyQueryParam: []
@@ -93,7 +114,6 @@ user
         try {
             let user = await User.findById(ctx.session.passport.user);
 
-            ctx.assert(user, 404, 'Пользователь не существует!');
             ctx.body = user.toJson();
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
@@ -111,7 +131,19 @@ user
             ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .patch('patch-user', '/user/:id', async (ctx, next) => {
+    .get('user-by-id', '/users/:id', async (ctx, next) => {
+        isAuthenticated(ctx);
+
+        try {
+            let user = await User.findById(ctx.params.id);
+
+            ctx.assert(user, 404, 'Пользователь не найден!');
+            ctx.body = user.toJson();
+        } catch(err) {
+            ctx.throw(422, err, {cause: {...err}});
+        }
+    })
+    .patch('patch-user', '/users/:id', async (ctx, next) => {
         isAuthenticated(ctx);
 
         try {
@@ -122,7 +154,7 @@ user
             ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .delete('delete-user', '/user/:id', async (ctx, next) => {
+    .delete('delete-user', '/users/:id', async (ctx, next) => {
         isAuthenticated(ctx);
 
         try {

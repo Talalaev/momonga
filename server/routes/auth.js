@@ -88,11 +88,6 @@ const User = require('../models/user');
 const isAuthenticated = require('../libs/isAuthenticated');
 
 auth
-    .get('verify-auth', '/verify-auth', async (ctx, next) => {
-        isAuthenticated(ctx);
-        let user = await User.findById(ctx.session.passport.user);
-        ctx.body = user.toJson();
-    })
     .get('is-login-taken', '/is-login-taken', async (ctx, next) => {
         try {
             const login = ctx.request.query.login;

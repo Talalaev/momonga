@@ -8,7 +8,8 @@
     "start-app": "nodemon server/index.js",
     "test": "mocha server/tests/*.js",
     "add-fixtures": "node_modules/.bin/sequelize db:seed:all",
-    "undo-fixtures": "node_modules/.bin/sequelize db:seed:undo:all"
+    "undo-fixtures": "node_modules/.bin/sequelize db:seed:undo:all",
+    "rewrite-fixtures": "npm run undo-fixtures && npm run add-fixtures"
   },
   "repository": {
     "type": "git",

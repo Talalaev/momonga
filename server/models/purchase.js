@@ -7,6 +7,8 @@
  *         type: integer
  *       userID:
  *         type: integer
+ *       groupID:
+ *         type: integer
  *       categoryID:
  *         type: integer
  *       currencyID:
@@ -35,6 +37,10 @@ let
             autoIncrement: true
         },
         userID: {
+            type: Sequelize.INTEGER,
+            required: true
+        },
+        groupID: {
             type: Sequelize.INTEGER,
             required: true
         },

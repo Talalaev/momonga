@@ -2,6 +2,7 @@ const chai = require('chai');
 const chaiHttp = require('chai-http');
 const server = require('../index.js');
 const should = chai.should();
+const expect = chai.expect();
 const assert = require('assert');
 const auth = require('../routes/auth');
 const User = require('../models/user');
@@ -37,10 +38,10 @@ describe('Is login taken', () => {
                 done();
             });
     });
-    it('login "test" should be taken', done => {
+    it('login "momo" should be taken', done => {
         chai
             .request(server)
-            .get(auth.url('is-login-taken', {query: {login: 'test'}}))
+            .get(auth.url('is-login-taken', {query: {login: 'momo'}}))
             .end(function(err, res) {
                 assert(res.body.taken === true);
                 done();
@@ -49,7 +50,6 @@ describe('Is login taken', () => {
     it('login "freeLogin" should be free', done => {
         chai
             .request(server)
-
             .get(auth.url('is-login-taken', {query: {login: 'freeLogin'}}))
             .end(function(err, res) {
                 assert(res.body.taken === false);
@@ -101,7 +101,7 @@ describe('Register', () => {
             .post(auth.url('register'))
             .send({
                 login: "test4",
-                email: "somenew@mail.ru",
+                email: "some@mail.ru",
                 password: "short"
             })
             .end(function(err, res) {
@@ -115,7 +115,7 @@ describe('Register', () => {
     });
 
     it('should return error 422 duplicate email', done => {
-        let email = "email@google.com";
+        let email = "momo@momonga.ru";
         chai
             .request(server)
             .post(auth.url('register'))
@@ -135,7 +135,7 @@ describe('Register', () => {
     });
 
     it('should return error 422 duplicate login', done => {
-        let login = 'test';
+        let login = 'momo';
         chai
             .request(server)
             .post(auth.url('register'))
