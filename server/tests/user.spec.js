@@ -40,7 +40,7 @@ describe('Auth user', () => {
 });
 
 describe('Users', () => {
-    it('should do request successfully', done => {
+    it('admin should get all users list successfully', done => {
         const agent = chai.request.agent(server);
         agent
             .post(auth.url('login'))
@@ -57,25 +57,24 @@ describe('Users', () => {
             });
     });
 
-    it('should do check typeof id, login and email', done => {
+    it('usual user should not be able to get all users list', done => {
         const agent = chai.request.agent(server);
         agent
             .post(auth.url('login'))
-            .send({email: 'momo@momonga.ru', password: '123456'})
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
             .end(function(err, res) {
                 return agent
                     .get(user.url('users'))
                     .end(function(err, res) {
-                        res.should.have.status(200);
-                        expect(res.body[5].id).to.be.a('number');
-                        expect(res.body[42].login).to.be.a('string');
-                        expect(res.body[7].email).to.be.a('string');
+                        should.not.exist(err);
+                        res.type.should.eql("application/json");
+                        res.should.have.status(403);
                         done();
                     });
             });
     });
 
-    it('should get user with id 57', done => {
+    it('admin should get anyone user by id successfully', done => {
         const agent = chai.request.agent(server);
         agent
             .post(auth.url('login'))
@@ -93,10 +92,63 @@ describe('Users', () => {
                     });
             });
     });
+
+    it('admin should get himself by id', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'momo@momonga.ru', password: '123456'})
+            .end(function(err, res) {
+                return agent
+                    .get(user.url('user-by-id', 1))
+                    .end(function(err, res) {
+                        res.should.have.status(200);
+                        expect(res.body.id).to.be.a('number');
+                        expect(res.body.id).to.equal(1);
+                        expect(res.body.login).to.be.a('string');
+                        expect(res.body.email).to.be.a('string');
+                        done();
+                    });
+            });
+    });
+
+    it('usual user should get by id successfully himself', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
+            .end(function(err, res) {
+                return agent
+                    .get(user.url('user-by-id', 2))
+                    .end(function(err, res) {
+                        res.should.have.status(200);
+                        expect(res.body.id).to.be.a('number');
+                        expect(res.body.id).to.equal(2);
+                        expect(res.body.login).to.be.a('string');
+                        expect(res.body.email).to.be.a('string');
+                        done();
+                    });
+            });
+    });
+
+    it('usual user should not get anyone user by id successfully', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
+            .end(function(err, res) {
+                return agent
+                    .get(user.url('user-by-id', 57))
+                    .end(function(err, res) {
+                        res.should.have.status(403);
+                        done();
+                    });
+            });
+    });
 });
 
 describe('Patch user', () => {
-    it('should create new name for user id 77', done => {
+    it('admin should be able to edit any user', done => {
         const agent = chai.request.agent(server);
         agent
             .post(auth.url('login'))
@@ -109,7 +161,7 @@ describe('Patch user', () => {
                         oldLogin = res.body.login;
                         return agent
                             .patch(user.url('user-by-id', 77))
-                            .send({ login: chance.word() })
+                            .send({ login: chance.word({ length: 7 }) })
                             .end(function(err, res) {
                                 res.should.have.status(200);
                                 res.type.should.eql("application/json");
@@ -122,10 +174,53 @@ describe('Patch user', () => {
                     });
             });
     });
+
+    it('usual user should be able to edit himself', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
+            .end(function(err, res) {
+                let oldLogin, newLogin;
+                return agent
+                    .get(user.url('user-by-id', 2))
+                    .end(function(err, res) {
+                        oldLogin = res.body.login;
+                        return agent
+                            .patch(user.url('user-by-id', 2))
+                            .send({ login: chance.word({ length: 7 }) })
+                            .end(function(err, res) {
+                                res.should.have.status(200);
+                                res.type.should.eql("application/json");
+                                newLogin = res.body.login;
+                                expect(oldLogin).to.be.a('string');
+                                expect(newLogin).to.be.a('string');
+                                expect(newLogin).to.not.equal(oldLogin);
+                                done();
+                            })
+                    });
+            });
+    });
+
+    it('usual user should not be able to edit another user', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
+            .end(function(err, res) {
+                return agent
+                    .patch(user.url('user-by-id', 77))
+                    .send({ login: chance.word({ length: 7 }) })
+                    .end(function(err, res) {
+                        res.should.have.status(403);
+                        done();
+                    });
+            });
+    });
 });
 
 describe('Delete user', () => {
-    it('should create and then delete user id 100000', done => {
+    it('admin should be able to delete any user', done => {
         const agent = chai.request.agent(server);
         agent
             .post(auth.url('login'))
@@ -157,9 +252,46 @@ describe('Delete user', () => {
             });
     });
 
-    /**
-     * 1. проверить создание пользователя, вход под этим пользователем, удаление и далее
-     * 2. патчинг и удаление должно быть только для себя.
-     * 3. а удаление по id нужно только для администраторов приложения, которые пока не планируются
-     * */
+    it('usual user should be able to delete himself', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('register'))
+            .send({
+                id: 100000,
+                login: "test-deleting",
+                email: "test-deleting@mail.ru",
+                password: "123456"
+            })
+            .end(function(err, res) {
+                should.not.exist(err);
+                res.should.have.status(200);
+                res.type.should.eql("application/json");
+                expect(res.body.id).to.equal(100000);
+                return agent
+                    .delete(user.url('delete-user', 100000))
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.should.have.status(200);
+                        res.type.should.eql("application/json");
+                        expect(res.body.id).to.equal(100000);
+                        done();
+                    });
+            });
+    });
+
+    it('usual user should not be able to delete another user', done => {
+        const agent = chai.request.agent(server);
+        agent
+            .post(auth.url('login'))
+            .send({email: 'usualUser@gmail.ru', password: '123456'})
+            .end(function(err, res) {
+                return agent
+                    .delete(user.url('delete-user', 1))
+                    .end(function(err, res) {
+                        should.not.exist(err);
+                        res.should.have.status(403);
+                        done();
+                    });
+            });
+    });
 });

@@ -9,6 +9,8 @@
  *         type: string
  *       email:
  *         type: string
+ *       isAdmin:
+ *          type: integer
  *       currencyID:
  *         type: integer
  *       countryID:
@@ -55,6 +57,11 @@ let
                     msg: 'Укажите, пожалуйста, корректный email!'
                 }
             }
+        },
+        isAdmin: {
+            type: Sequelize.INTEGER,
+            allowNull: false,
+            defaultValue: 0
         },
         currencyID: {
             type: Sequelize.INTEGER,

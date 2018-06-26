@@ -1,6 +1,7 @@
 const chance = new (require('chance').Chance);
 const moment = require('moment');
 const // password: 123456
+    isAdmin = 0,
     passwordHash = 'd4f467a4e294181d6f1b23e9ffd2944a28fa31001a87d4a7867c02bedaf5480fd63a333dfa71a7df716e39d087b6a5a2af896da8876843400facbfcbea113a26442ea1d6de0f7fa3f6228c5ddd4e339a5756c21325392fab57b71611958ec7a81c9a8c661ea5163d37ca13e35a26125a8071c75d29d27f27fe18727646e09bc3',
     salt = 'hRkoQBgpTpGCxYslSXgRybqCaIBuqg8xQwXRp/mzw1Q64QP63kbW12UhIc5fF0NsOuxNIpdivO7q7Y4WQub+zOzmOEf76uIFhJAd/VQDIGDHBNLqJ6VmyxPOO4ffX5394JvLtYnyNDNZGKMxDcwTdpISq73/Q0qWHXRmqHamymM=',
     createdAt = new Date,
@@ -9,7 +10,7 @@ const // password: 123456
 let purchaseID = 1;
 
 // У нас будет 100 пользователей
-// У каждого пользователя будет 10 покупок на последние 10 дней. Всего за период неделя.
+// У каждого пользователя будет 10 покупок за последние 8 дней, всего 80 покупок у каждого пользователя.
 // Будет группа семья в которой будут состоять 3 пользователя
 // И будет группа Пикник в которой будут состоять два человека и еще 3 будут приглашены в нее
 // Будет три приглашения в группу Пикник для 3 пользователей
@@ -23,6 +24,20 @@ function generateUsers(count = 100) {
                 id,
                 login: 'momo',
                 email: 'momo@momonga.ru',
+                isAdmin: 1,
+                passwordHash,
+                salt,
+                createdAt: new Date('2018-04-08 12:15:28'),
+                updatedAt
+            });
+            continue;
+        }
+        if (id === 2) {
+            users.push({
+                id,
+                login: 'usualUser',
+                email: 'usualUser@gmail.ru',
+                isAdmin: 0,
                 passwordHash,
                 salt,
                 createdAt: new Date('2018-04-08 12:15:28'),
@@ -31,8 +46,8 @@ function generateUsers(count = 100) {
             continue;
         }
 
-        let login = chance.word(), email = chance.email({domain: "yandex.ru"});
-        users.push({ id, login, email, passwordHash, salt, createdAt, updatedAt });
+        let login = chance.word({ length: 7 }), email = chance.email({domain: "yandex.ru"});
+        users.push({ id, login, email, isAdmin, passwordHash, salt, createdAt, updatedAt });
     }
 
     return users;

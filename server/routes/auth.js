@@ -9,16 +9,6 @@
  *     type: apiKey
  *     in: cookie
  *     name: koa.sid
- * /verify-auth:
- *   get:
- *     tags:
- *       - Auth - работа с авторизацией и регистрацией
- *     description: Проверяет авторизирован ли пользователь. В дальнейшем будет удален! Используйте -> /auth-user
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: "ok"
  * /is-login-taken:
  *   get:
  *     tags:
@@ -62,7 +52,7 @@
  *     responses:
  *       200:
  *         description: объект с именем и почтой
- * /regist:
+ * /register:
  *   post:
  *     tags:
  *       - Auth - работа с авторизацией и регистрацией
@@ -124,6 +114,7 @@ auth
     .post('register', '/register', async (ctx, next) => {
         try {
             let user = ctx.request.body;
+
             let [userDuplicateEmail, userWithDuplicateLogin] = await Promise.all([
                 User.findOne({where: { email: user.email }}),
                 User.findOne({where: { login: user.login }})

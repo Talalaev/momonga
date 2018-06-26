@@ -106,6 +106,7 @@ const Router = require('koa-router');
 const user = new Router();
 const User = require('../models/user');
 const isAuthenticated = require('../libs/isAuthenticated');
+const checkAccessRights = require('../libs/checkAccessRights');
 
 user
     .get('auth-user', '/auth-user', async (ctx, next) => {
@@ -114,6 +115,7 @@ user
         try {
             let user = await User.findById(ctx.session.passport.user);
 
+            ctx.assert(user, 404, 'Пользователь не существует!');
             ctx.body = user.toJson();
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
@@ -121,6 +123,7 @@ user
     })
     .get('users', '/users', async (ctx, next) => {
         isAuthenticated(ctx);
+        checkAccessRights(ctx);
 
         try {
             let users = await User.findAll({limit: 50});
@@ -133,6 +136,7 @@ user
     })
     .get('user-by-id', '/users/:id', async (ctx, next) => {
         isAuthenticated(ctx);
+        checkAccessRights(ctx, Number(ctx.params.id));
 
         try {
             let user = await User.findById(ctx.params.id);
@@ -145,6 +149,7 @@ user
     })
     .patch('patch-user', '/users/:id', async (ctx, next) => {
         isAuthenticated(ctx);
+        checkAccessRights(ctx, Number(ctx.params.id));
 
         try {
             let user = await User.findById(ctx.params.id);
@@ -156,6 +161,7 @@ user
     })
     .delete('delete-user', '/users/:id', async (ctx, next) => {
         isAuthenticated(ctx);
+        checkAccessRights(ctx, Number(ctx.params.id));
 
         try {
             let user = await User.findById(ctx.params.id);

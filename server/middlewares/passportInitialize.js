@@ -4,13 +4,16 @@ const User = require('../models/user');
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id); // uses _id as idField
+    done(null, user.id); // uses id as idField
 });
 
 passport.deserializeUser((id, done) => {
-    User.findById(id).then(user => {
-        done(null, user.get());
-    }); // callback version checks id validity automatically
+    User.findById(id)
+        .then(user => {
+            // устанавливает значение в объект ctx.state.user
+            done(null, user.get());
+        })
+        .catch(e => done(null, null));
 });
 
 // done(null, user)
