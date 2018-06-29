@@ -52,6 +52,22 @@
  *     responses:
  *       200:
  *         description: объект с именем и почтой
+ * /login-with-token:
+ *   post:
+ *     tags:
+ *       - Auth - работа с авторизацией и регистрацией
+ *     description: Вход в учетную запись
+ *     produces:
+ *       - application/json
+ *     parameters:
+ *      - name: body
+ *        description: Почта
+ *        in: body
+ *        required: true
+ *        example: {email: 'momo@momonga.ru', password: '123456'}
+ *     responses:
+ *       200:
+ *         description: объект с именем и почтой
  * /register:
  *   post:
  *     tags:
@@ -74,8 +90,9 @@
 const Router = require("koa-router");
 const auth = new Router();
 const passport = require('koa-passport');
+const jwt = require('jsonwebtoken');
 const User = require('../models/user');
-const isAuthenticated = require('../libs/isAuthenticated');
+const secretData = require('../../config/secretData.json');
 
 auth
     .get('is-login-taken', '/is-login-taken', async (ctx, next) => {
@@ -102,13 +119,28 @@ auth
             ctx.throw(422, err, {cause: {...err}});
         }
     })
-    .post('login', '/login', function (ctx, next) {
+    .post('login', '/login', (ctx, next) => {
         return passport.authenticate('local', async function(err, user, info) {
             if (err) throw err;
 
             ctx.assert(user, 401, info.message);
             ctx.login(user);
             ctx.body = user;
+        })(ctx, next);
+    })
+    .post('login-with-token', '/login-with-token', (ctx, next) => {
+        return passport.authenticate('local', async function(err, user, info) {
+            if (err) throw err;
+
+            ctx.assert(user, 401, info.message);
+            ctx.login(user);
+            const token = jwt.sign({
+                id: user.id,
+                login: user.login,
+                email: user.email
+            }, secretData.key);
+
+            ctx.body = { user, token };
         })(ctx, next);
     })
     .post('register', '/register', async (ctx, next) => {
@@ -132,8 +164,14 @@ auth
 
             user = await User.create(ctx.request.body);
 
+            const token = jwt.sign({
+                id: user.id,
+                login: user.login,
+                email: user.email
+            }, secretData.key);
+
             ctx.login(user);
-            ctx.body = user.toJson();
+            ctx.body = { user: user.toJson(), token };
         } catch(err) {
             ctx.throw(422, err, {cause: {...err}});
         }

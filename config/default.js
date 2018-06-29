@@ -1,11 +1,11 @@
 const defer = require('config/defer').deferConfig;
 const path = require('path');
-const mysqlPass = require('./mysqlPass');
+const secretData = require('./secretData.json');
 
 module.exports = {
     // secret data can be moved to env variables
     // or a separate config
-    keys: ['8a460b8a4416727732c9335258371119'],
+    keys: secretData.keys,
     mongoose: {
         uri: 'mongodb://localhost:27017/momonga',
         options: {
@@ -19,7 +19,7 @@ module.exports = {
     },
     mysql: {
         user: "root",
-        password: mysqlPass.password,
+        password: secretData.mysqlPass,
         database: process.env.NODE_ENV == 'production' ? "momonga" : "momonga_test",
         host: "127.0.0.1"
     },

@@ -1,6 +1,9 @@
 const passport = require('koa-passport');
 const LocalStrategy = require('passport-local').Strategy;
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
 const User = require('../models/user');
+const secretData = require('../../config/secretData.json');
 
 
 passport.serializeUser((user, done) => {
@@ -21,7 +24,8 @@ passport.deserializeUser((id, done) => {
 // done(null, false, { message: <error message> })  <- 3rd arg format is from built-in messages of strategies
 passport.use(new LocalStrategy({
         usernameField: 'email',
-        passwordField: 'password'
+        passwordField: 'password',
+        session: false
     },
     function(email, password, done) {
         User
@@ -38,7 +42,24 @@ passport.use(new LocalStrategy({
     }
 ));
 
-const passportInitialize = passport.initialize();
+passport.use(new JwtStrategy({
+        // jwtFromRequest: ExtractJwt.fromAuthHeader(),
+        jwtFromRequest: ExtractJwt.fromUrlQueryParameter('token'),
+        secretOrKey: secretData.key
+    },
+    function (payload, done) {
+        User
+            .findById(payload.id)
+            .then(user => {
+                if (user) {
+                    return done(null, user.toJson(), { message: 'Успешно!' });
+                } else {
+                    return done(null, false, { message: 'Ошибка авторизации, Пожалуйста авторизируйтесь!' });
+                }
+            })
+            .catch(err => done(err));
+    })
+);
 
 module.exports = function() {
     return passport.initialize();

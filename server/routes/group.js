@@ -19,7 +19,6 @@
 const Router = require("koa-router");
 const group = new Router();
 const Group = require('../models/group');
-const isAuthenticated = require('../libs/isAuthenticated');
 
 group
     .get("/group", async (ctx, next) => {

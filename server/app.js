@@ -52,7 +52,8 @@ app.use(i18n(app, {
 app.use(setLocale());
 app.use(convert(favicon(path.join(roots.projectRoot, '/public/favicon.ico'))));
 app.use(initPassport());
-app.use(passport.session());
+// раскоментируйте для использования сессий с использование mySql хранилища
+// app.use(passport.session());
 app.use(routers.forAll.routes());
 for (let name of Object.keys(routers.api)) {
     routers.api[name].prefix(config.apiBasePath);

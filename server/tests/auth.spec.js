@@ -173,11 +173,11 @@ describe('Register', () => {
 
         res.should.have.status(200);
         assert(
-            res.body.login === login,
+            res.body.user.login === login,
             `User c login: ${login} не зарегистрирован`
         );
         assert(
-            res.body.email === email,
+            res.body.user.email === email,
             `User c email: ${email} не зарегистрирован`
         );
     });

@@ -19,7 +19,6 @@
 const Router = require("koa-router");
 const invitation = new Router();
 const Invitation = require('../models/user');
-const isAuthenticated = require('../libs/isAuthenticated');
 
 invitation
     .get("/invitation", async (ctx, next) => {
