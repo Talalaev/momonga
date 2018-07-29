@@ -1,6 +1,6 @@
 {
   "name": "momonga",
-  "version": "0.0.1",
+  "version": "0.2.4",
   "description": "программа учета затрат",
   "main": "server/index.js",
   "scripts": {

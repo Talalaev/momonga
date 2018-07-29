@@ -7,7 +7,7 @@ let swaggerSpec = swaggerJSDoc({
     swaggerDefinition: {
         info: {
             title: 'Momonga API',
-            version: '0.2.2',
+            version: '0.2.4',
             description: 'Демонстрирует как использовать RESTful API',
         },
         host: 'localhost:3000',
