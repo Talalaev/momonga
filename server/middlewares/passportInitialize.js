@@ -7,14 +7,14 @@ const secretData = require('../../config/secretData.json');
 
 
 passport.serializeUser((user, done) => {
-    done(null, user.id); // uses id as idField
+  return done(null, user.id); // uses id as idField
 });
 
 passport.deserializeUser((id, done) => {
     User.findById(id)
         .then(user => {
             // устанавливает значение в объект ctx.state.user
-            done(null, user.get());
+            return done(null, user.get());
         })
         .catch(e => done(null, null));
 });

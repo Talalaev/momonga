@@ -664,13 +664,25 @@ module.exports = {
         "iso4217Letters": "SAR",
         "iso4217Numbers": "682"
     },
-    "BYR [41], BYN": {
+    "BYR [41]": {
         "curency": "Рубль",
         "countryName": "Белоруссия",
         "iso4217Letters": "BYR [41], BYN",
         "iso4217Numbers": "974 [41], 933"
     },
-    "RUB, RUR[43]": {
+    "BYN": {
+        "curency": "Рубль",
+        "countryName": "Белоруссия",
+        "iso4217Letters": "BYR [41], BYN",
+        "iso4217Numbers": "974 [41], 933"
+    },
+    "RUB": {
+        "curency": "Рубль",
+        "countryName": "Россия",
+        "iso4217Letters": "RUB, RUR[43]",
+        "iso4217Numbers": "643"
+    },
+    "RUR[43]": {
         "curency": "Рубль",
         "countryName": "Россия",
         "iso4217Letters": "RUB, RUR[43]",
