@@ -15,13 +15,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_name"
+        android:paddingTop="8sp"
         android:textSize="32sp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_greeting_01"
-        android:paddingVertical="8sp"
+        android:paddingTop="8sp"
         android:textStyle="bold"
         android:textSize="16sp" />
 
@@ -29,8 +30,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/app_greeting_02"
-        android:paddingVertical="8sp"
-        android:paddingHorizontal="32sp"
+        android:paddingTop="8sp"
+        android:paddingLeft="32sp"
+        android:paddingRight="32sp"
         android:textAlignment="center"
         android:textStyle="italic"
         android:textSize="16sp" />
