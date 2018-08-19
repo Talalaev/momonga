@@ -3,4 +3,6 @@
     <string name="image_description01">Momonga Logo</string>
     <string name="app_greeting_01">учет затрат</string>
     <string name="app_greeting_02">Приложение призванно дать вам контроль над финансовыми ресурсами, организовать расходы с целью недопустить траты денег на ветер.</string>
+    <string name="button_login">Вход</string>
+    <string name="button_sing_up">Регистрация</string>
 </resources>
