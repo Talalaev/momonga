@@ -1,6 +1,6 @@
 /**
  * @swagger
- * /category:
+ * /categories:
  *   get:
  *     security:
  *       - APIKeyQueryParam: []
@@ -19,15 +19,14 @@
 const Router = require("koa-router");
 const category = new Router();
 const Category = require('../models/category');
+const checkAuthByToken = require('../middlewares/checkAuthByToken');
 
 category
-    .get("/category", async (ctx, next) => {
+    .get('categories', '/categories', checkAuthByToken(), async (ctx) => {
         try {
-            console.log(ctx.isAuthenticated());
-            let category = await Category.findOne();
-            ctx.body = category;
+            ctx.body = await Category.findAll();
         } catch(err) {
-            ctx.body = 'server error ' + err;
+            ctx.throw(422, err, {cause: {...err}});
         }
     });
 
