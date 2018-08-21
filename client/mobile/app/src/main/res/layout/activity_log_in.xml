@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="480px"
+        android:layout_height="800px"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="16px">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16px"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textSize="24px"
+            android:text="@string/login_greeting"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="viewStart"
+            android:padding="16px"
+            android:text="@string/string_user_login"/>
+
+        <EditText
+            android:id="@+id/loginactivity_edittext_login"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textNoSuggestions"
+            android:padding="16px"
+            tools:text="User login"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16px"
+            android:textAlignment="viewStart"
+            android:text="@string/string_password"/>
+
+        <EditText
+            android:id="@+id/loginactivity_edittext_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16px"
+            android:inputType="textPassword"
+            android:maxLines="1"
+            tools:text="Password"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingVertical="16px"
+            android:gravity="right">
+
+            <Button
+                android:id="@+id/loginactivity_button_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_login"/>
+
+            <Button
+                android:id="@+id/loginactivity_button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/string_cancel"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</FrameLayout>
