@@ -30,7 +30,8 @@ public class StartActivity extends AppCompatActivity {
         mButtonSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent = new Intent(StartActivity.this, SingUpActivity.class);
+                startActivity(intent);
             }
         });
     }

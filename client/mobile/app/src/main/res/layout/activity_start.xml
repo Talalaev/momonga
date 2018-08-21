@@ -64,7 +64,7 @@
                 android:id="@+id/button_sing_up"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/string_sing_up" />
+                android:text="@string/string_sign_up" />
 
         </LinearLayout>
 
