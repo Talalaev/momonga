@@ -12,58 +12,59 @@
             android:src="@drawable/background"/>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="320dp"
+        android:layout_height="480dp"
         android:layout_gravity="center"
-        android:background="@color/colorGray"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="24px">
+        android:padding="16dp"
+        android:background="@color/colorGray">
 
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="32px"
+            android:layout_width="172dp"
+            android:layout_height="172dp"
             android:src="@drawable/ic_momonga" />
 
         <TextView
-            android:layout_width="480px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_name"
             android:textAlignment="center"
-            android:textSize="64px" />
+            android:textSize="48dp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="480px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_greeting_01"
             android:textAlignment="center"
-            android:textSize="32px"
-            android:textStyle="bold" />
+            android:textSize="24dp"
+            android:textStyle="bold"/>
 
         <TextView
-            android:layout_width="480px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/app_greeting_02"
             android:textAlignment="center"
+            android:textSize="16dp"
             android:textStyle="italic" />
 
         <LinearLayout
-            android:layout_width="480px"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:paddingTop="32px">
+            android:paddingTop="16dp">
 
             <Button
                 android:id="@+id/button_login"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="@string/string_login" />
 
             <Button
                 android:id="@+id/button_sing_up"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="48dp"
                 android:text="@string/string_sign_up" />
 
         </LinearLayout>
