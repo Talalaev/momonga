@@ -6,27 +6,28 @@
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="480px"
-        android:layout_height="800px"
+        android:layout_width="320dp"
+        android:layout_height="480dp"
         android:layout_gravity="center"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="16px">
+        android:padding="16dp"
+        android:background="@color/colorGray">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16px"
+            android:padding="8dp"
             android:textAlignment="center"
             android:textStyle="bold"
-            android:textSize="24px"
+            android:textSize="16dp"
             android:text="@string/singup_greeting"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:padding="16px"
+            android:padding="8dp"
             android:text="@string/string_user_login"/>
 
         <EditText
@@ -34,14 +35,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textNoSuggestions"
-            android:padding="16px"
+            android:padding="8dp"
             tools:text="User login"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="viewStart"
-            android:padding="16px"
+            android:padding="8dp"
             android:text="@string/string_email"/>
 
         <EditText
@@ -49,13 +50,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress"
-            android:padding="16px"
+            android:padding="8dp"
             tools:text="User Email"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16px"
+            android:padding="8dp"
             android:textAlignment="viewStart"
             android:text="@string/string_password"/>
 
@@ -63,7 +64,7 @@
             android:id="@+id/signupactivity_edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16px"
+            android:padding="8dp"
             android:inputType="textPassword"
             android:maxLines="1"
             tools:text="Password"/>
@@ -71,7 +72,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16px"
+            android:padding="8dp"
             android:textAlignment="viewStart"
             android:text="@string/string_password_confirm"/>
 
@@ -79,7 +80,7 @@
             android:id="@+id/signupactivity_edittext_password_confirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16px"
+            android:padding="8dp"
             android:inputType="textPassword"
             android:maxLines="1"
             tools:text="Password"/>
@@ -87,7 +88,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingVertical="16px"
+            android:paddingVertical="8dp"
             android:gravity="right">
 
             <Button
