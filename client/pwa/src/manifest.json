@@ -1,11 +1,11 @@
 {
   "dir": "ltr",
   "lang": "en",
-  "name": "Angular PWA Course",
+  "name": "Momonga PWA",
   "scope": "/",
   "display": "fullscreen",
   "start_url": "http://localhost:8080/",
-  "short_name": "Angular PWA Course",
+  "short_name": "Momo",
   "theme_color": "transparent",
   "description": "Learn and Keep Up With The Angular Ecosystem",
   "orientation": "any",
