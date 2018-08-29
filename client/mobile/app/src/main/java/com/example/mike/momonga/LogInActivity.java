@@ -12,6 +12,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
@@ -63,11 +64,15 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void checkToken(){
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
         String token = mPreferences.getString("user_token", null);
         if(token != null){
             mWaitScreenTitle.setText(R.string.login_in_appligation);
             mWaitScreen.setVisibility(View.VISIBLE);
-            Call<User> call = APIService.getInstance().AuthUser(token);
+            Call<User> call = service.AuthUser(token);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> pCall, Response<User> pResponse) {
@@ -95,11 +100,15 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void LogIn(){
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
         mWaitScreenTitle.setText(R.string.login_in_appligation);
         mWaitScreen.setVisibility(View.VISIBLE);
-        Call<LoginWithTokenResponse> call = APIService.getInstance().LoginWithToken(new LoginWithTokenRequest(email, password));
+        Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
