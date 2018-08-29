@@ -4,14 +4,19 @@
     <string name="app_greeting_01">учет затрат</string>
     <string name="app_greeting_02">Приложение призванно дать вам контроль над финансовыми ресурсами, организовать расходы с целью недопустить траты денег на ветер.</string>
     <string name="login_greeting">Вход в приложение</string>
-    <string name="singup_greeting">Регистрация нового пользователя</string>
-    <string name="string_login">Вход</string>
-    <string name="string_sign_up">Регистрация</string>
-    <string name="string_cancel">Отмена</string>
-    <string name="string_user_login">Имя пользователя</string>
-    <string name="string_password">Пароль</string>
-    <string name="string_email">Адрес электронной почты</string>
-    <string name="string_password_confirm">Подтверждение пароля</string>
-    <string name="string_login_failed">Не верный логин или пароль</string>
-
+    <string name="sing_up_new_user">Регистрация нового пользователя</string>
+    <string name="login">Вход</string>
+    <string name="sign_up">Регистрация</string>
+    <string name="cancel">Отмена</string>
+    <string name="user_login">Имя пользователя</string>
+    <string name="password">Пароль</string>
+    <string name="email">Адрес электронной почты</string>
+    <string name="password_confirm">Подтверждение пароля</string>
+    <string name="login_failed">Не верный логин или пароль</string>
+    <string name="settings">Настройки</string>
+    <string name="change_user">Сменить пользователя</string>
+    <string name="settings_api">Настройки API</string>
+    <string name="url">URL</string>
+    <string name="enter_api_url">Введите API URL</string>
+    <string name="default_api_url">http://192.168.1.103:3000/api/</string>
 </resources>
