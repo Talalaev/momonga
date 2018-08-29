@@ -38,10 +38,10 @@
                 android:text="@string/login_greeting"/>
 
             <EditText
-                android:id="@+id/login_activity_edittext_login"
+                android:id="@+id/login_activity_edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/user_login"
+                android:hint="@string/email"
                 android:inputType="textNoSuggestions"
                 android:padding="8dp"/>
 
