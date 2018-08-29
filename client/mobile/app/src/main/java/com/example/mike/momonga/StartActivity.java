@@ -21,7 +21,10 @@ public class StartActivity extends AppCompatActivity {
         setContentView(R.layout.activity_start);
 
         SharedPreferences   preferences = PreferenceManager.getDefaultSharedPreferences(this);
-        String              api_url     = preferences.getString("api_url","");
+        String              api_url     = preferences.getString("api_url",null);
+        if(api_url == null) {
+            api_url = getResources().getString(R.string.default_api_url);
+        }
         APIService.setBaseURL(api_url);
 
         Button buttonLogIn  = findViewById(R.id.button_login);
