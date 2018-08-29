@@ -114,7 +114,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void onError(Throwable pThrowable){
-        onError("Error: " + pThrowable.getLocalizedMessage());
+        onError("Error: " + pThrowable.getMessage());
     }
 
     private void onError(String pMessage){
@@ -124,6 +124,7 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void startMainActivity(){
+        onError("Authorization is successful");
 //            Intent intent = new Intent(MainActivity.this, LogInActivity.class);
 //            startActivity(intent);
     }
