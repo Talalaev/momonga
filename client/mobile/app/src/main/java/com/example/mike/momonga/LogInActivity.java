@@ -8,6 +8,8 @@ import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mike.momonga.api.APIService;
@@ -24,11 +26,16 @@ public class LogInActivity extends AppCompatActivity {
     private EditText            mEditTextEmail      = null;
     private EditText            mEditTextPassword   = null;
     private SharedPreferences   mPreferences        = null;
+    FrameLayout                 mWaitScreen         = null;
+    TextView                    mWaitScreenTitle    = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        mWaitScreen         = findViewById(R.id.wait_activity);
+        mWaitScreenTitle    = findViewById(R.id.wait_activity_title);
 
         mPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -58,10 +65,13 @@ public class LogInActivity extends AppCompatActivity {
     private void checkToken(){
         String token = mPreferences.getString("user_token", null);
         if(token != null){
+            mWaitScreenTitle.setText(R.string.login_in_appligation);
+            mWaitScreen.setVisibility(View.VISIBLE);
             Call<User> call = APIService.getInstance().AuthUser(token);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> pCall, Response<User> pResponse) {
+                    mWaitScreen.setVisibility(View.GONE);
                     if(pResponse.isSuccessful()) {
                         startMainActivity();
                     } else {
@@ -76,6 +86,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<User> pCall, Throwable pThrowable) {
+                    mWaitScreen.setVisibility(View.GONE);
                     onError(pThrowable);
                 }
             });
@@ -86,10 +97,13 @@ public class LogInActivity extends AppCompatActivity {
     private void LogIn(){
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
+        mWaitScreenTitle.setText(R.string.login_in_appligation);
+        mWaitScreen.setVisibility(View.VISIBLE);
         Call<LoginWithTokenResponse> call = APIService.getInstance().LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
+                mWaitScreen.setVisibility(View.GONE);
                 if(pResponse.isSuccessful()) {
                     LoginWithTokenResponse response = pResponse.body();
                     SharedPreferences.Editor editor = mPreferences.edit();
@@ -108,6 +122,7 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
+                mWaitScreen.setVisibility(View.GONE);
                 onError(pThrowable);
             }
         });

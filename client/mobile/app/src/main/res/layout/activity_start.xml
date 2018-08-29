@@ -24,7 +24,7 @@
             android:layout_width="320dp"
             android:layout_height="480dp"
             android:layout_gravity="center"
-            android:background="@color/colorGray"
+            android:background="@color/colorTransparentGray"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="16dp">

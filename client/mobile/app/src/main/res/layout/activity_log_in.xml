@@ -35,14 +35,14 @@
                 android:textAlignment="center"
                 android:textStyle="bold"
                 android:textSize="16sp"
-                android:text="@string/login_greeting"/>
+                android:text="@string/login_in_appligation"/>
 
             <EditText
                 android:id="@+id/login_activity_edittext_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/email"
-                android:inputType="textNoSuggestions"
+                android:inputType="textEmailAddress"
                 android:padding="8dp"/>
 
 
@@ -82,5 +82,9 @@
         </LinearLayout>
 
     </ScrollView>
+
+    <include
+        layout="@layout/activity_wait"
+        android:visibility="gone"/>
 
 </merge>

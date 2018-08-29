@@ -3,7 +3,7 @@
     <string name="image_momonga_description">Логотип приложения</string>
     <string name="app_greeting_01">учет затрат</string>
     <string name="app_greeting_02">Приложение призванно дать вам контроль над финансовыми ресурсами, организовать расходы с целью недопустить траты денег на ветер.</string>
-    <string name="login_greeting">Вход в приложение</string>
+    <string name="login_in_appligation">Вход в приложение</string>
     <string name="sing_up_new_user">Регистрация нового пользователя</string>
     <string name="login">Вход</string>
     <string name="sign_up">Регистрация</string>
