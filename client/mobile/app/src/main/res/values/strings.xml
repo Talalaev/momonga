@@ -19,5 +19,6 @@
     <string name="settings_api">Настройки API</string>
     <string name="url">URL</string>
     <string name="enter_api_url">Введите API URL</string>
+    <string name="welcome">Добро пожаловать</string>
     <string name="default_api_url">http://192.168.1.103:3000/api/</string>
 </resources>

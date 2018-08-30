@@ -54,6 +54,13 @@ public class LogInActivity extends AppCompatActivity {
 
         Button buttonLogIn  = findViewById(R.id.login_activity_button_login);
 
+        String user_email = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_EMAIL);
+
+        if(user_email != null) {
+            mEditTextEmail.setText(user_email);
+            mEditTextPassword.requestFocus();
+        }
+
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -114,8 +121,7 @@ public class LogInActivity extends AppCompatActivity {
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
                 mWaitScreen.setVisibility(View.GONE);
                 if(pResponse.isSuccessful()) {
-                    LoginWithTokenResponse response = pResponse.body();
-                    ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_TOKEN, response.token);
+                    saveUserData(pResponse.body());
                     startMainActivity();
                 } else {
                     String message =
@@ -133,6 +139,13 @@ public class LogInActivity extends AppCompatActivity {
                 onError(pThrowable);
             }
         });
+    }
+
+    private void saveUserData(LoginWithTokenResponse pResponse){
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_TOKEN, pResponse.token);
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_LOGIN, pResponse.user.login);
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_EMAIL, pResponse.user.email);
+        ApplicationSettings.setBoolean(LogInActivity.this, ApplicationSettings.USER_IS_ADMIN,  pResponse.user.isAdmin > 0);
     }
 
     private void onError(Throwable pThrowable){
