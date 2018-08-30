@@ -13,97 +13,104 @@
         android:src="@drawable/background"
         tools:ignore="ContentDescription"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="match_parent"
-        android:theme="@style/AppTheme">
-
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="480dp"
-            android:layout_gravity="center"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="16dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:textAlignment="center"
-                android:textStyle="bold"
-                android:textSize="16sp"
-                android:text="@string/sing_up_new_user"/>
-
-            <EditText
-                android:id="@+id/sign_up_activity_edittext_login"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/user_login"
-                android:inputType="textNoSuggestions"
-                android:padding="8dp"/>
-
-            <EditText
-                android:id="@+id/sign_up_activity_edittext_email"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="@string/email"
-                android:inputType="textEmailAddress"
-                android:padding="8dp"/>
-
-            <EditText
-                android:id="@+id/sign_up_activity_edittext_password"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:maxLines="1"/>
-
-            <EditText
-                android:id="@+id/sign_up_activity_edittext_password_confirm"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="8dp"
-                android:hint="@string/password_confirm"
-                android:inputType="textPassword"
-                android:maxLines="1"/>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="8dp"
-                android:gravity="end"
-                >
-
-                <Button
-                    android:id="@+id/sign_up_activity_button_sign_up"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@string/sign_up"/>
-
-                <Button
-                    android:id="@+id/sign_up_activity_button_cancel"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:text="@string/cancel"/>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </ScrollView>
-
-    <include
-        layout="@layout/activity_wait"
-        android:visibility="gone"/>
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
     <include
         layout="@layout/application_toolbar"
+        android:visibility="gone"/>
+
+                <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/AppTheme">
+
+            <LinearLayout
+                android:layout_width="320dp"
+                android:layout_height="480dp"
+                android:layout_gravity="center"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:textAlignment="center"
+                    android:textStyle="bold"
+                    android:textSize="16sp"
+                    android:text="@string/sing_up_new_user"/>
+
+                <EditText
+                    android:id="@+id/sign_up_activity_edittext_login"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/user_login"
+                    android:inputType="textNoSuggestions"
+                    android:padding="8dp"/>
+
+                <EditText
+                    android:id="@+id/sign_up_activity_edittext_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/email"
+                    android:inputType="textEmailAddress"
+                    android:padding="8dp"/>
+
+                <EditText
+                    android:id="@+id/sign_up_activity_edittext_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
+
+                <EditText
+                    android:id="@+id/sign_up_activity_edittext_password_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="8dp"
+                    android:hint="@string/password_confirm"
+                    android:inputType="textPassword"
+                    android:maxLines="1"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="8dp"
+                    android:gravity="end"
+                    >
+
+                    <Button
+                        android:id="@+id/sign_up_activity_button_sign_up"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/sign_up"/>
+
+                    <Button
+                        android:id="@+id/sign_up_activity_button_cancel"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textStyle="bold"
+                        android:text="@string/cancel"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+    <include
+        layout="@layout/activity_wait"
         android:visibility="gone"/>
 
 </merge>

@@ -21,7 +21,7 @@ public class ApplicationMenu {
     public static boolean onCreateOptionsMenu(AppCompatActivity pActivity, Menu pMenu) {
         pActivity.getMenuInflater().inflate(R.menu.application_menu, pMenu);
 
-        MenuItem item_change_user = pMenu.findItem(R.id.application_menu_change_user);
+        MenuItem item_change_user = pMenu.findItem(R.id.application_menu_login);
         MenuItem item_sign_up = pMenu.findItem(R.id.application_menu_sign_up);
         MenuItem item_settings = pMenu.findItem(R.id.application_menu_settings);
         item_change_user.setVisible(true);
@@ -49,7 +49,7 @@ public class ApplicationMenu {
                 intent = new Intent(pActivity, SettingsActivity.class);
                 pActivity.startActivity(intent);
                 break;
-            case R.id.application_menu_change_user:
+            case R.id.application_menu_login:
                 intent = new Intent(pActivity, LogInActivity.class);
                 pActivity.startActivity(intent);
                 break;

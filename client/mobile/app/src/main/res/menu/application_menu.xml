@@ -8,12 +8,12 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/application_menu_change_user"
-        android:title="@string/change_user"
-        app:showAsAction="never|collapseActionView" />
+        android:id="@+id/application_menu_login"
+        android:title="@string/login"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/application_menu_sign_up"
         android:title="@string/sign_up"
-        app:showAsAction="never|collapseActionView" />
+        app:showAsAction="never" />
 </menu>

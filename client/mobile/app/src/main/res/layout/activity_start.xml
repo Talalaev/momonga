@@ -15,80 +15,87 @@
         android:src="@drawable/background"
         tools:ignore="ContentDescription"/>
 
-    <ScrollView
-        android:layout_width="match_parent"
+    <LinearLayout
         android:layout_height="match_parent"
-        android:theme="@style/AppTheme">
+        android:layout_width="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="320dp"
-            android:layout_height="480dp"
-            android:layout_gravity="center"
-            android:background="@color/colorTransparentGray"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:padding="16dp">
+        <include
+            layout="@layout/application_toolbar"
+            android:visibility="gone"/>
 
-            <ImageView
-                android:layout_width="172dp"
-                android:layout_height="172dp"
-                android:contentDescription="@string/image_momonga_description"
-                app:srcCompat="@drawable/ic_momonga" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_name"
-                android:textAlignment="center"
-                android:textSize="48sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_greeting_01"
-                android:textAlignment="center"
-                android:textSize="24sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/app_greeting_02"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:theme="@style/AppTheme">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_width="320dp"
+                android:layout_height="480dp"
+                android:layout_gravity="center"
+                android:background="@color/colorTransparentGray"
                 android:gravity="center"
-                android:paddingTop="16dp">
+                android:orientation="vertical"
+                android:padding="16dp">
 
-                <Button
-                    android:id="@+id/button_login"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="@string/login"
+                <ImageView
+                    android:layout_width="172dp"
+                    android:layout_height="172dp"
+                    android:contentDescription="@string/image_momonga_description"
+                    app:srcCompat="@drawable/ic_momonga" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_name"
+                    android:textAlignment="center"
+                    android:textSize="48sp"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/button_sing_up"
-                    style="?android:textAppearanceSmall"
-                    android:layout_width="wrap_content"
-                    android:layout_height="48dp"
-                    android:text="@string/sign_up"
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_greeting_01"
+                    android:textAlignment="center"
+                    android:textSize="24sp"
                     android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/app_greeting_02"
+                    android:textAlignment="center"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:paddingTop="16dp">
+
+                    <Button
+                        android:id="@+id/button_login"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="@string/login"
+                        android:textStyle="bold" />
+
+                    <Button
+                        android:id="@+id/button_sing_up"
+                        style="?android:textAppearanceSmall"
+                        android:layout_width="wrap_content"
+                        android:layout_height="48dp"
+                        android:text="@string/sign_up"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+        </ScrollView>
 
-    </ScrollView>
-
-    <include
-        layout="@layout/application_toolbar"
-        android:visibility="gone"/>
+    </LinearLayout>
 
 </merge>
