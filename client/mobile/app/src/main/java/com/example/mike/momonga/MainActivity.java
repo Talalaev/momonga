@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.example.mike.momonga.ui.settings.SettingsActivity;
@@ -23,11 +21,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
         mDrawerLayout = findViewById(R.id.main_activity_drawer);
 
-        Toolbar toolbar = findViewById(R.id.main_activity_toolbar);
-        setSupportActionBar(toolbar);
-        ActionBar actionbar = getSupportActionBar();
-        actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        ApplicationToolbar.addToolbar(this);
 
         NavigationView navigationView = findViewById(R.id.main_activity_navigation_view);
         navigationView.setNavigationItemSelectedListener(this);

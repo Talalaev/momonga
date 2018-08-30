@@ -12,19 +12,48 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!-- Start Activity -->
         <activity
             android:name=".StartActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".LogInActivity" />
-        <activity android:name=".SingUpActivity" />
-        <activity android:name=".ui.settings.SettingsActivity" />
-        <activity android:name=".MainActivity" />
+
+        <!-- LogIn Activity -->
+        <activity android:name=".LogInActivity">
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+
+        <!-- SignUp Activity -->
+        <activity android:name=".SingUpActivity">
+            android:parentActivityName=".StartActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".StartActivity" />
+        </activity>
+
+        <!-- Settings Activity -->
+        <activity android:name=".ui.settings.SettingsActivity">
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
+
+        <!-- Main Activity -->
+        <activity android:name=".MainActivity">
+            android:parentActivityName=".LogInActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".LogInActivity" />
+        </activity>
     </application>
 
 </manifest>

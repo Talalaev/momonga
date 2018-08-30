@@ -20,7 +20,7 @@
         android:orientation="vertical">
 
         <include
-            layout="@layout/application_toolbar"
+            layout="@layout/toolbar"
             android:visibility="gone"/>
 
         <ScrollView

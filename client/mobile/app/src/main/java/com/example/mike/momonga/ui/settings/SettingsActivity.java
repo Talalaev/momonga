@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 
+import com.example.mike.momonga.ApplicationToolbar;
 import com.example.mike.momonga.R;
 import com.example.mike.momonga.api.APIService;
 
@@ -14,6 +15,8 @@ public class SettingsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
+
+        ApplicationToolbar.addToolbar(this);
     }
 
     @Override
