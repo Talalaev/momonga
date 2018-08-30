@@ -1,10 +1,8 @@
 package com.example.mike.momonga;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.preference.PreferenceManager;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,6 +18,7 @@ import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.api.data.User;
+import com.example.mike.momonga.ui.settings.ApplicationSettings;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,7 +28,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private EditText            mEditTextEmail      = null;
     private EditText            mEditTextPassword   = null;
-    private SharedPreferences   mPreferences        = null;
     FrameLayout                 mWaitScreen         = null;
     TextView                    mWaitScreenTitle    = null;
 
@@ -40,18 +38,14 @@ public class LogInActivity extends AppCompatActivity {
 
         ApplicationToolbar.addToolbar(this);
 
-        SharedPreferences preferences   = PreferenceManager.getDefaultSharedPreferences(this);
-        String              api_url     = preferences.getString("api_url",null);
+        String api_url = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.API_URL);
         if(api_url == null) {
             api_url = getResources().getString(R.string.default_api_url);
         }
         APIService.setBaseURL(api_url);
 
-
         mWaitScreen         = findViewById(R.id.wait_activity);
         mWaitScreenTitle    = findViewById(R.id.wait_activity_title);
-
-        mPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
 
         checkToken();
 
@@ -74,7 +68,7 @@ public class LogInActivity extends AppCompatActivity {
         if(service == null){
             return;
         }
-        String token = mPreferences.getString("user_token", null);
+        String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
             mWaitScreenTitle.setText(R.string.login_in_appligation);
             mWaitScreen.setVisibility(View.VISIBLE);
@@ -121,9 +115,7 @@ public class LogInActivity extends AppCompatActivity {
                 mWaitScreen.setVisibility(View.GONE);
                 if(pResponse.isSuccessful()) {
                     LoginWithTokenResponse response = pResponse.body();
-                    SharedPreferences.Editor editor = mPreferences.edit();
-                    editor.putString("user_token", response.token);
-                    editor.apply();
+                    ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_TOKEN, response.token);
                     startMainActivity();
                 } else {
                     String message =
@@ -155,7 +147,9 @@ public class LogInActivity extends AppCompatActivity {
 
     private void startMainActivity(){
         Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+        mEditTextPassword.setText(null);
         startActivity(intent);
+        LogInActivity.this.finish();
     }
 
     @Override

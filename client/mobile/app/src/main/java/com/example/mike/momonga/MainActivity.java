@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.mike.momonga.ui.settings.ApplicationSettings;
 import com.example.mike.momonga.ui.settings.SettingsActivity;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void exit(){
+        ApplicationSettings.remove(MainActivity.this, ApplicationSettings.USER_TOKEN);
+        Intent intent = new Intent(MainActivity.this, LogInActivity.class);
+        startActivity(intent);
         MainActivity.this.finish();
     }
 
