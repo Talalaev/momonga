@@ -13,30 +13,22 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <!-- Start Activity -->
+        <!-- LogIn Activity -->
         <activity
-            android:name=".StartActivity"
-            android:screenOrientation="portrait">
+            android:name=".LogInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!-- LogIn Activity -->
-        <activity android:name=".LogInActivity">
-            android:parentActivityName=".StartActivity" >
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartActivity" />
-        </activity>
-
         <!-- SignUp Activity -->
-        <activity android:name=".SingUpActivity">
-            android:parentActivityName=".StartActivity" >
+        <activity
+            android:name=".SingUpActivity">
+            android:parentActivityName=".LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".StartActivity" />
+                android:value=".LogInActivity" />
         </activity>
 
         <!-- Settings Activity -->

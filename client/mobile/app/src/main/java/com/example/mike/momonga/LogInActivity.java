@@ -40,6 +40,14 @@ public class LogInActivity extends AppCompatActivity {
 
         ApplicationToolbar.addToolbar(this);
 
+        SharedPreferences preferences   = PreferenceManager.getDefaultSharedPreferences(this);
+        String              api_url     = preferences.getString("api_url",null);
+        if(api_url == null) {
+            api_url = getResources().getString(R.string.default_api_url);
+        }
+        APIService.setBaseURL(api_url);
+
+
         mWaitScreen         = findViewById(R.id.wait_activity);
         mWaitScreenTitle    = findViewById(R.id.wait_activity_title);
 
@@ -51,7 +59,6 @@ public class LogInActivity extends AppCompatActivity {
         mEditTextPassword   = findViewById(R.id.login_activity_edittext_password);
 
         Button buttonLogIn  = findViewById(R.id.login_activity_button_login);
-        Button buttonCancel = findViewById(R.id.login_activity_button_cancel);
 
         buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +67,6 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LogInActivity.this.finish();
-            }
-        });
     }
 
     private void checkToken(){
