@@ -6,6 +6,7 @@
     <string name="login_in_appligation">Вход в приложение</string>
     <string name="sing_up_new_user">Регистрация нового пользователя</string>
     <string name="login">Вход</string>
+    <string name="exit">Выход</string>
     <string name="sign_up">Регистрация</string>
     <string name="cancel">Отмена</string>
     <string name="user_login">Имя пользователя</string>

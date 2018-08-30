@@ -2,6 +2,7 @@ package com.example.mike.momonga;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +18,9 @@ public class SingUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_up);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_activity);
+        setSupportActionBar(toolbar);
 
         Button buttonSingUp = findViewById(R.id.sign_up_activity_button_sign_up);
         Button buttonCancel = findViewById(R.id.sign_up_activity_button_cancel);

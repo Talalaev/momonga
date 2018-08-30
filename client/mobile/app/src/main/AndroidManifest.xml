@@ -24,6 +24,7 @@
         <activity android:name=".LogInActivity" />
         <activity android:name=".SingUpActivity" />
         <activity android:name=".ui.settings.SettingsActivity" />
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>

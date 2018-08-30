@@ -1,9 +1,11 @@
 package com.example.mike.momonga;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
+import android.support.v7.widget.Toolbar;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,6 +38,9 @@ public class LogInActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
+        Toolbar toolbar = findViewById(R.id.toolbar_activity);
+        setSupportActionBar(toolbar);
 
         mWaitScreen         = findViewById(R.id.wait_activity);
         mWaitScreenTitle    = findViewById(R.id.wait_activity_title);
@@ -150,9 +155,8 @@ public class LogInActivity extends AppCompatActivity {
     }
 
     private void startMainActivity(){
-        onError("Authorization is successful");
-//            Intent intent = new Intent(MainActivity.this, LogInActivity.class);
-//            startActivity(intent);
+        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+        startActivity(intent);
     }
 
     @Override

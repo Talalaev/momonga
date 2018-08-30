@@ -98,4 +98,12 @@
 
     </ScrollView>
 
+    <include
+        layout="@layout/activity_wait"
+        android:visibility="gone"/>
+
+    <include
+        layout="@layout/application_toolbar"
+        android:visibility="gone"/>
+
 </merge>
