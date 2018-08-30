@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.preference.PreferenceManager;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -151,5 +153,15 @@ public class LogInActivity extends AppCompatActivity {
         onError("Authorization is successful");
 //            Intent intent = new Intent(MainActivity.this, LogInActivity.class);
 //            startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu pMenu) {
+        return ApplicationMenu.getInstance().onCreateOptionsMenu(LogInActivity.this, pMenu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem pMenu) {
+        return ApplicationMenu.getInstance().onOptionsItemSelected(LogInActivity.this, pMenu);
     }
 }

@@ -11,7 +11,6 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.mike.momonga.api.APIService;
-import com.example.mike.momonga.ui.settings.SettingsActivity;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -48,30 +47,12 @@ public class StartActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        super.onCreateOptionsMenu(menu);
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        return true;
+    public boolean onCreateOptionsMenu(Menu pMenu) {
+        return ApplicationMenu.getInstance().onCreateOptionsMenu(StartActivity.this, pMenu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent = null;
-        switch (item.getItemId()){
-            case R.id.main_menu_settings:
-                intent = new Intent(StartActivity.this, SettingsActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.main_menu_change_user:
-                intent = new Intent(StartActivity.this, LogInActivity.class);
-                startActivity(intent);
-                break;
-            case R.id.main_menu_sign_up:
-                intent = new Intent(StartActivity.this, SingUpActivity.class);
-                startActivity(intent);
-                break;
-            default: return super.onOptionsItemSelected(item);
-        }
-        return true;
+    public boolean onOptionsItemSelected(MenuItem pMenu) {
+        return ApplicationMenu.getInstance().onOptionsItemSelected(StartActivity.this, pMenu);
     }
 }
