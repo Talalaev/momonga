@@ -1,49 +1,184 @@
 package com.example.mike.momonga;
 
-import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mike.momonga.api.APIInterface;
+import com.example.mike.momonga.api.APIService;
+import com.example.mike.momonga.api.data.LoginWithTokenRequest;
+import com.example.mike.momonga.api.data.LoginWithTokenResponse;
+import com.example.mike.momonga.api.data.User;
+import com.example.mike.momonga.ui.settings.ApplicationSettings;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LogInActivity extends AppCompatActivity {
 
-    Button mButtonLogIn = null;
-    Button mButtonCancel = null;
-    EditText mEditTextUserName = null;
-    EditText mEditTextPassword = null;
+    private EditText            mEditTextEmail      = null;
+    private EditText            mEditTextPassword   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
 
-        mButtonLogIn = findViewById(R.id.loginactivity_button_login);
-        mButtonCancel = findViewById(R.id.loginactivity_button_cancel);
-        mEditTextUserName = findViewById(R.id.loginactivity_edittext_login);
-        mEditTextUserName = findViewById(R.id.loginactivity_edittext_password);
+        ApplicationToolbar.addToolbar(this);
 
-        mButtonLogIn.setOnClickListener(new View.OnClickListener() {
+        String api_url = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.API_URL);
+        if(api_url == null) {
+            api_url = getResources().getString(R.string.default_api_url);
+        }
+        APIService.setBaseURL(api_url);
+
+        checkToken();
+
+        mEditTextEmail      = findViewById(R.id.login_activity_edittext_email);
+        mEditTextPassword   = findViewById(R.id.login_activity_edittext_password);
+
+        Button buttonLogIn  = findViewById(R.id.login_activity_button_login);
+
+        String user_email = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_EMAIL);
+
+        if(user_email != null) {
+            mEditTextEmail.setText(user_email);
+            mEditTextPassword.requestFocus();
+        }
+
+        buttonLogIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 LogIn();
             }
         });
 
-        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+    }
+
+    private void checkToken(){
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
+        String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
+        if(token != null){
+            showProgress(getResources().getString(R.string.login_in_appligation));
+            Call<User> call = service.AuthUser(token);
+            call.enqueue(new Callback<User>() {
+                @Override
+                public void onResponse(Call<User> pCall, Response<User> pResponse) {
+                    hideProgress();
+                    if(pResponse.isSuccessful()) {
+                        startMainActivity();
+                    } else {
+                        String message =
+                            "Error: " +
+                            Integer.toString(pResponse.code()) +
+                            ", " +
+                            pResponse.message().toString();
+                        onError(message);
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<User> pCall, Throwable pThrowable) {
+                    hideProgress();
+                    onError(pThrowable);
+                }
+            });
+
+        }
+    }
+
+    private void LogIn(){
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
+        String email    = mEditTextEmail.getText().toString();
+        String password = mEditTextPassword.getText().toString();
+        showProgress(getResources().getString(R.string.login_in_appligation));
+        Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
+        call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
-            public void onClick(View v) {
-                LogInActivity.this.finish();
+            public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
+                hideProgress();
+                if(pResponse.isSuccessful()) {
+                    saveUserData(pResponse.body());
+                    startMainActivity();
+                } else {
+                    String message =
+                        "Error: " +
+                        Integer.toString(pResponse.code()) +
+                        ", " +
+                        pResponse.message().toString();
+                    onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
+                hideProgress();
+                onError(pThrowable);
             }
         });
     }
 
-    private void LogIn(){
-        Toast toast = Toast.makeText(LogInActivity.this, R.string.string_login_failed, Toast.LENGTH_SHORT);
+    private void showProgress(String pTitle){
+
+        FrameLayout waitScreen      = findViewById(R.id.wait_activity);
+        TextView waitScreenTitle    = findViewById(R.id.wait_activity_title);
+
+        waitScreenTitle.setText(pTitle);
+        waitScreen.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress(){
+        FrameLayout waitScreen = findViewById(R.id.wait_activity);
+        waitScreen.setVisibility(View.GONE);
+    }
+
+    private void saveUserData(LoginWithTokenResponse pResponse){
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_TOKEN, pResponse.token);
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_LOGIN, pResponse.user.login);
+        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_EMAIL, pResponse.user.email);
+        ApplicationSettings.setBoolean(LogInActivity.this, ApplicationSettings.USER_IS_ADMIN,  pResponse.user.isAdmin > 0);
+    }
+
+    private void onError(Throwable pThrowable){
+        onError("Error: " + pThrowable.getMessage());
+    }
+
+    private void onError(String pMessage){
+        Toast toast = Toast.makeText(LogInActivity.this, pMessage, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
+        mEditTextPassword.setText(null);
+        startActivity(intent);
+        LogInActivity.this.finish();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu pMenu) {
+        return ApplicationToolbar.getInstance().onCreateOptionsMenu(LogInActivity.this, pMenu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem pMenu) {
+        return ApplicationToolbar.getInstance().onOptionsItemSelected(LogInActivity.this, pMenu);
     }
 }

@@ -3,6 +3,6 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
-    <color name="colorGray">#40808080</color>
-    <color name="colorProgressFade">#A0FFFFFF</color>
+    <color name="colorTransparentGray">#40808080</color>
+    <color name="colorTransparentWhite">#CCFFFFFF</color>
 </resources>

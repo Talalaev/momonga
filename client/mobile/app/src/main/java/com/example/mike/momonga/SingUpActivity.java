@@ -3,40 +3,32 @@ package com.example.mike.momonga;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class SingUpActivity extends AppCompatActivity {
-
-    private Button mButtonSingUp = null;
-    private Button mButtonCancel = null;
-    private TextView mTextViewLogIn = null;
-    private TextView mTextViewEmail = null;
-    private TextView mTextViewPassword = null;
-    private TextView mTextViewPasswordConfirm = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sing_up);
 
-        mButtonSingUp = findViewById(R.id.signupactivity_button_signup);
-        mButtonCancel = findViewById(R.id.signupactivity_button_cancel);
-        mTextViewLogIn = findViewById(R.id.signupactivity_edittext_login);
-        mTextViewEmail = findViewById(R.id.signupactivity_edittext_email);
-        mTextViewPassword = findViewById(R.id.signupactivity_edittext_password);
-        mTextViewPasswordConfirm = findViewById(R.id.signupactivity_edittext_password_confirm);
+        ApplicationToolbar.addToolbar(this);
 
-        mButtonSingUp.setOnClickListener(new View.OnClickListener() {
+        Button buttonSingUp = findViewById(R.id.sign_up_activity_button_sign_up);
+        Button buttonCancel = findViewById(R.id.sign_up_activity_button_cancel);
+
+        buttonSingUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SingUp();
             }
         });
 
-        mButtonCancel.setOnClickListener(new View.OnClickListener() {
+        buttonCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 SingUpActivity.this.finish();
@@ -45,8 +37,19 @@ public class SingUpActivity extends AppCompatActivity {
     }
 
     private void SingUp(){
-        Toast toast = Toast.makeText(SingUpActivity.this, R.string.string_login_failed, Toast.LENGTH_SHORT);
+        Toast toast = Toast.makeText(SingUpActivity.this, R.string.login_failed, Toast.LENGTH_SHORT);
         toast.setGravity(Gravity.CENTER, 0, 0);
         toast.show();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu pMenu) {
+        return ApplicationToolbar.getInstance().onCreateOptionsMenu(SingUpActivity.this, pMenu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem pMenu) {
+        return ApplicationToolbar.getInstance().onOptionsItemSelected(SingUpActivity.this, pMenu);
+    }
+
 }
