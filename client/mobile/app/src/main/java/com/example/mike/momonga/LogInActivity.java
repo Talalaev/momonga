@@ -28,8 +28,6 @@ public class LogInActivity extends AppCompatActivity {
 
     private EditText            mEditTextEmail      = null;
     private EditText            mEditTextPassword   = null;
-    FrameLayout                 mWaitScreen         = null;
-    TextView                    mWaitScreenTitle    = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +41,6 @@ public class LogInActivity extends AppCompatActivity {
             api_url = getResources().getString(R.string.default_api_url);
         }
         APIService.setBaseURL(api_url);
-
-        mWaitScreen         = findViewById(R.id.wait_activity);
-        mWaitScreenTitle    = findViewById(R.id.wait_activity_title);
 
         checkToken();
 
@@ -77,13 +72,12 @@ public class LogInActivity extends AppCompatActivity {
         }
         String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
-            mWaitScreenTitle.setText(R.string.login_in_appligation);
-            mWaitScreen.setVisibility(View.VISIBLE);
+            showProgress(getResources().getString(R.string.login_in_appligation));
             Call<User> call = service.AuthUser(token);
             call.enqueue(new Callback<User>() {
                 @Override
                 public void onResponse(Call<User> pCall, Response<User> pResponse) {
-                    mWaitScreen.setVisibility(View.GONE);
+                    hideProgress();
                     if(pResponse.isSuccessful()) {
                         startMainActivity();
                     } else {
@@ -98,7 +92,7 @@ public class LogInActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<User> pCall, Throwable pThrowable) {
-                    mWaitScreen.setVisibility(View.GONE);
+                    hideProgress();
                     onError(pThrowable);
                 }
             });
@@ -113,13 +107,12 @@ public class LogInActivity extends AppCompatActivity {
         }
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
-        mWaitScreenTitle.setText(R.string.login_in_appligation);
-        mWaitScreen.setVisibility(View.VISIBLE);
+        showProgress(getResources().getString(R.string.login_in_appligation));
         Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
-                mWaitScreen.setVisibility(View.GONE);
+                hideProgress();
                 if(pResponse.isSuccessful()) {
                     saveUserData(pResponse.body());
                     startMainActivity();
@@ -135,10 +128,24 @@ public class LogInActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
-                mWaitScreen.setVisibility(View.GONE);
+                hideProgress();
                 onError(pThrowable);
             }
         });
+    }
+
+    private void showProgress(String pTitle){
+
+        FrameLayout waitScreen      = findViewById(R.id.wait_activity);
+        TextView waitScreenTitle    = findViewById(R.id.wait_activity_title);
+
+        waitScreenTitle.setText(pTitle);
+        waitScreen.setVisibility(View.VISIBLE);
+    }
+
+    private void hideProgress(){
+        FrameLayout waitScreen = findViewById(R.id.wait_activity);
+        waitScreen.setVisibility(View.GONE);
     }
 
     private void saveUserData(LoginWithTokenResponse pResponse){
