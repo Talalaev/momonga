@@ -15,7 +15,7 @@ function returnApp() {
         }
 
         try {
-            await ctx.render('client/dist/index.html');
+            await ctx.render('client/pwa/dist/index.html');
         } catch(e) {
             ctx.body = 'Page not found: ' + e;
         }

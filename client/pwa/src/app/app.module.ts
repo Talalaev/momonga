@@ -14,27 +14,29 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from '@angular/service-worker';
 
-import { AppComponent } from './app.component';
-
 import { environment } from '../environments/environment';
 
-import { AppRoutingModule } from "./app-routing.module";
+import { AppRoutingModule } from './app-routing.module';
+import { PagesModule } from "./pages/pages.module";
+
+import { AppComponent } from './app.component';
 
 
 @NgModule({
-    declarations: [
-        AppComponent
-    ],
-    imports: [
-        BrowserModule.withServerTransition({ appId: 'serverApp' }),
-        HttpClientModule,
-        BrowserAnimationsModule,
-        AppRoutingModule,
-        ReactiveFormsModule,
-        ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production })
-    ],
-    providers: [],
-    bootstrap: [AppComponent]
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
+    HttpClientModule,
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
+    AppRoutingModule,
+    PagesModule
+  ],
+  providers: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule {
 
