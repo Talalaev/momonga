@@ -40,7 +40,7 @@ public class LogInActivity extends AppCompatActivity {
             api_url = getResources().getString(R.string.default_api_url);
         }
         APIService.setBaseURL(api_url);
-
+        
         checkToken();
 
         mEditTextEmail      = findViewById(R.id.login_activity_edittext_email);
@@ -69,7 +69,7 @@ public class LogInActivity extends AppCompatActivity {
         if(service == null){
             return;
         }
-        String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
+        final String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
             Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
             Call<LoginWithTokenResponse.User> call = service.AuthUser(token);
@@ -78,6 +78,7 @@ public class LogInActivity extends AppCompatActivity {
                 public void onResponse(Call<LoginWithTokenResponse.User> pCall, Response<LoginWithTokenResponse.User> pResponse) {
                     Tools.hideProgress(LogInActivity.this);
                     if(pResponse.isSuccessful()) {
+                        Tools.saveUserData(LogInActivity.this, pResponse.body(), token);
                         mEditTextPassword.setText(null);
                         Tools.startMainActivity(LogInActivity.this);
                     } else {

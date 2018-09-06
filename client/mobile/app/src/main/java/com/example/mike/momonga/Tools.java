@@ -27,6 +27,13 @@ public class Tools {
         waitScreen.setVisibility(View.GONE);
     }
 
+    public static void saveUserData(AppCompatActivity pActivity, LoginWithTokenResponse.User pResponse, String pToken){
+        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_TOKEN, pToken);
+        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pResponse.login);
+        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_EMAIL, pResponse.email);
+        ApplicationSettings.setBoolean(pActivity, ApplicationSettings.USER_IS_ADMIN,  pResponse.isAdmin > 0);
+    }
+
     public static void saveUserData(AppCompatActivity pActivity, LoginWithTokenResponse pResponse){
         ApplicationSettings.setString(pActivity, ApplicationSettings.USER_TOKEN, pResponse.token);
         ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pResponse.user.login);
