@@ -17,7 +17,6 @@ import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
-import com.example.mike.momonga.api.data.User;
 import com.example.mike.momonga.ui.settings.ApplicationSettings;
 
 import retrofit2.Call;
@@ -72,28 +71,29 @@ public class LogInActivity extends AppCompatActivity {
         }
         String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
-            showProgress(getResources().getString(R.string.login_in_appligation));
-            Call<User> call = service.AuthUser(token);
-            call.enqueue(new Callback<User>() {
+            Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
+            Call<LoginWithTokenResponse.User> call = service.AuthUser(token);
+            call.enqueue(new Callback<LoginWithTokenResponse.User>() {
                 @Override
-                public void onResponse(Call<User> pCall, Response<User> pResponse) {
-                    hideProgress();
+                public void onResponse(Call<LoginWithTokenResponse.User> pCall, Response<LoginWithTokenResponse.User> pResponse) {
+                    Tools.hideProgress(LogInActivity.this);
                     if(pResponse.isSuccessful()) {
-                        startMainActivity();
+                        mEditTextPassword.setText(null);
+                        Tools.startMainActivity(LogInActivity.this);
                     } else {
                         String message =
                             "Error: " +
                             Integer.toString(pResponse.code()) +
                             ", " +
                             pResponse.message().toString();
-                        onError(message);
+                        Tools.onError(LogInActivity.this, message);
                     }
                 }
 
                 @Override
-                public void onFailure(Call<User> pCall, Throwable pThrowable) {
-                    hideProgress();
-                    onError(pThrowable);
+                public void onFailure(Call<LoginWithTokenResponse.User> pCall, Throwable pThrowable) {
+                    Tools.hideProgress(LogInActivity.this);
+                    Tools.onError(LogInActivity.this, pThrowable);
                 }
             });
 
@@ -107,69 +107,32 @@ public class LogInActivity extends AppCompatActivity {
         }
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
-        showProgress(getResources().getString(R.string.login_in_appligation));
+        Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
         Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
-                hideProgress();
+                Tools.hideProgress(LogInActivity.this);
                 if(pResponse.isSuccessful()) {
-                    saveUserData(pResponse.body());
-                    startMainActivity();
+                    Tools.saveUserData(LogInActivity.this, pResponse.body());
+                    mEditTextPassword.setText(null);
+                    Tools.startMainActivity(LogInActivity.this);
                 } else {
                     String message =
                         "Error: " +
                         Integer.toString(pResponse.code()) +
                         ", " +
                         pResponse.message().toString();
-                    onError(message);
+                    Tools.onError(LogInActivity.this, message);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
-                hideProgress();
-                onError(pThrowable);
+                Tools.hideProgress(LogInActivity.this);
+                Tools.onError(LogInActivity.this, pThrowable);
             }
         });
-    }
-
-    private void showProgress(String pTitle){
-
-        FrameLayout waitScreen      = findViewById(R.id.wait_activity);
-        TextView waitScreenTitle    = findViewById(R.id.wait_activity_title);
-
-        waitScreenTitle.setText(pTitle);
-        waitScreen.setVisibility(View.VISIBLE);
-    }
-
-    private void hideProgress(){
-        FrameLayout waitScreen = findViewById(R.id.wait_activity);
-        waitScreen.setVisibility(View.GONE);
-    }
-
-    private void saveUserData(LoginWithTokenResponse pResponse){
-        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_TOKEN, pResponse.token);
-        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_LOGIN, pResponse.user.login);
-        ApplicationSettings.setString(LogInActivity.this, ApplicationSettings.USER_EMAIL, pResponse.user.email);
-        ApplicationSettings.setBoolean(LogInActivity.this, ApplicationSettings.USER_IS_ADMIN,  pResponse.user.isAdmin > 0);
-    }
-
-    private void onError(Throwable pThrowable){
-        onError("Error: " + pThrowable.getMessage());
-    }
-
-    private void onError(String pMessage){
-        Toast toast = Toast.makeText(LogInActivity.this, pMessage, Toast.LENGTH_SHORT);
-        toast.setGravity(Gravity.CENTER, 0, 0);
-        toast.show();
-    }
-
-    private void startMainActivity(){
-        Intent intent = new Intent(LogInActivity.this, MainActivity.class);
-        mEditTextPassword.setText(null);
-        startActivity(intent);
-        LogInActivity.this.finish();
     }
 
     @Override
