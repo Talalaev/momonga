@@ -78,7 +78,7 @@ public class SignUpActivity extends AppCompatActivity {
             public void onResponse(Call<SignUpResponse> pCall, Response<SignUpResponse> pResponse) {
                 Tools.hideProgress(SignUpActivity.this);
                 if(pResponse.isSuccessful()) {
-                    Tools.saveUserData(SignUpActivity.this, pResponse.body());
+                    Tools.saveUserData(SignUpActivity.this, pResponse.body().user, pResponse.body().token);
                     Tools.startMainActivity(SignUpActivity.this);
                 } else {
                     String message =

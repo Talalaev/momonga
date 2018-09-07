@@ -8,8 +8,7 @@ import android.widget.FrameLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mike.momonga.api.data.LoginWithTokenResponse;
-import com.example.mike.momonga.api.data.SignUpResponse;
+import com.example.mike.momonga.api.data.UserInfo;
 import com.example.mike.momonga.ui.settings.ApplicationSettings;
 
 public class Tools {
@@ -27,25 +26,11 @@ public class Tools {
         waitScreen.setVisibility(View.GONE);
     }
 
-    public static void saveUserData(AppCompatActivity pActivity, LoginWithTokenResponse.User pResponse, String pToken){
+    public static void saveUserData(AppCompatActivity pActivity, UserInfo pUserInfo, String pToken){
         ApplicationSettings.setString(pActivity, ApplicationSettings.USER_TOKEN, pToken);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pResponse.login);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_EMAIL, pResponse.email);
-        ApplicationSettings.setBoolean(pActivity, ApplicationSettings.USER_IS_ADMIN,  pResponse.isAdmin > 0);
-    }
-
-    public static void saveUserData(AppCompatActivity pActivity, LoginWithTokenResponse pResponse){
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_TOKEN, pResponse.token);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pResponse.user.login);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_EMAIL, pResponse.user.email);
-        ApplicationSettings.setBoolean(pActivity, ApplicationSettings.USER_IS_ADMIN,  pResponse.user.isAdmin > 0);
-    }
-
-    public static void saveUserData(AppCompatActivity pActivity, SignUpResponse pResponse){
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_TOKEN, pResponse.token);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pResponse.user.login);
-        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_EMAIL, pResponse.user.email);
-        ApplicationSettings.setBoolean(pActivity, ApplicationSettings.USER_IS_ADMIN,  pResponse.user.isAdmin > 0);
+        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_LOGIN, pUserInfo.login);
+        ApplicationSettings.setString(pActivity, ApplicationSettings.USER_EMAIL, pUserInfo.email);
+        ApplicationSettings.setBoolean(pActivity, ApplicationSettings.USER_IS_ADMIN,  pUserInfo.isAdmin > 0);
     }
 
     public static void onError(AppCompatActivity pActivity, Throwable pThrowable){
