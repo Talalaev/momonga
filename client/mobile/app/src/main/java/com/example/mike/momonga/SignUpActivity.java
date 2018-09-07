@@ -17,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpActivity extends AppCompatActivity implements APIActivity{
+public class SignUpActivity extends ActionBarActivity implements APIActivity{
 
     private EditText mEditTextEmail             = null;
     private EditText mEditTextLogin             = null;
@@ -103,15 +103,4 @@ public class SignUpActivity extends AppCompatActivity implements APIActivity{
         }
         return true;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu pMenu) {
-        return ApplicationToolbar.getInstance().onCreateOptionsMenu(SignUpActivity.this, pMenu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem pMenu) {
-        return ApplicationToolbar.getInstance().onOptionsItemSelected(SignUpActivity.this, pMenu);
-    }
-
 }
