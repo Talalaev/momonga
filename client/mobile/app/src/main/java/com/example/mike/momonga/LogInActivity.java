@@ -18,7 +18,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends AppCompatActivity implements APIActivity {
 
     private EditText            mEditTextEmail      = null;
     private EditText            mEditTextPassword   = null;
@@ -66,30 +66,30 @@ public class LogInActivity extends AppCompatActivity {
         }
         final String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
-            Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
+            showProgress(getResources().getString(R.string.login_in_appligation));
             Call<LoginWithTokenResponse.User> call = service.AuthUser(token);
             call.enqueue(new Callback<LoginWithTokenResponse.User>() {
                 @Override
                 public void onResponse(Call<LoginWithTokenResponse.User> pCall, Response<LoginWithTokenResponse.User> pResponse) {
-                    Tools.hideProgress(LogInActivity.this);
+                    hideProgress();
                     if(pResponse.isSuccessful()) {
-                        Tools.saveUserData(LogInActivity.this, pResponse.body(), token);
+                        saveUserData(pResponse.body(), token);
                         mEditTextPassword.setText(null);
-                        Tools.startMainActivity(LogInActivity.this);
+                        startMainActivity();
                     } else {
                         String message =
                             "Error: " +
                             Integer.toString(pResponse.code()) +
                             ", " +
                             pResponse.message().toString();
-                        Tools.onError(LogInActivity.this, message);
+                        onError(message);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LoginWithTokenResponse.User> pCall, Throwable pThrowable) {
-                    Tools.hideProgress(LogInActivity.this);
-                    Tools.onError(LogInActivity.this, pThrowable);
+                    hideProgress();
+                    onError(pThrowable);
                 }
             });
 
@@ -103,30 +103,30 @@ public class LogInActivity extends AppCompatActivity {
         }
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
-        Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
+        showProgress(getResources().getString(R.string.login_in_appligation));
         Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
-                Tools.hideProgress(LogInActivity.this);
+                hideProgress();
                 if(pResponse.isSuccessful()) {
-                    Tools.saveUserData(LogInActivity.this, pResponse.body().user, pResponse.body().token);
+                    saveUserData(pResponse.body().user, pResponse.body().token);
                     mEditTextPassword.setText(null);
-                    Tools.startMainActivity(LogInActivity.this);
+                    startMainActivity();
                 } else {
                     String message =
                         "Error: " +
                         Integer.toString(pResponse.code()) +
                         ", " +
                         pResponse.message().toString();
-                    Tools.onError(LogInActivity.this, message);
+                    onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
-                Tools.hideProgress(LogInActivity.this);
-                Tools.onError(LogInActivity.this, pThrowable);
+                hideProgress();
+                onError(pThrowable);
             }
         });
     }

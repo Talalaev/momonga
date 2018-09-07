@@ -2,18 +2,14 @@ package com.example.mike.momonga;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
-import com.example.mike.momonga.api.data.LoginWithTokenRequest;
-import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.api.data.SignUpRequest;
 import com.example.mike.momonga.api.data.SignUpResponse;
 
@@ -21,7 +17,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends AppCompatActivity implements APIActivity{
 
     private EditText mEditTextEmail             = null;
     private EditText mEditTextLogin             = null;
@@ -71,29 +67,29 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        Tools.showProgress(SignUpActivity.this, getResources().getString(R.string.sign_up_user));
+        showProgress(getResources().getString(R.string.sign_up_user));
         Call<SignUpResponse> call = service.SignUp(new SignUpRequest(login, email, password));
         call.enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> pCall, Response<SignUpResponse> pResponse) {
-                Tools.hideProgress(SignUpActivity.this);
+                hideProgress();
                 if(pResponse.isSuccessful()) {
-                    Tools.saveUserData(SignUpActivity.this, pResponse.body().user, pResponse.body().token);
-                    Tools.startMainActivity(SignUpActivity.this);
+                    saveUserData(pResponse.body().user, pResponse.body().token);
+                    startMainActivity();
                 } else {
                     String message =
                             "Error: " +
                                     Integer.toString(pResponse.code()) +
                                     ", " +
                                     pResponse.message().toString();
-                    Tools.onError(SignUpActivity.this, message);
+                    onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<SignUpResponse> pCall, Throwable pThrowable) {
-                Tools.hideProgress(SignUpActivity.this);
-                Tools.onError(SignUpActivity.this, pThrowable);
+                hideProgress();
+                onError(pThrowable);
             }
         });
     }
@@ -102,7 +98,7 @@ public class SignUpActivity extends AppCompatActivity {
         String password         = mEditTextPassword.getText().toString();
         String passwordConfirm  = mEditTextPasswordConfirm.getText().toString();
         if(password.compareTo(passwordConfirm) != 0) {
-            Tools.onError(SignUpActivity.this, getResources().getString(R.string.passwords_not_match));
+            onError(getResources().getString(R.string.passwords_not_match));
             return false;
         }
         return true;
