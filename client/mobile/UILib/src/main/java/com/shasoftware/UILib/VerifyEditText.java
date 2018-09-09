@@ -123,6 +123,10 @@ public class VerifyEditText extends LinearLayoutCompat {
                         onTimerTick();
                     }
                 };
+                if(mVerificationDelay > 0) {
+                    setState(STATE.VERIFICATION);
+                }
+
                 mTimer.schedule(mTimerTask, mVerificationDelay);
             }
         });

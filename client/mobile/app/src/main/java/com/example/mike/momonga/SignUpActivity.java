@@ -12,8 +12,12 @@ import android.widget.EditText;
 
 import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
+import com.example.mike.momonga.api.data.IsLoginTakenResponse;
+import com.example.mike.momonga.api.data.LoginWithTokenRequest;
+import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.api.data.SignUpRequest;
 import com.example.mike.momonga.api.data.SignUpResponse;
+import com.example.mike.momonga.ui.settings.ApplicationSettings;
 import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
@@ -74,7 +78,44 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
     }
 
     private void verifyLogin() {
+        if(mEditTextLogin.getText().length() < 4) {
+            mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+            return;
+        }
 
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
+
+        String login = mEditTextLogin.getText();
+        mEditTextLogin.setState(VerifyEditText.STATE.VERIFICATION);
+        Call<IsLoginTakenResponse> call = service.IsLoginTaken(login);
+        call.enqueue(new Callback<IsLoginTakenResponse>() {
+            @Override
+            public void onResponse(Call<IsLoginTakenResponse> pCall, Response<IsLoginTakenResponse> pResponse) {
+                if(pResponse.isSuccessful()) {
+                    mEditTextLogin.setState(pResponse.body().taken ? VerifyEditText.STATE.INCORRECT : VerifyEditText.STATE.CORRECT);
+                } else {
+                    mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+                    String message =
+                            "Error: " +
+                                    Integer.toString(pResponse.code()) +
+                                    ", " +
+                                    pResponse.message().toString();
+                    onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IsLoginTakenResponse> pCall, Throwable pThrowable) {
+                mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+                onError(pThrowable);
+            }
+        });
+
+
+        mEditTextLogin.setState(VerifyEditText.STATE.CORRECT);
     }
 
     private void verfiyEmail() {
