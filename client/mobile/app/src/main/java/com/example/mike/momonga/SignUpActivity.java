@@ -1,23 +1,16 @@
 package com.example.mike.momonga;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 
 import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.IsLoginTakenResponse;
-import com.example.mike.momonga.api.data.LoginWithTokenRequest;
-import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.api.data.SignUpRequest;
 import com.example.mike.momonga.api.data.SignUpResponse;
-import com.example.mike.momonga.ui.settings.ApplicationSettings;
 import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
@@ -60,25 +53,14 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
             }
         });
 
-        mEditTextLogin.setOnVerifyText(pText -> {
-            verifyLogin();
-        });
-
-        mEditTextEmail.setOnVerifyText(pText -> {
-            verfiyEmail();
-        });
-
-        mEditTextPassword.setOnVerifyText(pText -> {
-            verifyPassword();
-        });
-
-        mEditTextPasswordConfirm.setOnVerifyText(pText -> {
-            verifyPassword();
-        });
+        mEditTextLogin.setOnVerifyText(this::verifyLogin);
+        mEditTextEmail.setOnVerifyText(this::verifyEmail);
+        mEditTextPassword.setOnVerifyText(this::verifyPassword);
+        mEditTextPasswordConfirm.setOnVerifyText(this::verifyPasswordConfirm);
     }
 
-    private void verifyLogin() {
-        if(mEditTextLogin.getText().length() < 4) {
+    private void verifyLogin(String pLogin) {
+        if(pLogin.length() < 4) {
             mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
             return;
         }
@@ -88,9 +70,8 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
             return;
         }
 
-        String login = mEditTextLogin.getText();
         mEditTextLogin.setState(VerifyEditText.STATE.VERIFICATION);
-        Call<IsLoginTakenResponse> call = service.IsLoginTaken(login);
+        Call<IsLoginTakenResponse> call = service.IsLoginTaken(pLogin);
         call.enqueue(new Callback<IsLoginTakenResponse>() {
             @Override
             public void onResponse(Call<IsLoginTakenResponse> pCall, Response<IsLoginTakenResponse> pResponse) {
@@ -118,23 +99,27 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
         mEditTextLogin.setState(VerifyEditText.STATE.CORRECT);
     }
 
-    private void verfiyEmail() {
-        if(!TextUtils.isEmpty(mEditTextEmail.getText()) && Patterns.EMAIL_ADDRESS.matcher(mEditTextEmail.getText()).matches()){
+    private void verifyEmail(String pEmail) {
+        if(!TextUtils.isEmpty(pEmail) && Patterns.EMAIL_ADDRESS.matcher(pEmail).matches()){
             mEditTextEmail.setState(VerifyEditText.STATE.CORRECT);
         } else {
             mEditTextEmail.setState(VerifyEditText.STATE.INCORRECT);
         }
     }
 
-    private void verifyPassword() {
-        if(mEditTextPassword.getText().length() > 5){
+    private void verifyPassword(String pPassword) {
+        if(pPassword.length() > 5){
             mEditTextPassword.setState(VerifyEditText.STATE.CORRECT);
         } else {
             mEditTextPassword.setState(VerifyEditText.STATE.INCORRECT);
         }
 
+        verifyPasswordConfirm(mEditTextPasswordConfirm.getText());
+    }
+
+    private void verifyPasswordConfirm(String pPasswordConfirm) {
         if((mEditTextPassword.getSate() == VerifyEditText.STATE.CORRECT)&&
-           (mEditTextPassword.getText().matches(mEditTextPasswordConfirm.getText())))
+           (mEditTextPassword.getText().matches(pPasswordConfirm)))
         {
             mEditTextPasswordConfirm.setState(VerifyEditText.STATE.CORRECT);
         } else {

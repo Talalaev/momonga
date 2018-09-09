@@ -2,6 +2,8 @@ package com.example.mike.momonga;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +15,7 @@ import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.ui.settings.ApplicationSettings;
+import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,8 +23,8 @@ import retrofit2.Response;
 
 public class LogInActivity extends ActionBarActivity implements APIActivity {
 
-    private EditText            mEditTextEmail      = null;
-    private EditText            mEditTextPassword   = null;
+    private VerifyEditText  mEditTextEmail      = null;
+    private EditText        mEditTextPassword   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +60,15 @@ public class LogInActivity extends ActionBarActivity implements APIActivity {
             }
         });
 
+        mEditTextEmail.setOnVerifyText(this::verfiyEmail);
+    }
+
+    private void verfiyEmail(String pEmail) {
+        if(!TextUtils.isEmpty(pEmail) && Patterns.EMAIL_ADDRESS.matcher(pEmail).matches()){
+            mEditTextEmail.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextEmail.setState(VerifyEditText.STATE.INCORRECT);
+        }
     }
 
     private void checkToken(){

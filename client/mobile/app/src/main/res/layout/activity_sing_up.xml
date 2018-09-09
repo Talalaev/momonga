@@ -2,7 +2,7 @@
 <merge
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -52,7 +52,7 @@
                             android:hint="@string/user_login"
                             android:inputType="textNoSuggestions"
                             android:maxLines="1"
-                            custom:verificationDelay="1000"/>
+                            app:verificationDelay="1000"/>
 
                         <com.shasoftware.UILib.VerifyEditText
                             android:id="@+id/sign_up_activity_edittext_email"
@@ -61,7 +61,7 @@
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            custom:verificationDelay="0"/>
+                            app:verificationDelay="0"/>
 
                         <com.shasoftware.UILib.VerifyEditText
                             android:id="@+id/sign_up_activity_edittext_password"
@@ -70,7 +70,7 @@
                             android:hint="@string/password"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            custom:verificationDelay="0"/>
+                            app:verificationDelay="0"/>
 
                         <com.shasoftware.UILib.VerifyEditText
                             android:id="@+id/sign_up_activity_edittext_password_confirm"
@@ -79,7 +79,7 @@
                             android:hint="@string/password_confirm"
                             android:inputType="textPassword"
                             android:maxLines="1"
-                            custom:verificationDelay="0"/>
+                            app:verificationDelay="0"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
