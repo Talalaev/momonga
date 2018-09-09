@@ -12,6 +12,7 @@ import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.SignUpRequest;
 import com.example.mike.momonga.api.data.SignUpResponse;
+import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -19,10 +20,10 @@ import retrofit2.Response;
 
 public class SignUpActivity extends ActionBarActivity implements APIActivity{
 
-    private EditText mEditTextEmail             = null;
-    private EditText mEditTextLogin             = null;
-    private EditText mEditTextPassword          = null;
-    private EditText mEditTextPasswordConfirm   = null;
+    private VerifyEditText  mEditTextEmail             = null;
+    private VerifyEditText  mEditTextLogin             = null;
+    private VerifyEditText  mEditTextPassword          = null;
+    private VerifyEditText  mEditTextPasswordConfirm   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,40 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
                 SignUpActivity.this.finish();
             }
         });
+
+        mEditTextLogin.setOnVerifyText(pText -> {
+            verifyLogin();
+        });
+
+        mEditTextEmail.setOnVerifyText(pText -> {
+            verfiyEmail();
+        });
+
+        mEditTextPassword.setOnVerifyText(pText -> {
+            verifyPassword();
+        });
+
+        mEditTextPasswordConfirm.setOnVerifyText(pText -> {
+            verifyPassword();
+        });
+    }
+
+    private void verifyLogin() {
+
+    }
+
+    private void verfiyEmail() {
+
+    }
+
+    private void verifyPassword() {
+        if(mEditTextPassword.getText().matches(mEditTextPasswordConfirm.getText())) {
+            mEditTextPassword.setState(VerifyEditText.STATE.CORRECT);
+            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextPassword.setState(VerifyEditText.STATE.INCORRECT);
+            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.INCORRECT);
+        }
     }
 
     private void SignUp(){
