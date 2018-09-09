@@ -61,7 +61,7 @@
                             android:hint="@string/email"
                             android:inputType="textEmailAddress"
                             android:maxLines="1"
-                            custom:verificationDelay="1000"/>
+                            custom:verificationDelay="0"/>
 
                         <com.shasoftware.UILib.VerifyEditText
                             android:id="@+id/sign_up_activity_edittext_password"

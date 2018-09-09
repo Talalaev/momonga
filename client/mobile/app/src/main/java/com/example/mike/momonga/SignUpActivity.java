@@ -2,6 +2,8 @@ package com.example.mike.momonga;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,7 +78,11 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
     }
 
     private void verfiyEmail() {
-
+        if(!TextUtils.isEmpty(mEditTextEmail.getText()) && Patterns.EMAIL_ADDRESS.matcher(mEditTextEmail.getText()).matches()){
+            mEditTextEmail.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextEmail.setState(VerifyEditText.STATE.INCORRECT);
+        }
     }
 
     private void verifyPassword() {
