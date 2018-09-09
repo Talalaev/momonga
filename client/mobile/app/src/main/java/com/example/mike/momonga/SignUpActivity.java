@@ -80,11 +80,17 @@ public class SignUpActivity extends ActionBarActivity implements APIActivity{
     }
 
     private void verifyPassword() {
-        if(mEditTextPassword.getText().matches(mEditTextPasswordConfirm.getText())) {
+        if(mEditTextPassword.getText().length() > 5){
             mEditTextPassword.setState(VerifyEditText.STATE.CORRECT);
-            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.CORRECT);
         } else {
             mEditTextPassword.setState(VerifyEditText.STATE.INCORRECT);
+        }
+
+        if((mEditTextPassword.getSate() == VerifyEditText.STATE.CORRECT)&&
+           (mEditTextPassword.getText().matches(mEditTextPasswordConfirm.getText())))
+        {
+            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.CORRECT);
+        } else {
             mEditTextPasswordConfirm.setState(VerifyEditText.STATE.INCORRECT);
         }
     }
