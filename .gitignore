@@ -16,3 +16,4 @@ config/secretData.json
 #_/components/javascripts/working/*.js
 #_/components/styles/bootstrap3/*.css
 /nbproject/private/
+client/mobile/UILib/build/
