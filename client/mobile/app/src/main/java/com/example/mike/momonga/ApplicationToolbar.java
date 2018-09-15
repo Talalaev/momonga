@@ -46,7 +46,7 @@ public class ApplicationToolbar {
 
         final Class<?>activity_class = pActivity.getClass();
 
-        if(activity_class == SingUpActivity.class) {
+        if(activity_class == SignUpActivity.class) {
             item_sign_up.setVisible(false);
         }
 
@@ -64,7 +64,7 @@ public class ApplicationToolbar {
                 pActivity.startActivity(intent);
                 break;
             case R.id.application_menu_sign_up:
-                intent = new Intent(pActivity, SingUpActivity.class);
+                intent = new Intent(pActivity, SignUpActivity.class);
                 pActivity.startActivity(intent);
                 break;
             default: return false;

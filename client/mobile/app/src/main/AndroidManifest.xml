@@ -24,7 +24,7 @@
 
         <!-- SignUp Activity -->
         <activity
-            android:name=".SingUpActivity">
+            android:name=".SignUpActivity">
             android:parentActivityName=".LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
