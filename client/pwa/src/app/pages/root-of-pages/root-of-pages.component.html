@@ -1,3 +1,9 @@
 <p>
   root-of-pages works!
+  <br>
+  taken: <span *ngIf="!isLoading">{{ taken }}</span><span *ngIf="isLoading">Loading...</span>
+  <input [(ngModel)]="login" type="text">
+  <br>
+  <button (click)="checkLogin()">Check Login</button>
 </p>
+<router-outlet></router-outlet>

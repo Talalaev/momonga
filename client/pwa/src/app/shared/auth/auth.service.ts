@@ -3,12 +3,12 @@ import { Router } from '@angular/router';
 
 import { TokenService } from '../api/token.service';
 import { ApiService, API_SERVICE } from '../api/api.service';
-import { ApiConfig } from "../api/configs/api.config";
+import { ApiConfig } from "../../configs/api.config";
 
-interface User {
-  login?: string,
-  pass?: string
-}
+// interface User {
+//   email: string,
+//   password: string
+// }
 
 
 @Injectable()
@@ -21,7 +21,7 @@ export class AuthService {
     private router: Router
   ) {}
 
-  async login(user: User) {
+  async login(user) {
     if (this.token.get()) {
       return true;
     }
@@ -31,8 +31,8 @@ export class AuthService {
         .useConfig<ApiConfig>('main')
         .request(config => ({
           method: 'post',
-          url: config.manager.login,
-          requestPoint: 'auth',
+          url: config.auth.login,
+          requestPoint: 'post:auth',
           body: user
         }))
         .promise<{ token: string }>();

@@ -31,8 +31,7 @@ import { ErrorsService } from './errors.service';
 import { LoadingService } from './loading.service';
 
 export * from './api.service';
-export * from './configs';
-// export * from './services';
+
 export * from './errors.service';
 export * from './loading.service';
 

@@ -1,5 +1,3 @@
-/// <reference path="models/main.ts" />
-
 declare namespace ISApi {
   interface apiRequestOptions<Heareds, Params> {
     url?: string,

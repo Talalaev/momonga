@@ -1,0 +1,3 @@
+interface ILoginTaken {
+  taken: boolean
+}

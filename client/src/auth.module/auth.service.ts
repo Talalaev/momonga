@@ -34,7 +34,7 @@ export class AuthService {
             });
     }
 
-    tryingToLogin(user: User) {
+    tryingToLogin(user) {
         this.actions.tryingToLogin({
             user,
             redirectUrl: this.redirectUrl
@@ -45,7 +45,7 @@ export class AuthService {
         this.actions.tryingToLogout();
     }
 
-    tryingToRegistration(user: User) {
+    tryingToRegistration(user) {
         this.actions.tryingToRegistration({
             user
         });
