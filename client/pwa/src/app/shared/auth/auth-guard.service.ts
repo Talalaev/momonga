@@ -6,7 +6,7 @@ import {
   CanActivateChild
 } from '@angular/router';
 
-import { TokenService } from '../api/token.service';
+import { TokenService } from 'ngx-api-manager';
 import { AuthService } from './auth.service';
 
 @Injectable()
@@ -36,6 +36,7 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   async checkLogin(url: string): Promise<boolean> {
+    // let isLoggedIn = await this.authService.verifyAuth().toPromise();
     let isLoggedIn = this.token.get();
 
     if (isLoggedIn) {

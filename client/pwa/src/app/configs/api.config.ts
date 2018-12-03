@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { ISApi } from 'ngx-api-manager/typings';
+
 @Injectable()
 export class ApiConfig implements ISApi.apiConfig {
   prefix: string = 'api';

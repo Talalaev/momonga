@@ -1,14 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiService, API_SERVICE, TokenService } from 'ngx-api-manager';
 
-import { TokenService } from '../api/token.service';
-import { ApiService, API_SERVICE } from '../api/api.service';
 import { ApiConfig } from "../../configs/api.config";
-
-// interface User {
-//   email: string,
-//   password: string
-// }
 
 
 @Injectable()

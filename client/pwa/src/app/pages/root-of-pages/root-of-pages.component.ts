@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService, LoadingStreamService } from 'ngx-api-manager';
 
-import { ApiService } from '../../shared/api/api.service';
 import { ApiConfig } from '../../configs/api.config';
-import { LoadingService } from '../../shared/api/loading.service';
+
 
 @Component({
   selector: 'root-of-pages',
@@ -14,7 +14,7 @@ export class RootOfPagesComponent implements OnInit {
   taken: string = 'null';
   isLoading: boolean = false;
 
-  constructor(public api: ApiService, public loading: LoadingService) {
+  constructor(public api: ApiService, public loading: LoadingStreamService) {
     this.loading.loadingStream$.subscribe(res => {
       console.log(res);
       this.isLoading = res.state;
