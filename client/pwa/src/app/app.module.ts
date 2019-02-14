@@ -19,6 +19,7 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { PagesModule } from "./pages/pages.module";
+import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
 
@@ -38,7 +39,8 @@ import { AuthService } from './shared/auth/auth.service';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     TranslateModule.forRoot(),
     AppRoutingModule,
-    PagesModule
+    PagesModule,
+    ComponentsModule
   ],
   providers: [
     AuthGuard,

@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import "~bootstrap/scss/functions";
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/mixins";
+@import "~bootstrap/scss/utilities";
+@import "~bootstrap/scss/grid";
+
+//@import "~bootstrap/scss/bootstrap";
+
+
+@import "~primeicons/primeicons.css";
+@import "~primeng/resources/themes/nova-light/theme.css";
+@import "~primeflex/primeflex.css";
+@import "~primeng/resources/primeng.min.css";
+
+
+@import "~uikit/src/scss/variables-theme";
+@import "~uikit/src/scss/mixins-theme";
+
+@import "~uikit/src/scss/uikit-theme"; // обычные стили + стили для компоентов таких как акордион и т.д.
+//@import "~uikit/src/scss/uikit.scss"; // обычные стили
+
+
+@import "assets/icomoon/style.css";
+
+
+
+

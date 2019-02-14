@@ -39,10 +39,6 @@ export class AuthGuard implements CanActivate, CanActivateChild {
     // let isLoggedIn = await this.authService.verifyAuth().toPromise();
     let isLoggedIn = this.token.get();
 
-    if (isLoggedIn) {
-      return true;
-    }
-
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;
 
