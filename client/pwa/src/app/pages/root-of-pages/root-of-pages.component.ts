@@ -5,7 +5,7 @@ import { ApiConfig } from '../../configs/api.config';
 
 
 @Component({
-  selector: 'root-of-pages',
+  selector: 'momo-root-of-pages',
   templateUrl: './root-of-pages.component.html',
   styleUrls: ['./root-of-pages.component.css']
 })

@@ -134,7 +134,7 @@
   "defaultProject": "angular-security-course",
   "schematics": {
     "@schematics/angular:component": {
-      "prefix": "",
+      "prefix": "momo",
       "styleext": "scss"
     },
     "@schematics/angular:directive": {

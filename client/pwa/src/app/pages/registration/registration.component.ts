@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'registration',
+  selector: 'momo-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.css']
 })

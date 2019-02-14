@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 @Component({
-  selector: 'root',
+  selector: 'momo-root',
   templateUrl: './root.component.html',
   styleUrls: ['./root.component.css']
 })

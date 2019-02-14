@@ -1,3 +1,36 @@
-<p>
-  registration works!
-</p>
+<div class="momo-registration uk-container uk-flex uk-flex-center">
+  <div class="uk-card uk-card-default uk-card-body">
+    <h3 class="uk-card-title">Sing up</h3>
+    <div class="uk-margin">
+      <label class="uk-form-label" for="login">User name</label>
+      <div class="uk-form-controls">
+        <div class="uk-inline uk-width-1-1">
+          <span class="uk-form-icon" uk-icon="icon: user"></span>
+          <input id="username" class="uk-input uk-form-width-large" type="text">
+        </div>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <label class="uk-form-label" for="password">E-mail</label>
+      <div class="uk-form-controls">
+        <div class="uk-inline uk-width-1-1">
+          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
+          <input id="email" class="uk-input uk-form-width-large" type="email">
+        </div>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <label class="uk-form-label" for="password">Password</label>
+      <div class="uk-form-controls">
+        <div class="uk-inline uk-width-1-1">
+          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
+          <input id="password" class="uk-input uk-form-width-large" type="password">
+        </div>
+      </div>
+    </div>
+    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Submit</button>
+    <div class="uk-text-center">
+      <a routerLink="/login" class="uk-display-block" uk-icon="sign-in">Sign in</a>
+    </div>
+  </div>
+</div>
