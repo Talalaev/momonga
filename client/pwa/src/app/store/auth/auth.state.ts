@@ -1,5 +1,5 @@
 import { State, Action, StateContext } from '@ngxs/store';
-import { LoginAction } from './auth.actions';
+import { LoginAction, RegistrationAction } from './auth.actions';
 import { AuthStateModel } from './auth.models';
 import { AuthService } from '../../shared/auth/auth.service';
 
@@ -20,12 +20,23 @@ export class AuthState {
 
   @Action(LoginAction)
   async login(ctx: StateContext<AuthStateModel>, action: LoginAction) {
-    const {user, token} = await this.authService.login(action.user);
+    let data: any = await this.authService.login(action.user);
 
     const state = ctx.getState();
     ctx.setState({
       ...state,
-      user
+      user: data.user
+    });
+  }
+
+  @Action(RegistrationAction)
+  async registration(ctx: StateContext<AuthStateModel>, action: RegistrationAction) {
+    const data: any = await this.authService.registration(action.user);
+
+    const state = ctx.getState();
+    ctx.setState({
+      ...state,
+      user: data.user
     });
   }
 }

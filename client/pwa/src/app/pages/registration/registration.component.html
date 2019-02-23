@@ -1,21 +1,48 @@
-<div class="momo-registration uk-container uk-flex uk-flex-center">
+<div [formGroup]="registrationForm" class="momo-registration uk-container uk-flex uk-flex-center">
   <div class="uk-card uk-card-default uk-card-body">
-    <h3 class="uk-card-title">Sing up</h3>
+    <h3 class="uk-card-title">
+      Sing up
+      <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
+    </h3>
     <div class="uk-margin">
       <label class="uk-form-label" for="login">User name</label>
       <div class="uk-form-controls">
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon" uk-icon="icon: user"></span>
-          <input id="username" class="uk-input uk-form-width-large" type="text">
+          <input
+            required
+            (keyup.enter)="submit()"
+            formControlName="login"
+            [ngClass]="{'uk-form-danger': login.invalid && (login.dirty || login.touched)}"
+            id="login"
+            class="uk-input uk-form-width-large"
+            type="text">
+        </div>
+        <div
+          *ngIf="login.invalid && (login.dirty || login.touched)"
+          class="uk-text-danger uk-text-small">
+          Username is required.
         </div>
       </div>
     </div>
     <div class="uk-margin">
-      <label class="uk-form-label" for="password">E-mail</label>
+      <label class="uk-form-label" for="email">E-mail</label>
       <div class="uk-form-controls">
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
-          <input id="email" class="uk-input uk-form-width-large" type="email">
+          <input
+            required
+            (keyup.enter)="submit()"
+            formControlName="email"
+            [ngClass]="{'uk-form-danger': email.invalid && (email.dirty || email.touched)}"
+            id="email"
+            class="uk-input uk-form-width-large"
+            type="email">
+        </div>
+        <div
+          *ngIf="email.invalid && (email.dirty || email.touched)"
+          class="uk-text-danger uk-text-small">
+          E-mail is required.
         </div>
       </div>
     </div>
@@ -24,11 +51,32 @@
       <div class="uk-form-controls">
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
-          <input id="password" class="uk-input uk-form-width-large" type="password">
+          <input
+            required
+            (keyup.enter)="submit()"
+            formControlName="password"
+            [ngClass]="{'uk-form-danger': password.invalid && (password.dirty || password.touched)}"
+            id="password"
+            class="uk-input uk-form-width-large"
+            type="password">
+        </div>
+        <div
+          *ngIf="password.invalid && (password.dirty || password.touched)"
+          class="uk-text-danger uk-text-small">
+          Password is required.
         </div>
       </div>
     </div>
-    <button class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Submit</button>
+    <p *ngIf="errorMsg" class="uk-flex uk-flex-middle">
+      <span class="uk-text-danger">{{ errorMsg }}</span>
+      <a (click)="errorMsg=''" class="ml-2" uk-icon="icon: close"></a>
+    </p>
+    <button
+      (click)="submit()"
+      [disabled]="(loading$ | async) || registrationForm.invalid"
+      class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">
+      Submit
+    </button>
     <div class="uk-text-center">
       <a routerLink="/login" class="uk-display-block" uk-icon="sign-in">Sign in</a>
     </div>

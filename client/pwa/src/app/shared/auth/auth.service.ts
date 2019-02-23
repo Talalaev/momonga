@@ -15,7 +15,7 @@ export class AuthService {
     private router: Router
   ) {}
 
-  async login(loggingUser): Promise<{user: any, token: string}> {
+  async login(loggingUser) {
     const {user, token} = await this.api
       .useConfig<ApiConfig>('main')
       .request(config => ({
@@ -24,7 +24,23 @@ export class AuthService {
         requestPoint: `post:[Auth] Login`,
         body: loggingUser
       }))
-      .promise<{ token: string, user: any }>();
+      .promise<{user: any, token: string}>();
+
+    this.token.set(token);
+
+    return {user, token};
+  }
+
+  async registration(registeringUser) {
+    const {user, token} = await this.api
+      .useConfig<ApiConfig>('main')
+      .request(config => ({
+        method: 'post',
+        url: config.auth.register,
+        requestPoint: `post:[Auth] Registration`,
+        body: registeringUser
+      }))
+      .promise<{user: any, token: string}>();
 
     this.token.set(token);
 

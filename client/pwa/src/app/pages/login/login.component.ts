@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private loadings: LoadingStreamService,
     private errors: ErrorsStreamService,
-    private router: Router,
+    private router: Router
   ) {
     this.errors
       .errorsStream$
