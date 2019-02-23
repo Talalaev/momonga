@@ -5,7 +5,7 @@ import { ISApi } from 'ngx-api-manager/typings';
 @Injectable()
 export class ApiConfig implements ISApi.apiConfig {
   prefix: string = 'api';
-  tokenFieldName: string = 'access_token';
+  tokenFieldName: string = 'token';
   timeout: number = 10*1000;
   withCredentials: boolean = true;
   cache: boolean = true; // говорит, что данные нужно кешировать
@@ -31,6 +31,12 @@ export class ApiConfig implements ISApi.apiConfig {
       login: `${this.baseUrl}/login`,
       loginWithToken: `${this.baseUrl}/login-with-token`,
       register: `${this.baseUrl}/register`
+    };
+  }
+
+  get user() {
+    return {
+      authUser: `${this.baseUrl}/auth-user`
     };
   }
 }

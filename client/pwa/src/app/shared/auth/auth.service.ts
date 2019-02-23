@@ -15,38 +15,56 @@ export class AuthService {
     private router: Router
   ) {}
 
-  async login(user) {
-    if (this.token.get()) {
-      return true;
-    }
+  async login(loggingUser): Promise<{user: any, token: string}> {
+    const {user, token} = await this.api
+      .useConfig<ApiConfig>('main')
+      .request(config => ({
+        method: 'post',
+        url: config.auth.loginWithToken,
+        requestPoint: `post:[Auth] Login`,
+        body: loggingUser
+      }))
+      .promise<{ token: string, user: any }>();
 
+    this.token.set(token);
+
+    return {user, token};
+  }
+
+  async logout() {
     try {
-      const res = await this.api
+      await this.api
         .useConfig<ApiConfig>('main')
         .request(config => ({
-          method: 'post',
-          url: config.auth.login,
-          requestPoint: 'post:auth',
-          body: user
+          method: 'get',
+          url: config.auth.logout,
+          requestPoint: 'get:logout'
         }))
-        .promise<{ token: string }>();
-      this.token.set(res.token);
+        .promise<any>();
 
-      return true;
+      this.token.remove();
+      this.router.navigate(['/login']);
     } catch(e) {
-      // this.errors.defaultProcessing(e, 'global');
-      //
-      // if (e.status === 403) {
-      //   this.errors.emitError(new AuthError('Wrong login or password', e), 'global');
-      // }
-
-      throw e;
+      this.token.remove();
+      this.router.navigate(['/login']);
     }
   }
 
-  logout() {
-    this.token.remove();
-    this.router.navigate(['/login']);
+  async authUser() {
+    try {
+      await this.api
+        .useConfig<ApiConfig>('main')
+        .request(config => ({
+          method: 'get',
+          url: config.user.authUser,
+          requestPoint: 'get:authUser'
+        }))
+        .promise<any>();
+
+      return true;
+    } catch(e) {
+      return false;
+    }
   }
 }
 

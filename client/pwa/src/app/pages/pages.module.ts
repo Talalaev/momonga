@@ -26,6 +26,7 @@ import { ApiConfig } from '../configs/api.config';
   imports: [
     CommonModule,
     FormsModule,
+    ReactiveFormsModule,
     TranslateModule.forChild(),
     PagesRoutingModule,
     NgxApiManager.forRoot({

@@ -15,21 +15,6 @@
  *         description: Array => [User]
  *         schema:
  *           $ref: '#/definitions/User'
- * /auth-user-by-token:
- *   get:
- *     security:
- *       - APIKeyQueryParam: []
- *       - cookieAuth: []
- *     tags:
- *       - User - работа с пользователями
- *     description: Возвращает авторизованного пользователя
- *     produces:
- *       - application/json
- *     responses:
- *       200:
- *         description: Array => [User]
- *         schema:
- *           $ref: '#/definitions/User'
  * /users:
  *   get:
  *     security:

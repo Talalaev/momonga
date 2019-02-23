@@ -14,6 +14,7 @@ import { ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { TranslateModule } from '@ngx-translate/core';
+import { NgxsModule } from '@ngxs/store';
 
 import { environment } from '../environments/environment';
 
@@ -25,6 +26,7 @@ import { AppComponent } from './app.component';
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
 import { AuthService } from './shared/auth/auth.service';
+import { AuthState } from './store/auth/auth.state';
 
 
 @NgModule({
@@ -38,6 +40,9 @@ import { AuthService } from './shared/auth/auth.service';
     ReactiveFormsModule,
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     TranslateModule.forRoot(),
+    NgxsModule.forRoot([
+      AuthState
+    ]),
     AppRoutingModule,
     PagesModule,
     ComponentsModule
