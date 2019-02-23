@@ -1,5 +1,6 @@
 package com.example.mike.momonga.api;
 
+import com.example.mike.momonga.api.data.IsLoginTakenResponse;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.api.data.SignUpRequest;
@@ -32,4 +33,10 @@ public interface APIInterface {
     })
     @POST("register")
     Call<SignUpResponse> SignUp(@Body SignUpRequest pBody);
+
+    @Headers({
+            "accept: application/json"
+    })
+    @GET("is-login-taken")
+    Call<IsLoginTakenResponse> IsLoginTaken(@Query("login") String pLogin);
 }

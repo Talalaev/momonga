@@ -1,17 +1,13 @@
 package com.example.mike.momonga.api.data;
 
 public class SignUpResponse {
-    public class User{
+    public class User extends UserInfo {
         public String   password            = null;
-        public int      isAdmin             = 0;
         public int      autoChangeLanguage  = 0;
-        public int      id                  = 0;
-        public String   login               = null;
-        public String   email               = null;
         public String   updatedAt           = null;
         public String   createdAt           = null;
 
-        public User(
+        public User (
             String pPassword,
             int pIsAdmin,
             int pAutoChangeLanguage,

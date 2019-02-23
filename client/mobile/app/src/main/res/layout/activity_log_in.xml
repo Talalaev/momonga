@@ -54,13 +54,13 @@
                     android:textSize="16sp"
                     android:text="@string/login_in_appligation"/>
 
-                <EditText
+                <com.shasoftware.UILib.VerifyEditText
                     android:id="@+id/login_activity_edittext_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
-                    android:padding="8dp"/>
+                    app:verificationDelay="0"/>
 
 
                 <EditText

@@ -1,11 +1,7 @@
 package com.example.mike.momonga.api.data;
 
 public class LoginWithTokenResponse {
-    public class User {
-        public int     id                 = 0;
-        public String  login              = null;
-        public String  email              = null;
-        public int     isAdmin            = 0;
+    public class User extends UserInfo {
         public int     currencyID         = 0;
         public int     countryID          = 0;
         public String  city               = null;

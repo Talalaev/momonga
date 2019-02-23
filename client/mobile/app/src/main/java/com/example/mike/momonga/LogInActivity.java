@@ -1,32 +1,30 @@
 package com.example.mike.momonga;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
 import com.example.mike.momonga.api.data.LoginWithTokenRequest;
 import com.example.mike.momonga.api.data.LoginWithTokenResponse;
 import com.example.mike.momonga.ui.settings.ApplicationSettings;
+import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class LogInActivity extends AppCompatActivity {
+public class LogInActivity extends ActionBarActivity implements APIActivity {
 
-    private EditText            mEditTextEmail      = null;
-    private EditText            mEditTextPassword   = null;
+    private VerifyEditText  mEditTextEmail      = null;
+    private EditText        mEditTextPassword   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +60,15 @@ public class LogInActivity extends AppCompatActivity {
             }
         });
 
+        mEditTextEmail.setOnVerifyText(this::verfiyEmail);
+    }
+
+    private void verfiyEmail(String pEmail) {
+        if(!TextUtils.isEmpty(pEmail) && Patterns.EMAIL_ADDRESS.matcher(pEmail).matches()){
+            mEditTextEmail.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextEmail.setState(VerifyEditText.STATE.INCORRECT);
+        }
     }
 
     private void checkToken(){
@@ -71,30 +78,30 @@ public class LogInActivity extends AppCompatActivity {
         }
         final String token = ApplicationSettings.getString(LogInActivity.this, ApplicationSettings.USER_TOKEN);
         if(token != null){
-            Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
+            showProgress(getResources().getString(R.string.login_in_appligation));
             Call<LoginWithTokenResponse.User> call = service.AuthUser(token);
             call.enqueue(new Callback<LoginWithTokenResponse.User>() {
                 @Override
                 public void onResponse(Call<LoginWithTokenResponse.User> pCall, Response<LoginWithTokenResponse.User> pResponse) {
-                    Tools.hideProgress(LogInActivity.this);
+                    hideProgress();
                     if(pResponse.isSuccessful()) {
-                        Tools.saveUserData(LogInActivity.this, pResponse.body(), token);
+                        saveUserData(pResponse.body(), token);
                         mEditTextPassword.setText(null);
-                        Tools.startMainActivity(LogInActivity.this);
+                        startMainActivity();
                     } else {
                         String message =
                             "Error: " +
                             Integer.toString(pResponse.code()) +
                             ", " +
                             pResponse.message().toString();
-                        Tools.onError(LogInActivity.this, message);
+                        onError(message);
                     }
                 }
 
                 @Override
                 public void onFailure(Call<LoginWithTokenResponse.User> pCall, Throwable pThrowable) {
-                    Tools.hideProgress(LogInActivity.this);
-                    Tools.onError(LogInActivity.this, pThrowable);
+                    hideProgress();
+                    onError(pThrowable);
                 }
             });
 
@@ -108,41 +115,31 @@ public class LogInActivity extends AppCompatActivity {
         }
         String email    = mEditTextEmail.getText().toString();
         String password = mEditTextPassword.getText().toString();
-        Tools.showProgress(LogInActivity.this, getResources().getString(R.string.login_in_appligation));
+        showProgress(getResources().getString(R.string.login_in_appligation));
         Call<LoginWithTokenResponse> call = service.LoginWithToken(new LoginWithTokenRequest(email, password));
         call.enqueue(new Callback<LoginWithTokenResponse>() {
             @Override
             public void onResponse(Call<LoginWithTokenResponse> pCall, Response<LoginWithTokenResponse> pResponse) {
-                Tools.hideProgress(LogInActivity.this);
+                hideProgress();
                 if(pResponse.isSuccessful()) {
-                    Tools.saveUserData(LogInActivity.this, pResponse.body());
+                    saveUserData(pResponse.body().user, pResponse.body().token);
                     mEditTextPassword.setText(null);
-                    Tools.startMainActivity(LogInActivity.this);
+                    startMainActivity();
                 } else {
                     String message =
                         "Error: " +
                         Integer.toString(pResponse.code()) +
                         ", " +
                         pResponse.message().toString();
-                    Tools.onError(LogInActivity.this, message);
+                    onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<LoginWithTokenResponse> pCall, Throwable pThrowable) {
-                Tools.hideProgress(LogInActivity.this);
-                Tools.onError(LogInActivity.this, pThrowable);
+                hideProgress();
+                onError(pThrowable);
             }
         });
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu pMenu) {
-        return ApplicationToolbar.getInstance().onCreateOptionsMenu(LogInActivity.this, pMenu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem pMenu) {
-        return ApplicationToolbar.getInstance().onOptionsItemSelected(LogInActivity.this, pMenu);
     }
 }
