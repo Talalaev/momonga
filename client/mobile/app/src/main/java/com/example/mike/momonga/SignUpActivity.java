@@ -1,32 +1,28 @@
 package com.example.mike.momonga;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Gravity;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Toast;
 
 import com.example.mike.momonga.api.APIInterface;
 import com.example.mike.momonga.api.APIService;
-import com.example.mike.momonga.api.data.LoginWithTokenRequest;
-import com.example.mike.momonga.api.data.LoginWithTokenResponse;
+import com.example.mike.momonga.api.data.IsLoginTakenResponse;
 import com.example.mike.momonga.api.data.SignUpRequest;
 import com.example.mike.momonga.api.data.SignUpResponse;
+import com.shasoftware.UILib.VerifyEditText;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SignUpActivity extends AppCompatActivity {
+public class SignUpActivity extends ActionBarActivity implements APIActivity{
 
-    private EditText mEditTextEmail             = null;
-    private EditText mEditTextLogin             = null;
-    private EditText mEditTextPassword          = null;
-    private EditText mEditTextPasswordConfirm   = null;
+    private VerifyEditText  mEditTextEmail             = null;
+    private VerifyEditText  mEditTextLogin             = null;
+    private VerifyEditText  mEditTextPassword          = null;
+    private VerifyEditText  mEditTextPasswordConfirm   = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +52,79 @@ public class SignUpActivity extends AppCompatActivity {
                 SignUpActivity.this.finish();
             }
         });
+
+        mEditTextLogin.setOnVerifyText(this::verifyLogin);
+        mEditTextEmail.setOnVerifyText(this::verifyEmail);
+        mEditTextPassword.setOnVerifyText(this::verifyPassword);
+        mEditTextPasswordConfirm.setOnVerifyText(this::verifyPasswordConfirm);
+    }
+
+    private void verifyLogin(String pLogin) {
+        if(pLogin.length() < 4) {
+            mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+            return;
+        }
+
+        APIInterface service = APIService.getInstance(this);
+        if(service == null){
+            return;
+        }
+
+        mEditTextLogin.setState(VerifyEditText.STATE.VERIFICATION);
+        Call<IsLoginTakenResponse> call = service.IsLoginTaken(pLogin);
+        call.enqueue(new Callback<IsLoginTakenResponse>() {
+            @Override
+            public void onResponse(Call<IsLoginTakenResponse> pCall, Response<IsLoginTakenResponse> pResponse) {
+                if(pResponse.isSuccessful()) {
+                    mEditTextLogin.setState(pResponse.body().taken ? VerifyEditText.STATE.INCORRECT : VerifyEditText.STATE.CORRECT);
+                } else {
+                    mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+                    String message =
+                            "Error: " +
+                                    Integer.toString(pResponse.code()) +
+                                    ", " +
+                                    pResponse.message().toString();
+                    onError(message);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<IsLoginTakenResponse> pCall, Throwable pThrowable) {
+                mEditTextLogin.setState(VerifyEditText.STATE.INCORRECT);
+                onError(pThrowable);
+            }
+        });
+
+
+        mEditTextLogin.setState(VerifyEditText.STATE.CORRECT);
+    }
+
+    private void verifyEmail(String pEmail) {
+        if(!TextUtils.isEmpty(pEmail) && Patterns.EMAIL_ADDRESS.matcher(pEmail).matches()){
+            mEditTextEmail.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextEmail.setState(VerifyEditText.STATE.INCORRECT);
+        }
+    }
+
+    private void verifyPassword(String pPassword) {
+        if(pPassword.length() > 5){
+            mEditTextPassword.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextPassword.setState(VerifyEditText.STATE.INCORRECT);
+        }
+
+        verifyPasswordConfirm(mEditTextPasswordConfirm.getText());
+    }
+
+    private void verifyPasswordConfirm(String pPasswordConfirm) {
+        if((mEditTextPassword.getSate() == VerifyEditText.STATE.CORRECT)&&
+           (mEditTextPassword.getText().matches(pPasswordConfirm)))
+        {
+            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.CORRECT);
+        } else {
+            mEditTextPasswordConfirm.setState(VerifyEditText.STATE.INCORRECT);
+        }
     }
 
     private void SignUp(){
@@ -71,29 +140,29 @@ public class SignUpActivity extends AppCompatActivity {
             return;
         }
 
-        Tools.showProgress(SignUpActivity.this, getResources().getString(R.string.sign_up_user));
+        showProgress(getResources().getString(R.string.sign_up_user));
         Call<SignUpResponse> call = service.SignUp(new SignUpRequest(login, email, password));
         call.enqueue(new Callback<SignUpResponse>() {
             @Override
             public void onResponse(Call<SignUpResponse> pCall, Response<SignUpResponse> pResponse) {
-                Tools.hideProgress(SignUpActivity.this);
+                hideProgress();
                 if(pResponse.isSuccessful()) {
-                    Tools.saveUserData(SignUpActivity.this, pResponse.body());
-                    Tools.startMainActivity(SignUpActivity.this);
+                    saveUserData(pResponse.body().user, pResponse.body().token);
+                    startMainActivity();
                 } else {
                     String message =
                             "Error: " +
                                     Integer.toString(pResponse.code()) +
                                     ", " +
                                     pResponse.message().toString();
-                    Tools.onError(SignUpActivity.this, message);
+                    onError(message);
                 }
             }
 
             @Override
             public void onFailure(Call<SignUpResponse> pCall, Throwable pThrowable) {
-                Tools.hideProgress(SignUpActivity.this);
-                Tools.onError(SignUpActivity.this, pThrowable);
+                hideProgress();
+                onError(pThrowable);
             }
         });
     }
@@ -102,20 +171,9 @@ public class SignUpActivity extends AppCompatActivity {
         String password         = mEditTextPassword.getText().toString();
         String passwordConfirm  = mEditTextPasswordConfirm.getText().toString();
         if(password.compareTo(passwordConfirm) != 0) {
-            Tools.onError(SignUpActivity.this, getResources().getString(R.string.passwords_not_match));
+            onError(getResources().getString(R.string.passwords_not_match));
             return false;
         }
         return true;
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu pMenu) {
-        return ApplicationToolbar.getInstance().onCreateOptionsMenu(SignUpActivity.this, pMenu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem pMenu) {
-        return ApplicationToolbar.getInstance().onOptionsItemSelected(SignUpActivity.this, pMenu);
-    }
-
 }
