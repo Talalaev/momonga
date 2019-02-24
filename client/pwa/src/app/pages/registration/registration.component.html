@@ -1,5 +1,5 @@
 <div [formGroup]="registrationForm" class="momo-registration uk-container uk-flex uk-flex-center">
-  <div class="uk-card uk-card-default uk-card-body">
+  <div class="uk-card uk-card-default uk-card-body uk-responsive-width">
     <h3 class="uk-card-title">
       Sing up
       <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
@@ -8,7 +8,7 @@
       <label class="uk-form-label" for="login">User name</label>
       <div class="uk-form-controls">
         <div class="uk-inline uk-width-1-1">
-          <span class="uk-form-icon" uk-icon="icon: user"></span>
+          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
           <input
             required
             (keyup.enter)="submit()"

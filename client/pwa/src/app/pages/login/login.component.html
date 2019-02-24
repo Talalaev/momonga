@@ -1,5 +1,5 @@
 <div [formGroup]="loginForm" class="momo-login uk-container uk-flex uk-flex-center">
-  <div class="uk-card uk-card-default uk-card-body">
+  <div class="uk-card uk-card-default uk-card-body uk-responsive-width">
     <h3 class="uk-card-title">
       Login
       <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
@@ -8,7 +8,7 @@
       <label class="uk-form-label" for="login">E-mail</label>
       <div class="uk-form-controls">
         <div class="uk-inline uk-width-1-1">
-          <span class="uk-form-icon" uk-icon="icon: mail"></span>
+          <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
           <input
             required
             (keyup.enter)="signIn()"
@@ -58,7 +58,7 @@
     </button>
     <div class="uk-text-center">
       <a routerLink="/registration" class="uk-display-block">Registration</a>
-      <a class="uk-display-block">Forgot password?</a>
+      <!--<a class="uk-display-block">Forgot password?</a>-->
     </div>
   </div>
 </div>
