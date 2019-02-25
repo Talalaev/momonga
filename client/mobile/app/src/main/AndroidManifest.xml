@@ -24,7 +24,7 @@
 
         <!-- SignUp Activity -->
         <activity
-            android:name=".SignUpActivity">
+            android:name=".SignUpActivity"
             android:parentActivityName=".LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -32,7 +32,8 @@
         </activity>
 
         <!-- Settings Activity -->
-        <activity android:name=".ui.settings.SettingsActivity">
+        <activity
+            android:name=".ui.settings.SettingsActivity"
             android:parentActivityName=".MainActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -40,7 +41,8 @@
         </activity>
 
         <!-- Main Activity -->
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
             android:parentActivityName=".LogInActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
