@@ -1,8 +1,8 @@
-<nav class="uk-navbar-container uk-margin" uk-navbar>
+<nav class="uk-navbar-container uk-margin" uk-navbar="mode: click">
   <div class="uk-navbar-left">
-    <a class="uk-navbar-item uk-logo" href="#">
+    <a routerLink="dojo" class="uk-navbar-item uk-logo">
       <span class="mom-logo icon-momonga mr-2"></span>
-      <span class="uk-visible@s">Momonga</span>
+      <span>Momonga</span>
     </a>
   </div>
   <div id="offcanvas-usage" uk-offcanvas="overlay: true; esc-close: true;">
@@ -11,26 +11,26 @@
       <ul class="uk-nav uk-nav-parent-icon uk-nav-default uk-margin-medium-top" uk-nav>
         <li class="uk-nav-header">Menu</li>
         <li class="uk-nav-divider"></li>
-        <li class="uk-active">
-          <a href="#">
+        <li routerLinkActive="uk-active">
+          <a routerLink="dojo/keep-records">
             <span class="mr-2" uk-icon="icon: home;"></span>
             Dojo
           </a>
         </li>
-        <li>
-          <a href="#">
+        <li routerLinkActive="uk-active">
+          <a routerLink="dojo/reports">
             <span class="mr-2" uk-icon="icon: cart;"></span>
-            Keep records
+            Reports
           </a>
         </li>
-        <li>
-          <a href="#">
+        <li routerLinkActive="uk-active">
+          <a routerLink="dojo/settings">
             <span class="mr-2" uk-icon="icon: user;"></span>
             User
           </a>
         </li>
         <li>
-          <a (click)="authService.logout()" href="#">
+          <a (click)="logout()" href="#">
             <span class="mr-2" uk-icon="icon: sign-out;"></span>
             Logout
           </a>
@@ -50,24 +50,25 @@
   </div>
   <div class="uk-navbar-right">
     <a
+      *ngIf="isAuth$ | async"
       uk-navbar-toggle-icon
       uk-toggle
       class="uk-navbar-toggle uk-hidden@s"
       href="#offcanvas-usage"></a>
-    <ul class="uk-navbar-nav uk-visible@s">
-      <li class="uk-active">
-        <a href="#">
+    <ul *ngIf="isAuth$ | async" class="uk-navbar-nav uk-visible@s">
+      <li routerLinkActive="uk-active">
+        <a routerLink="dojo/keep-records">
           <span class="mr-2" uk-icon="icon: home;"></span>
           Dojo
         </a>
       </li>
-      <li>
-        <a href="#">
+      <li routerLinkActive="uk-active">
+        <a routerLink="dojo/reports">
           <span class="mr-2" uk-icon="icon: cart;"></span>
-          Keep records
+          Reports
         </a>
       </li>
-      <li>
+      <li routerLinkActive="uk-active">
         <a href="">
           <span class="mr-2" uk-icon="icon: user;"></span>
           User
@@ -76,13 +77,13 @@
         <div class="uk-navbar-dropdown">
           <ul class="uk-nav uk-navbar-dropdown-nav">
             <li>
-              <a href="#">
+              <a routerLink="dojo/settings">
                 <span class="mr-2" uk-icon="icon: settings;"></span>
                 Settings
               </a>
             </li>
             <li>
-              <a (click)="authService.logout()" href="#">
+              <a (click)="logout()" href="#">
                 <span class="mr-2" uk-icon="icon: sign-out;"></span>
                 Logout
               </a>
@@ -90,6 +91,8 @@
           </ul>
         </div>
       </li>
+    </ul>
+    <ul class="uk-navbar-nav">
       <li>
         <a href="">
           en

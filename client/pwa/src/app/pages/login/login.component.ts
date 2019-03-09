@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { LoadingStreamService, ErrorsStreamService } from 'ngx-api-manager';
 
-import { LoginAction } from '../../store/auth/auth.actions';
+import { LoginAction } from '../../shared/auth/store/auth.actions';
 
 
 @Component({

@@ -39,4 +39,16 @@ export class ApiConfig implements ISApi.apiConfig {
       authUser: `${this.baseUrl}/auth-user`
     };
   }
+
+  get category() {
+    return {
+      categories: `${this.baseUrl}/categories`
+    };
+  }
+
+  get purchase() {
+    return {
+      add: `${this.baseUrl}/purchases`
+    };
+  }
 }

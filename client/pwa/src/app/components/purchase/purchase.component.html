@@ -1,0 +1,84 @@
+<form [formGroup]="purchaseForm" class="">
+  <legend class="uk-legend mb-3">
+    Новая покупка
+    <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
+  </legend>
+  <div class="row">
+    <div class="col-md-6">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">Название</label>
+        <div class="uk-form-controls">
+          <input
+            formControlName="name"
+            name="name"
+            class="uk-input"
+            autocomplete="off"
+            id="form-stacked-text"
+            type="text"
+            placeholder="Название">
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">Стоимость</label>
+        <div class="uk-form-controls">
+          <div class="uk-inline uk-width-1-1">
+            <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: ">₽</span>
+            <input
+              formControlName="price"
+              mask="dot_separator.2"
+              [dropSpecialCharacters]="false"
+              class="uk-input"
+              autocomplete="off"
+              id="form-stacked-text"
+              type="text"
+              name="price"
+              placeholder="Стоимость">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-text">Дата</label>
+        <div class="uk-form-controls">
+          <p-calendar
+            tabindex="0"
+            formControlName="createdAt"
+            [placeholder]="'дд/мм/гг'"
+            [inputStyleClass]="'uk-input'"
+            [disabledDates]="invalidDates"
+            [readonlyInput]="true"
+            [dateFormat]="'dd/MM/yy'"
+            name="date"></p-calendar>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="uk-margin">
+        <label class="uk-form-label" for="form-stacked-select">Категория</label>
+        <div class="uk-form-controls">
+          <select
+            formControlName="categoryID"
+            class="uk-select"
+            name="createdAt"
+            id="form-stacked-select">
+            <option value="">Выбирите категорию</option>
+            <option
+              *ngFor="let category of categories"
+              [value]="category.id">
+              {{ category.name }}
+            </option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <button
+        (click)="save()"
+        [disabled]="(loading$ | async) || purchaseForm.invalid"
+        class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">Сохранить</button>
+    </div>
+  </div>
+</form>

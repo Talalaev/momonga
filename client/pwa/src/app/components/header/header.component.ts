@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../shared/auth/auth.service';
+import { Select, Store } from '@ngxs/store';
+import { Observable } from 'rxjs/Rx';
+
+import { LogoutAction } from '../../shared/auth/store/auth.actions';
 
 @Component({
   selector: 'momo-header',
@@ -7,10 +10,16 @@ import { AuthService } from '../../shared/auth/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
+  @Select(state => state.auth.isAuth) isAuth$: Observable<boolean>;
 
-  constructor(private authService: AuthService) { }
+  constructor(
+    private store: Store
+  ) { }
 
   ngOnInit() {
   }
 
+  logout() {
+    this.store.dispatch(new LogoutAction)
+  }
 }

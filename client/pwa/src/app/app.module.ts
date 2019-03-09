@@ -26,7 +26,9 @@ import { AppComponent } from './app.component';
 
 import { AuthGuard } from './shared/auth/auth-guard.service';
 import { AuthService } from './shared/auth/auth.service';
-import { AuthState } from './store/auth/auth.state';
+import { AuthState } from './shared/auth/store/auth.state';
+import { CategoryState } from './components/purchase/store/category.state';
+import { PurchaseState } from './components/purchase/store/purchase.state';
 
 
 @NgModule({
@@ -41,7 +43,9 @@ import { AuthState } from './store/auth/auth.state';
     ServiceWorkerModule.register('/ngsw-worker.js', { enabled: environment.production }),
     TranslateModule.forRoot(),
     NgxsModule.forRoot([
-      AuthState
+      AuthState,
+      CategoryState,
+      PurchaseState
     ]),
     AppRoutingModule,
     PagesModule,

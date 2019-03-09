@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --live-reload false",
+    "start": "ng serve --live-reload true",
     "server": "./node_modules/.bin/ts-node ./server/server.ts",
     "build": "ng build",
     "start:prod": "ng build --prod && cd dist && http-server -c-1 -P http://localhost:9000 .",
@@ -66,6 +66,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "ngx-api-manager": "^0.2.7",
+    "ngx-mask": "^7.3.6",
     "primeflex": "^1.0.0-rc.1",
     "primeicons": "^1.0.0-beta.10",
     "primeng": "^6.1.3",

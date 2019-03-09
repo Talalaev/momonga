@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngxs/store';
 import { LoadingStreamService, ErrorsStreamService } from 'ngx-api-manager';
-import { RegistrationAction } from '../../store/auth/auth.actions';
+import { RegistrationAction } from '../../shared/auth/store/auth.actions';
 
 @Component({
   selector: 'momo-registration',

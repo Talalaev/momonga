@@ -5,16 +5,20 @@ import {
   RouterStateSnapshot,
   CanActivateChild
 } from '@angular/router';
+import {Store} from '@ngxs/store';
 
 import { TokenService } from 'ngx-api-manager';
 import { AuthService } from './auth.service';
+import {SetAuthUser} from './store/auth.actions';
 
 @Injectable()
 export class AuthGuard implements CanActivate, CanActivateChild {
   constructor(
     private authService: AuthService,
     private router: Router,
+    private store: Store,
     private token: TokenService
+
   ) {}
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Promise<boolean> {
@@ -36,8 +40,9 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 
   async checkLogin(url: string): Promise<boolean> {
-    let isLoggedIn = await this.authService.authUser();
-    if (isLoggedIn) return true;
+    let {auth} = await this.store.dispatch(new SetAuthUser).toPromise();
+
+    if (auth.isAuth) return true;
 
     // Store the attempted URL for redirecting
     this.authService.redirectUrl = url;

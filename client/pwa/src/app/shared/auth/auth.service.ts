@@ -66,9 +66,9 @@ export class AuthService {
     }
   }
 
-  async authUser() {
+  async getAuthUser() {
     try {
-      await this.api
+      return await this.api
         .useConfig<ApiConfig>('main')
         .request(config => ({
           method: 'get',
@@ -76,10 +76,8 @@ export class AuthService {
           requestPoint: 'get:authUser'
         }))
         .promise<any>();
-
-      return true;
     } catch(e) {
-      return false;
+      return null;
     }
   }
 }
