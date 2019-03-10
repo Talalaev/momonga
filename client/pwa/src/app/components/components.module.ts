@@ -6,11 +6,13 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { CalendarModule } from 'primeng/calendar';
 import { NgxMaskModule } from 'ngx-mask';
+import { MomentModule } from 'ngx-moment';
 
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { PurchaseComponent } from './purchase/purchase.component';
+import { StatisticsComponent } from './statistics/statistics.component';
 
 @NgModule({
   imports: [
@@ -20,19 +22,22 @@ import { PurchaseComponent } from './purchase/purchase.component';
     ReactiveFormsModule,
     TranslateModule.forChild(),
     CalendarModule,
-    NgxMaskModule.forRoot()
+    NgxMaskModule.forRoot(),
+    MomentModule
   ],
   declarations: [
     MainMenuComponent,
     HeaderComponent,
     FooterComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    StatisticsComponent
   ],
   exports: [
     MainMenuComponent,
     HeaderComponent,
     FooterComponent,
-    PurchaseComponent
+    PurchaseComponent,
+    StatisticsComponent
   ]
 })
 export class ComponentsModule { }

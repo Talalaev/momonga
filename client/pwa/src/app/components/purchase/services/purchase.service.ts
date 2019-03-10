@@ -15,6 +15,18 @@ export class PurchaseService {
     @Inject(API_SERVICE) private api: ApiService
   ) { }
 
+  async getPurchase(date: Array<{key: string, val: string}>) {
+    return await this.api
+      .useConfig<ApiConfig>('main')
+      .request(config => ({
+        method: 'get',
+        url: config.purchase.get,
+        requestPoint: `get:[Purchase] GetPurchase`,
+        paramsArray: date
+      }))
+      .promise<any>();
+  }
+
   async add(purchase: Purchase) {
     return await this.api
       .useConfig<ApiConfig>('main')

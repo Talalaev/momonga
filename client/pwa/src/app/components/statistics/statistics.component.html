@@ -1,0 +1,64 @@
+<form [formGroup]="dateForm">
+  <legend class="uk-legend mb-3">
+    Отчет
+    <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
+  </legend>
+  С
+  <div class="uk-inline">
+    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: calendar"></span>
+    <p-calendar
+      tabindex="0"
+      formControlName="createFrom"
+      [placeholder]="'дд/мм/гг'"
+      [inputStyleClass]="'uk-input'"
+      [disabledDates]="invalidDates"
+      [readonlyInput]="true"
+      [dateFormat]="'dd/MM/yy'"
+      name="date"></p-calendar>
+  </div>
+  По
+  <div class="uk-inline">
+    <a class="uk-form-icon uk-form-icon-flip" href="" uk-icon="icon: calendar"></a>
+    <p-calendar
+      tabindex="0"
+      formControlName="createTo"
+      [placeholder]="'дд/мм/гг'"
+      [inputStyleClass]="'uk-input'"
+      [disabledDates]="invalidDates"
+      [readonlyInput]="true"
+      [dateFormat]="'dd/MM/yy'"
+      name="date"></p-calendar>
+  </div>
+  <button
+    (click)="getReport()"
+    [disabled]="(loading$ | async)"
+    class="ml-2 uk-button uk-button-primary">
+    Загрузить
+  </button>
+</form>
+<h3 *ngIf="purchases.length === 0">
+  Нет покупок за выбранную дату
+</h3>
+<table *ngIf="purchases.length !== 0" class="uk-table uk-table-small uk-table-divider">
+  <thead>
+  <tr>
+    <th class="uk-table-shrink">№</th>
+    <th>Название</th>
+    <th>Категория</th>
+    <th class="uk-width-small">Дата</th>
+    <th class="uk-table-shrink">Стоитмость</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let purchase of purchases; let i = index">
+    <td>{{ i + 1 }}</td>
+    <td>{{ purchase.name }}</td>
+    <td>{{ purchase.categoryName }}</td>
+    <td>{{ purchase.createdAt | amDateFormat:'DD.MM.YYYY, [Время] HH:mm ' }}</td>
+    <td>{{ purchase.price }}₽</td>
+  </tr>
+  <tr>
+    <td colspan="5" class="uk-text-right">Сумма: {{ totalPrice }}₽</td>
+  </tr>
+  </tbody>
+</table>

@@ -48,6 +48,7 @@ export class ApiConfig implements ISApi.apiConfig {
 
   get purchase() {
     return {
+      get: `${this.baseUrl}/purchases`,
       add: `${this.baseUrl}/purchases`
     };
   }

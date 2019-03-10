@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@angular/core';
-import { Router } from '@angular/router';
 import { ApiService, API_SERVICE, TokenService } from 'ngx-api-manager';
 
 import { ApiConfig } from "../../configs/api.config";
@@ -11,8 +10,7 @@ export class AuthService {
 
   constructor(
     @Inject(API_SERVICE) private api: ApiService,
-    private token: TokenService,
-    private router: Router
+    private token: TokenService
   ) {}
 
   async login(loggingUser) {
@@ -59,10 +57,8 @@ export class AuthService {
         .promise<any>();
 
       this.token.remove();
-      this.router.navigate(['/login']);
     } catch(e) {
       this.token.remove();
-      this.router.navigate(['/login']);
     }
   }
 

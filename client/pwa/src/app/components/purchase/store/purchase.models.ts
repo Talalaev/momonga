@@ -15,6 +15,8 @@ export class Purchase {
   public price: number;
   public createdAt: string;
 
+  public categoryName?: string;
+
   constructor(rawPurchase: any) {
     this.userId = null;
     this.groupID = 0;
