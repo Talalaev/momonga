@@ -1,0 +1,13 @@
+{
+  "name": "momonga",
+  "repository": "https://github.com/Talalaev/momonga",
+  "buildpacks": [{
+    "url": "https://github.com/ryandotsmith/nginx-buildpack.git"
+  }, {
+    "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+  }],
+  "addons": [
+    "heroku-redis:hobby-dev",
+    "mongolab:sandbox"
+  ]
+}
