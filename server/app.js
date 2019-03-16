@@ -13,11 +13,11 @@ const i18n = require('koa-i18n');
 const convert = require('koa-convert');
 const locale = require('koa-locale');
 
-const sessionStores = require('./libs/sessionStore');
-const sequelize = require('./libs/sequelize');
+// const sessionStores = require('./libs/sessionStore');
+// const sequelize = require('./libs/sequelize');
 const allowHosts = require('./middlewares/allowHosts');
 const setLocale = require('./middlewares/setLocale');
-const initPassport = require('./middlewares/passportInitialize');
+// const initPassport = require('./middlewares/passportInitialize');
 const routers = require('./routes');
 const returnApp = require('./middlewares/returnApp');
 
@@ -32,9 +32,9 @@ app.use(convert(bodyParser()));
 app.use(cookie());
 app.use(logger());
 app.keys = config.keys;
-app.use(session({
-    store: sessionStores.mysql
-}));
+// app.use(session({
+//     store: sessionStores.mysql
+// }));
 app.use(views(roots.projectRoot, {
     // extension: 'jade',
     map: {
@@ -51,14 +51,14 @@ app.use(i18n(app, {
 }));
 app.use(setLocale());
 app.use(convert(favicon(path.join(roots.projectRoot, '/public/favicon.ico'))));
-app.use(initPassport());
+// app.use(initPassport());
 // раскоментируйте для использования сессий с использование mySql хранилища
 // app.use(passport.session());
 app.use(routers.forAll.routes());
-for (let name of Object.keys(routers.api)) {
-    routers.api[name].prefix(config.apiBasePath);
-    app.use(routers.api[name].routes());
-}
+// for (let name of Object.keys(routers.api)) {
+//     routers.api[name].prefix(config.apiBasePath);
+//     app.use(routers.api[name].routes());
+// }
 app.use(returnApp());
 
 module.exports = app;
