@@ -35,7 +35,7 @@ http {
 		server_name _;
 		keepalive_timeout 5;
 
-        root   /client/pwa/dist;
+        root   app/client/pwa/dist;
         index  index.html index.htm;
 
         location = / {
@@ -47,6 +47,9 @@ http {
 
         location /public/index.html {
            root   app;
+        }
+        location index.html {
+           root   client/pwa/dist;
         }
         location ^~ /pwa/dist/ {
             root   client;
