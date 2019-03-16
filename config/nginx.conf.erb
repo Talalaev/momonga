@@ -48,38 +48,9 @@ http {
         location /public/index.html {
            root   app;
         }
-        location index.html {
-           root   client/pwa/dist;
-        }
-        location ^~ /pwa/dist/ {
-            root   client;
-        }
-        location /runtime.js {
-            root   client/pwa/dist;
-        }
-        location /polyfills.js {
-            root   client/pwa/dist;
-        }
-        location /styles.js {
-            root   client/pwa/dist;
-        }
-        location /vendor.js {
-            root   client/pwa/dist;
-        }
-        location /main.js {
-            root   client/pwa/dist;
+        location /pwa/dist/index.html {
+           root   client;
         }
 
-        location ^~ /pwa/dist/assets {
-            root   client;
-        }
-
-        location ^~ /public/ {
-            root   /;
-        }
-
-        location ^~ /assets/ {
-            root   public;
-        }
     }
 }
