@@ -11,7 +11,6 @@ img/
 source/**/node_modules/
 nginx/html
 nginx/logs
-config/secretData.json
 
 #_/components/javascripts/working/*.js
 #_/components/styles/bootstrap3/*.css
