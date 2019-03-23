@@ -45,11 +45,37 @@ http {
             proxy_pass http://127.0.0.1:8888;
         }
 
-        location /test.html {
-           root   public;
+        location ^~ /client/pwa/dist/ {
+            root   /;
         }
-        location /index.html {
-           root   client/pwa/dist;
+
+        location /runtime.js {
+            root   client/pwa/dist;
         }
+        location /polyfills.js {
+            root   client/pwa/dist;
+        }
+        location /styles.js {
+            root   client/pwa/dist;
+        }
+        location /vendor.js {
+            root   client/pwa/dist;
+        }
+        location /main.js {
+            root   client/pwa/dist;
+        }
+
+        location ^~ /client/pwa/dist/assets {
+            root   /;
+        }
+
+        location ^~ /public/ {
+            root   /;
+        }
+
+        location ^~ /assets/ {
+            root   public;
+        }
+
     }
 }
