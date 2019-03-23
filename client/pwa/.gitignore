@@ -3,7 +3,7 @@
 tmp.html
 
 # compiled output
-/dist
+# /dist
 /dist-server
 /tmp
 /out-tsc
