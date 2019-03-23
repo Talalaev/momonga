@@ -6,9 +6,6 @@ console.log(`start!`);
 console.log(`app: http://localhost:3000`);
 console.log(`doc: http://localhost:3000/public/api-docs`);
 
-console.log(`Current directory: ${process.cwd()}`);
-console.log(fs.readdirSync(process.cwd()));
-
 if (process.env.DYNO) {
   console.log('This is on Heroku..!!');
   fs.openSync('/tmp/app-initialized', 'w');
