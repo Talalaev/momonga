@@ -66,15 +66,15 @@ http {
         }
 
         location ^~ /client/pwa/dist/assets {
-            root   /;
+            root   ../app;
         }
 
         location ^~ /public {
-            root   /;
+            root   ../app;
         }
 
         location ^~ /assets {
-            root   public;
+            root   ../app/public;
         }
 
     }
