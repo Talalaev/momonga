@@ -60,7 +60,7 @@ function parseDBUrl(url) {
   let middle =  url.search('@');
   let [user, password] = url.slice(0, middle).split(':');
   let [host, database] = url.slice(middle + 1).split('/');
-  // database = database.split('?')[0];
+  database = database.split('?')[0];
 
   return {user, password, host, database};
 }
