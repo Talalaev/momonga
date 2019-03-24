@@ -2,6 +2,15 @@ const defer = require('config/defer').deferConfig;
 const path = require('path');
 const secretData = require('./secretData.json');
 
+let mysql = {
+  user: "root",
+  password: secretData.mysqlPass,
+  database: process.env.NODE_ENV == 'production' ? "momonga" : "momonga_test",
+  host: "127.0.0.1"
+};
+
+if (process.env.DYNO) mysql = parseDBUrl(process.env.CLEARDB_DATABASE_URL);
+
 module.exports = {
     // secret data can be moved to env variables
     // or a separate config
@@ -17,12 +26,7 @@ module.exports = {
             }
         }
     },
-    mysql: {
-        user: "root",
-        password: secretData.mysqlPass,
-        database: process.env.NODE_ENV == 'production' ? "momonga" : "momonga_test",
-        host: "127.0.0.1"
-    },
+    mysql,
     crypto: {
         hash: {
             length: 128,
@@ -50,3 +54,12 @@ module.exports = {
     ],
     defaultLang: 'ru'
 };
+
+function parseDBUrl(url) {
+  url = url.slice(8);
+  let middle =  url.search('@');
+  let [user, password] = url.slice(0, middle).split(':');
+  let [host] = url.slice(middle + 1).split('/');
+
+  return {user, password, host};
+}
