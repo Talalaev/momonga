@@ -9,7 +9,7 @@ let mysql = {
   host: "127.0.0.1"
 };
 
-if (process.env.DYNO) mysql = parseDBUrl(process.env.JAWSDB_URL);
+// if (process.env.DYNO) mysql = parseDBUrl(process.env.CLEARDB_DATABASE_URL);
 
 module.exports = {
     // secret data can be moved to env variables

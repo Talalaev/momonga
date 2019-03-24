@@ -22,7 +22,7 @@ export class ApiConfig implements ISApi.apiConfig {
     // if (NODE_ENV === 'prod') return `http://localhost:3000/${this.prefix}`;
 
     return `https://momosan.herokuapp.com/${this.prefix}`;
-    
+
     // return `http://localhost:3000/${this.prefix}`;
   }
 
