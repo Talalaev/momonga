@@ -602,17 +602,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var primeng_calendar__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(primeng_calendar__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var ngx_mask__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ngx-mask */ "./node_modules/ngx-mask/fesm5/ngx-mask.js");
 /* harmony import */ var ngx_moment__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ngx-moment */ "./node_modules/ngx-moment/fesm5/ngx-moment.js");
-/* harmony import */ var _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./main-menu/main-menu.component */ "./src/app/components/main-menu/main-menu.component.ts");
-/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./header/header.component */ "./src/app/components/header/header.component.ts");
-/* harmony import */ var _footer_footer_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./footer/footer.component */ "./src/app/components/footer/footer.component.ts");
-/* harmony import */ var _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./purchase/purchase.component */ "./src/app/components/purchase/purchase.component.ts");
-/* harmony import */ var _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./statistics/statistics.component */ "./src/app/components/statistics/statistics.component.ts");
+/* harmony import */ var _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../pipes/pipes.module */ "./src/app/pipes/pipes.module.ts");
+/* harmony import */ var _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./main-menu/main-menu.component */ "./src/app/components/main-menu/main-menu.component.ts");
+/* harmony import */ var _header_header_component__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./header/header.component */ "./src/app/components/header/header.component.ts");
+/* harmony import */ var _footer_footer_component__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./footer/footer.component */ "./src/app/components/footer/footer.component.ts");
+/* harmony import */ var _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./purchase/purchase.component */ "./src/app/components/purchase/purchase.component.ts");
+/* harmony import */ var _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./statistics/statistics.component */ "./src/app/components/statistics/statistics.component.ts");
 var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -639,21 +641,22 @@ var ComponentsModule = /** @class */ (function () {
                 _ngx_translate_core__WEBPACK_IMPORTED_MODULE_4__["TranslateModule"].forChild(),
                 primeng_calendar__WEBPACK_IMPORTED_MODULE_5__["CalendarModule"],
                 ngx_mask__WEBPACK_IMPORTED_MODULE_6__["NgxMaskModule"].forRoot(),
-                ngx_moment__WEBPACK_IMPORTED_MODULE_7__["MomentModule"]
+                ngx_moment__WEBPACK_IMPORTED_MODULE_7__["MomentModule"],
+                _pipes_pipes_module__WEBPACK_IMPORTED_MODULE_8__["PipesModule"]
             ],
             declarations: [
-                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_8__["MainMenuComponent"],
-                _header_header_component__WEBPACK_IMPORTED_MODULE_9__["HeaderComponent"],
-                _footer_footer_component__WEBPACK_IMPORTED_MODULE_10__["FooterComponent"],
-                _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseComponent"],
-                _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_12__["StatisticsComponent"]
+                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_9__["MainMenuComponent"],
+                _header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"],
+                _footer_footer_component__WEBPACK_IMPORTED_MODULE_11__["FooterComponent"],
+                _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseComponent"],
+                _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_13__["StatisticsComponent"]
             ],
             exports: [
-                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_8__["MainMenuComponent"],
-                _header_header_component__WEBPACK_IMPORTED_MODULE_9__["HeaderComponent"],
-                _footer_footer_component__WEBPACK_IMPORTED_MODULE_10__["FooterComponent"],
-                _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_11__["PurchaseComponent"],
-                _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_12__["StatisticsComponent"]
+                _main_menu_main_menu_component__WEBPACK_IMPORTED_MODULE_9__["MainMenuComponent"],
+                _header_header_component__WEBPACK_IMPORTED_MODULE_10__["HeaderComponent"],
+                _footer_footer_component__WEBPACK_IMPORTED_MODULE_11__["FooterComponent"],
+                _purchase_purchase_component__WEBPACK_IMPORTED_MODULE_12__["PurchaseComponent"],
+                _statistics_statistics_component__WEBPACK_IMPORTED_MODULE_13__["StatisticsComponent"]
             ]
         })
     ], ComponentsModule);
@@ -1371,7 +1374,7 @@ var Purchase = /** @class */ (function () {
         this.countryID = 20;
         this.city = 'Луганск';
         this.name = rawPurchase.name;
-        this.price = rawPurchase.price.replace(/\.+/, "");
+        this.price = rawPurchase.price.replace(/\./g, "").replace(/\,/, ".");
         this.createdAt = rawPurchase.createdAt;
     }
     return Purchase;
@@ -1523,7 +1526,7 @@ var PurchaseState = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<form [formGroup]=\"dateForm\">\n  <legend class=\"uk-legend mb-3\">\n    Отчет\n    <div *ngIf=\"loading$ | async\" uk-spinner uk-spinner=\"ratio: 1\" class=\"float-right\"></div>\n  </legend>\n  С\n  <div class=\"uk-inline\">\n    <span class=\"uk-form-icon uk-form-icon-flip\" uk-icon=\"icon: calendar\"></span>\n    <p-calendar\n      tabindex=\"0\"\n      formControlName=\"createFrom\"\n      [placeholder]=\"'дд/мм/гг'\"\n      [inputStyleClass]=\"'uk-input'\"\n      [disabledDates]=\"invalidDates\"\n      [readonlyInput]=\"true\"\n      [dateFormat]=\"'dd/MM/yy'\"\n      name=\"date\"></p-calendar>\n  </div>\n  По\n  <div class=\"uk-inline\">\n    <a class=\"uk-form-icon uk-form-icon-flip\" href=\"\" uk-icon=\"icon: calendar\"></a>\n    <p-calendar\n      tabindex=\"0\"\n      formControlName=\"createTo\"\n      [placeholder]=\"'дд/мм/гг'\"\n      [inputStyleClass]=\"'uk-input'\"\n      [disabledDates]=\"invalidDates\"\n      [readonlyInput]=\"true\"\n      [dateFormat]=\"'dd/MM/yy'\"\n      name=\"date\"></p-calendar>\n  </div>\n  <button\n    (click)=\"getReport()\"\n    [disabled]=\"(loading$ | async)\"\n    class=\"ml-2 uk-button uk-button-primary\">\n    Загрузить\n  </button>\n</form>\n<h3 *ngIf=\"purchases.length === 0\">\n  Нет покупок за выбранную дату\n</h3>\n<table *ngIf=\"purchases.length !== 0\" class=\"uk-table uk-table-small uk-table-divider\">\n  <thead>\n  <tr>\n    <th class=\"uk-table-shrink\">№</th>\n    <th>Название</th>\n    <th>Категория</th>\n    <th class=\"uk-width-small\">Дата</th>\n    <th class=\"uk-table-shrink\">Стоитмость</th>\n  </tr>\n  </thead>\n  <tbody>\n  <tr *ngFor=\"let purchase of purchases; let i = index\">\n    <td>{{ i + 1 }}</td>\n    <td>{{ purchase.name }}</td>\n    <td>{{ purchase.categoryName }}</td>\n    <td>{{ purchase.createdAt | amDateFormat:'DD.MM.YYYY, [Время] HH:mm ' }}</td>\n    <td>{{ purchase.price }}₽</td>\n  </tr>\n  <tr>\n    <td colspan=\"5\" class=\"uk-text-right\">Сумма: {{ totalPrice }}₽</td>\n  </tr>\n  </tbody>\n</table>\n"
+module.exports = "<form [formGroup]=\"dateForm\">\n  <legend class=\"uk-legend mb-3\">\n    Отчет\n    <div *ngIf=\"loading$ | async\" uk-spinner uk-spinner=\"ratio: 1\" class=\"float-right\"></div>\n  </legend>\n  С\n  <div class=\"uk-inline\">\n    <span class=\"uk-form-icon uk-form-icon-flip\" uk-icon=\"icon: calendar\"></span>\n    <p-calendar\n      tabindex=\"0\"\n      formControlName=\"createFrom\"\n      [placeholder]=\"'дд/мм/гг'\"\n      [inputStyleClass]=\"'uk-input'\"\n      [disabledDates]=\"invalidDates\"\n      [readonlyInput]=\"true\"\n      [dateFormat]=\"'dd/MM/yy'\"\n      name=\"date\"></p-calendar>\n  </div>\n  По\n  <div class=\"uk-inline\">\n    <a class=\"uk-form-icon uk-form-icon-flip\" href=\"\" uk-icon=\"icon: calendar\"></a>\n    <p-calendar\n      tabindex=\"0\"\n      formControlName=\"createTo\"\n      [placeholder]=\"'дд/мм/гг'\"\n      [inputStyleClass]=\"'uk-input'\"\n      [disabledDates]=\"invalidDates\"\n      [readonlyInput]=\"true\"\n      [dateFormat]=\"'dd/MM/yy'\"\n      name=\"date\"></p-calendar>\n  </div>\n  <button\n    (click)=\"getReport()\"\n    [disabled]=\"(loading$ | async)\"\n    class=\"ml-2 uk-button uk-button-primary\">\n    Загрузить\n  </button>\n</form>\n<h3 *ngIf=\"purchases.length === 0\">\n  Нет покупок за выбранную дату\n</h3>\n<table *ngIf=\"purchases.length !== 0\" class=\"uk-table uk-table-small uk-table-divider\">\n  <thead>\n  <tr>\n    <th class=\"uk-table-shrink\">№</th>\n    <th>Название</th>\n    <th>Категория</th>\n    <th class=\"uk-width-small\">Дата</th>\n    <th class=\"uk-table-shrink\">Стоитмость</th>\n  </tr>\n  </thead>\n  <tbody>\n  <tr *ngFor=\"let purchase of purchases; let i = index\">\n    <td>{{ i + 1 }}</td>\n    <td>{{ purchase.name }}</td>\n    <td>{{ purchase.categoryName }}</td>\n    <td>{{ purchase.createdAt | amDateFormat:'DD.MM.YYYY, [Время] HH:mm ' }}</td>\n    <td>{{ purchase.price | currency }}₽</td>\n  </tr>\n  <tr>\n    <td colspan=\"5\" class=\"uk-text-right\">Сумма: {{ totalPrice | currency }}₽</td>\n  </tr>\n  </tbody>\n</table>\n"
 
 /***/ }),
 
@@ -1604,11 +1607,13 @@ var StatisticsComponent = /** @class */ (function () {
     StatisticsComponent.prototype.getReport = function () {
         var _this = this;
         var date = this.getQueryDate(this.dateForm.value);
+        this.totalPrice = 0;
         this.store.dispatch(new _purchase_store_purchase_actions__WEBPACK_IMPORTED_MODULE_5__["GetPurchaseAction"](date)).subscribe(function (_a) {
             var purchase = _a.purchase;
             _this.purchases = purchase.purchases.map(function (purchase) {
                 var category = _this.categories.find(function (item) { return item.id === purchase.categoryID; });
                 purchase.categoryName = category.name;
+                console.log(purchase.price);
                 _this.totalPrice += purchase.price;
                 return purchase;
             });
@@ -1676,6 +1681,7 @@ var ApiConfig = /** @class */ (function () {
         get: function () {
             // if (NODE_ENV === 'prod') return `http://localhost:3000/${this.prefix}`;
             return "https://momosan.herokuapp.com/" + this.prefix;
+            // return `http://localhost:3000/${this.prefix}`;
         },
         enumerable: true,
         configurable: true
@@ -2246,6 +2252,105 @@ var RootOfPagesComponent = /** @class */ (function () {
         __metadata("design:paramtypes", [])
     ], RootOfPagesComponent);
     return RootOfPagesComponent;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/currency.pipe.ts":
+/*!****************************************!*\
+  !*** ./src/app/pipes/currency.pipe.ts ***!
+  \****************************************/
+/*! exports provided: CurrencyPipe */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CurrencyPipe", function() { return CurrencyPipe; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+var CurrencyPipe = /** @class */ (function () {
+    function CurrencyPipe() {
+    }
+    CurrencyPipe.prototype.transform = function (value) {
+        try {
+            var _a = String(value).split('.'), leftPart = _a[0], rightPart = _a[1];
+            if (!rightPart)
+                rightPart = '00';
+            if (rightPart.length === 1)
+                rightPart += '0';
+            leftPart = leftPart.split('').reverse().reduce(function (prev, next, index) {
+                if (index === 0)
+                    return prev += next;
+                if (index % 3 === 0)
+                    return prev += " " + next;
+                return prev += next;
+            }, '').split('').reverse().join('');
+            return leftPart + "," + rightPart;
+        }
+        catch (e) {
+            console.warn(e);
+            return value;
+        }
+    };
+    CurrencyPipe = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["Pipe"])({
+            name: 'currency'
+        })
+    ], CurrencyPipe);
+    return CurrencyPipe;
+}());
+
+
+
+/***/ }),
+
+/***/ "./src/app/pipes/pipes.module.ts":
+/*!***************************************!*\
+  !*** ./src/app/pipes/pipes.module.ts ***!
+  \***************************************/
+/*! exports provided: PipesModule */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "PipesModule", function() { return PipesModule; });
+/* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
+/* harmony import */ var _angular_common__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/common */ "./node_modules/@angular/common/fesm5/common.js");
+/* harmony import */ var _currency_pipe__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./currency.pipe */ "./src/app/pipes/currency.pipe.ts");
+var __decorate = (undefined && undefined.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+var PipesModule = /** @class */ (function () {
+    function PipesModule() {
+    }
+    PipesModule = __decorate([
+        Object(_angular_core__WEBPACK_IMPORTED_MODULE_0__["NgModule"])({
+            declarations: [
+                _currency_pipe__WEBPACK_IMPORTED_MODULE_2__["CurrencyPipe"]
+            ],
+            exports: [
+                _currency_pipe__WEBPACK_IMPORTED_MODULE_2__["CurrencyPipe"]
+            ],
+            imports: [
+                _angular_common__WEBPACK_IMPORTED_MODULE_1__["CommonModule"]
+            ]
+        })
+    ], PipesModule);
+    return PipesModule;
 }());
 
 
