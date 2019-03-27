@@ -41,10 +41,12 @@ export class StatisticsComponent implements OnInit {
 
   getReport() {
     const date = this.getQueryDate(this.dateForm.value);
+    this.totalPrice = 0;
     this.store.dispatch(new GetPurchaseAction(date)).subscribe(({purchase}) => {
       this.purchases = purchase.purchases.map(purchase => {
         let category = this.categories.find(item => item.id === purchase.categoryID);
         purchase.categoryName = category.name;
+        console.log(purchase.price);
         this.totalPrice += purchase.price;
         return purchase;
       });

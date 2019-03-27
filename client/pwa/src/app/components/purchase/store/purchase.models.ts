@@ -25,7 +25,7 @@ export class Purchase {
     this.countryID = 20;
     this.city = 'Луганск';
     this.name = rawPurchase.name;
-    this.price = rawPurchase.price.replace(/\.+/, "");
+    this.price = rawPurchase.price.replace(/\./g, "").replace(/\,/, ".");
     this.createdAt = rawPurchase.createdAt;
   }
 }

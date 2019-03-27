@@ -8,6 +8,8 @@ import { CalendarModule } from 'primeng/calendar';
 import { NgxMaskModule } from 'ngx-mask';
 import { MomentModule } from 'ngx-moment';
 
+import { PipesModule } from '../pipes/pipes.module';
+
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -23,7 +25,8 @@ import { StatisticsComponent } from './statistics/statistics.component';
     TranslateModule.forChild(),
     CalendarModule,
     NgxMaskModule.forRoot(),
-    MomentModule
+    MomentModule,
+    PipesModule
   ],
   declarations: [
     MainMenuComponent,

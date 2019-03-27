@@ -55,10 +55,10 @@
     <td>{{ purchase.name }}</td>
     <td>{{ purchase.categoryName }}</td>
     <td>{{ purchase.createdAt | amDateFormat:'DD.MM.YYYY, [Время] HH:mm ' }}</td>
-    <td>{{ purchase.price }}₽</td>
+    <td>{{ purchase.price | currency }}₽</td>
   </tr>
   <tr>
-    <td colspan="5" class="uk-text-right">Сумма: {{ totalPrice }}₽</td>
+    <td colspan="5" class="uk-text-right">Сумма: {{ totalPrice | currency }}₽</td>
   </tr>
   </tbody>
 </table>
