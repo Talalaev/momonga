@@ -46,7 +46,6 @@ export class StatisticsComponent implements OnInit {
       this.purchases = purchase.purchases.map(purchase => {
         let category = this.categories.find(item => item.id === purchase.categoryID);
         purchase.categoryName = category.name;
-        console.log(purchase.price);
         this.totalPrice += purchase.price;
         return purchase;
       });
