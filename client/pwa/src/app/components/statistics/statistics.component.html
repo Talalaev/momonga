@@ -3,38 +3,76 @@
     Отчет
     <div *ngIf="loading$ | async" uk-spinner uk-spinner="ratio: 1" class="float-right"></div>
   </legend>
-  С
-  <div class="uk-inline">
-    <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: calendar"></span>
-    <p-calendar
-      tabindex="0"
-      formControlName="createFrom"
-      [placeholder]="'дд/мм/гг'"
-      [inputStyleClass]="'uk-input'"
-      [disabledDates]="invalidDates"
-      [readonlyInput]="true"
-      [dateFormat]="'dd/MM/yy'"
-      name="date"></p-calendar>
+  <div class="uk-visible@s">
+    <span class="mr-2">С</span>
+    <div class="uk-inline">
+      <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: calendar"></span>
+      <p-calendar
+        tabindex="0"
+        formControlName="createFrom"
+        [placeholder]="'дд/мм/гг'"
+        [inputStyleClass]="'uk-input'"
+        [disabledDates]="invalidDates"
+        [readonlyInput]="true"
+        [dateFormat]="'dd/MM/yy'"
+        name="date"></p-calendar>
+    </div>
+    <span class="mx-2">По</span>
+    <div class="uk-inline">
+      <a class="uk-form-icon uk-form-icon-flip" href="" uk-icon="icon: calendar"></a>
+      <p-calendar
+        tabindex="0"
+        formControlName="createTo"
+        [placeholder]="'дд/мм/гг'"
+        [inputStyleClass]="'uk-input'"
+        [disabledDates]="invalidDates"
+        [readonlyInput]="true"
+        [dateFormat]="'dd/MM/yy'"
+        name="date"></p-calendar>
+    </div>
+    <button
+      (click)="getReport()"
+      [disabled]="(loading$ | async)"
+      class="ml-2 uk-button uk-button-primary">
+      Загрузить
+    </button>
   </div>
-  По
-  <div class="uk-inline">
-    <a class="uk-form-icon uk-form-icon-flip" href="" uk-icon="icon: calendar"></a>
-    <p-calendar
-      tabindex="0"
-      formControlName="createTo"
-      [placeholder]="'дд/мм/гг'"
-      [inputStyleClass]="'uk-input'"
-      [disabledDates]="invalidDates"
-      [readonlyInput]="true"
-      [dateFormat]="'dd/MM/yy'"
-      name="date"></p-calendar>
+  <div class="uk-hidden@s">
+    <div class="uk-margin">
+      <label class="uk-form-label">С</label>
+      <div class="uk-form-controls">
+        <p-calendar
+          tabindex="0"
+          formControlName="createFrom"
+          [placeholder]="'дд/мм/гг'"
+          [inputStyleClass]="'uk-input'"
+          [disabledDates]="invalidDates"
+          [readonlyInput]="true"
+          [dateFormat]="'dd/MM/yy'"
+          name="date"></p-calendar>
+      </div>
+    </div>
+    <div class="uk-margin">
+      <label class="uk-form-label">По</label>
+      <div class="uk-form-controls">
+        <p-calendar
+          tabindex="0"
+          formControlName="createTo"
+          [placeholder]="'дд/мм/гг'"
+          [inputStyleClass]="'uk-input'"
+          [disabledDates]="invalidDates"
+          [readonlyInput]="true"
+          [dateFormat]="'dd/MM/yy'"
+          name="date"></p-calendar>
+      </div>
+    </div>
+    <button
+      (click)="getReport()"
+      [disabled]="(loading$ | async)"
+      class="uk-button uk-button-primary uk-width-1-1 uk-margin-small-bottom">
+      Загрузить
+    </button>
   </div>
-  <button
-    (click)="getReport()"
-    [disabled]="(loading$ | async)"
-    class="ml-2 uk-button uk-button-primary">
-    Загрузить
-  </button>
 </form>
 <h3 *ngIf="purchases.length === 0">
   Нет покупок за выбранную дату
@@ -42,23 +80,33 @@
 <table *ngIf="purchases.length !== 0" class="uk-table uk-table-small uk-table-divider">
   <thead>
   <tr>
-    <th class="uk-table-shrink">№</th>
+    <th class="uk-table-shrink uk-visible@s">№</th>
     <th>Название</th>
-    <th>Категория</th>
+    <th class="uk-visible@s">Категория</th>
     <th class="uk-width-small">Дата</th>
     <th class="uk-table-shrink">Стоитмость</th>
   </tr>
   </thead>
   <tbody>
   <tr *ngFor="let purchase of purchases; let i = index">
-    <td>{{ i + 1 }}</td>
-    <td>{{ purchase.name }}</td>
-    <td>{{ purchase.categoryName }}</td>
-    <td>{{ purchase.createdAt | amDateFormat:'DD.MM.YYYY, [Время] HH:mm ' }}</td>
+    <td class="uk-visible@s">{{ i + 1 }}</td>
+    <td>
+      {{ purchase.name }}
+      <div class="uk-hidden@s">
+        <small>({{ purchase.categoryName }})</small>
+      </div>
+    </td>
+    <td class="uk-visible@s">{{ purchase.categoryName }}</td>
+    <td>
+      <span [attr.title]="purchase.createdAt | amDateFormat:'HH:mm'">
+        {{ purchase.createdAt | amDateFormat:'DD.MM.YYYY' }}
+      </span>
+    </td>
     <td>{{ purchase.price | currency }}₽</td>
   </tr>
   <tr>
-    <td colspan="5" class="uk-text-right">Сумма: {{ totalPrice | currency }}₽</td>
+    <td colspan="5" class="uk-text-right uk-visible@s">Сумма: {{ totalPrice | currency }}₽</td>
+    <td colspan="5" class="pr-4 uk-text-right uk-hidden@s">Сумма: {{ totalPrice | currency }}₽</td>
   </tr>
   </tbody>
 </table>
