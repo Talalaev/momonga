@@ -10,7 +10,6 @@
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: user"></span>
           <input
-            required
             (keyup.enter)="submit()"
             formControlName="login"
             [ngClass]="{'uk-form-danger': login.invalid && (login.dirty || login.touched)}"
@@ -31,7 +30,6 @@
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: mail"></span>
           <input
-            required
             (keyup.enter)="submit()"
             formControlName="email"
             [ngClass]="{'uk-form-danger': email.invalid && (email.dirty || email.touched)}"
@@ -52,7 +50,6 @@
         <div class="uk-inline uk-width-1-1">
           <span class="uk-form-icon uk-form-icon-flip" uk-icon="icon: lock"></span>
           <input
-            required
             (keyup.enter)="submit()"
             formControlName="password"
             [ngClass]="{'uk-form-danger': password.invalid && (password.dirty || password.touched)}"
