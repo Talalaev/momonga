@@ -1679,8 +1679,8 @@ var ApiConfig = /** @class */ (function () {
     Object.defineProperty(ApiConfig.prototype, "baseUrl", {
         get: function () {
             // if (NODE_ENV === 'prod') return `http://localhost:3000/${this.prefix}`;
-            // return `https://momosan.herokuapp.com/${this.prefix}`;
-            return "http://localhost:3000/" + this.prefix;
+            return "https://momosan.herokuapp.com/" + this.prefix;
+            // return `http://localhost:3000/${this.prefix}`;
         },
         enumerable: true,
         configurable: true
