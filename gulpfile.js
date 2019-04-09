@@ -23,6 +23,12 @@ gulp.task('build:app', function () {
   runSequence('del-dist', 'build:pwa', ['beautify', 'del-etc']);
 });
 
+gulp.task('build-prod:app', function () {
+  runSequence('del-dist', 'build-prod:pwa', ['beautify', 'del-etc']);
+});
+
+gulp.task('build-prod:pwa', shell.task(`npm --prefix ${path.resolve(__dirname, './client/pwa')} run build:prod`));
+
 gulp.task('build:pwa', shell.task(`npm --prefix ${path.resolve(__dirname, './client/pwa')} run build`));
 
 gulp.task('beautify', () =>

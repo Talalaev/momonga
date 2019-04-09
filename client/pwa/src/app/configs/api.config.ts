@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 
 import { ISApi } from 'ngx-api-manager/typings';
+import { environment } from '../../environments/environment';
 
 @Injectable()
-export class ApiConfig implements ISApi.apiConfig {
+export class ApiConfig { //implements ISApi.apiConfig {
   prefix: string = 'api';
   tokenFieldName: string = 'token';
   timeout: number = 10*1000;
@@ -18,11 +19,9 @@ export class ApiConfig implements ISApi.apiConfig {
   }
 
   get baseUrl() {
+    if (environment.production) return `https://momosan.herokuapp.com/${this.prefix}`;
 
-    // if (NODE_ENV === 'prod') return `http://localhost:3000/${this.prefix}`;
-
-    return `https://momosan.herokuapp.com/${this.prefix}`;
-    // return `http://localhost:3000/${this.prefix}`;
+    return `http://localhost:3000/${this.prefix}`;
   }
 
   get auth() {

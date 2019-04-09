@@ -1,12 +1,13 @@
 {
   "name": "momonga",
-  "version": "0.2.4",
+  "version": "0.3.6",
   "description": "программа учета затрат",
   "main": "server/index.js",
   "scripts": {
     "start": "webpack -w --colors",
     "start-app": "nodemon server/index.js",
     "build:app": "gulp build:app",
+    "build-prod:app": "gulp build-prod:app",
     "test": "mocha server/tests/*.js",
     "add-fixtures": "node_modules/.bin/sequelize db:seed:all",
     "undo-fixtures": "node_modules/.bin/sequelize db:seed:undo:all",

@@ -1,12 +1,13 @@
 {
   "name": "momonga",
-  "version": "0.0.1",
+  "version": "0.3.6",
   "license": "MIT",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --live-reload true",
     "server": "./node_modules/.bin/ts-node ./server/server.ts",
     "build": "ng build",
+    "build:prod": "ng build --prod",
     "start:prod": "ng build --prod && cd dist && http-server -c-1 -P http://localhost:9000 .",
     "test": "ng test",
     "lint": "ng lint",
@@ -65,7 +66,7 @@
     "karma-jasmine": "~1.1.0",
     "karma-jasmine-html-reporter": "^0.2.2",
     "moment": "^2.24.0",
-    "ngx-api-manager": "^0.2.7",
+    "ngx-api-manager": "^0.2.8",
     "ngx-mask": "^7.3.6",
     "ngx-moment": "^3.4.0",
     "primeflex": "^1.0.0-rc.1",
