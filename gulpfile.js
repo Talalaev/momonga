@@ -10,6 +10,24 @@ const exec = require('gulp-exec');
 const shell = require('gulp-shell');
 const replace = require('gulp-replace');
 const beautify = require('gulp-jsbeautifier');
+const git = require('gulp-git');
+const argv = require('yargs').argv;
+const package = require('./package.json');
+
+
+let {major: changeMajor, minor: changeMinor, micro: changeMicro} = argv;
+let [major, minor, micro] = package.version.split('.');
+let version = package.version;
+
+if (changeMajor) {
+  version = `${++major}.0.0`;
+}
+else if (changeMinor) {
+  version = `${major}.${++minor}.0`
+}
+else if (changeMicro) {
+  version = `${major}.${minor}.${++micro}`;
+}
 
 
 // const mongoose = require('./server/libs/mongoose');
@@ -17,6 +35,56 @@ const beautify = require('gulp-jsbeautifier');
 process.on('uncaughtException', function(err) {
     console.error(err.message, err.stack, err.errors);
     process.exit(255);
+});
+
+gulp.task('deploy', function() {
+  runSequence(
+    'change-version-pkg',
+    'change-version-readme',
+    // 'build-prod:app',
+    'git:add',
+    // 'git:commit',
+    // 'push:heroku'
+  );
+});
+
+gulp.task('git:add', function() {
+  var options = {
+    continueOnError: false, // default = false, true means don't emit error event
+    pipeStdout: false, // default = false, true means stdout is written to file.contents
+    customTemplatingThing: "test" // content passed to lodash.template()
+  };
+  return gulp.src('./*')
+    .pipe(exec('git add .', options))
+    .pipe(exec(`git commit -m "build version: ${version}"`))
+    .pipe(exec(`git push heroku master`))
+});
+
+gulp.task('git:commit', function() {
+  gulp.src('./*')
+    .pipe(git.commit(`build version: ${version}`));
+});
+
+gulp.task('push:heroku', function(){
+  git.push('heroku', 'master', {args: " -f"}, function (err) {
+    if (err) throw err;
+  });
+});
+
+gulp.task('change-version', function() {
+  runSequence(['change-version-pkg', 'change-version-readme']);
+});
+
+gulp.task('change-version-pkg', function() {
+  gulp.src(['./package.json'])
+    .pipe(replace(/"version": ?"\d\.\d\.\d",/, `"version": "${version}",`))
+    .pipe(gulp.dest('./'));
+});
+
+gulp.task('change-version-readme', function() {
+  gulp.src(['./README.md'])
+    .pipe(replace(/Version \d\.\d\.\d/, `Version: ${version}`))
+    .pipe(gulp.dest('./'));
 });
 
 gulp.task('build:app', function () {
