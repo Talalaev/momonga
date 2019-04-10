@@ -57,6 +57,8 @@ gulp.task('git:add', function (cb) {
       console.log(2);
       if (err) cb(err);
       exec('git push heroku master', function (err, stdout, stderr) {
+        console.log(stdout);
+        console.log(stderr);
         console.log(3);
         cb(err);
       });
