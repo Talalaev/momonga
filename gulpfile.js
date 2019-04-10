@@ -57,7 +57,7 @@ gulp.task('git:add', function() {
   return gulp.src('./*')
     .pipe(exec('git add .', options))
     .pipe(exec(`git commit -m "build version: ${version}"`))
-    .pipe(exec(`git push heroku master`))
+    // .pipe(exec(`git push heroku master`));
 });
 
 gulp.task('git:commit', function() {
