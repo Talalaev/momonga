@@ -6,7 +6,8 @@ const runSequence = require('run-sequence');
 const gp = require('gulp-load-plugins')();
 const webpack = require('gulp-webpack');
 const del = require('del');
-const exec = require('gulp-exec');
+// const exec = require('gulp-exec');
+const exec = require('child_process').exec;
 const shell = require('gulp-shell');
 const replace = require('gulp-replace');
 const beautify = require('gulp-jsbeautifier');
@@ -48,17 +49,29 @@ gulp.task('deploy', function() {
   );
 });
 
-gulp.task('git:add', function() {
-  var options = {
-    continueOnError: false, // default = false, true means don't emit error event
-    pipeStdout: false, // default = false, true means stdout is written to file.contents
-    customTemplatingThing: "test" // content passed to lodash.template()
-  };
-  return gulp.src('./*')
-    .pipe(exec('git add .', options))
-    .pipe(exec(`git commit -m "build version: ${version}"`))
-    // .pipe(exec(`git push heroku master`));
+gulp.task('git:add', function (cb) {
+  exec('git add .', function (err, stdout, stderr) {
+    if (err) cb(err);
+    exec(`git commit -m "build version: ${version}"`, function (err, stdout, stderr) {
+      if (err) cb(err);
+      exec('git push heroku master', function (err, stdout, stderr) {
+        cb(err);
+      });
+    });
+  });
 });
+
+// gulp.task('git:add', function() {
+//   var options = {
+//     continueOnError: false, // default = false, true means don't emit error event
+//     pipeStdout: false, // default = false, true means stdout is written to file.contents
+//     customTemplatingThing: "test" // content passed to lodash.template()
+//   };
+//   return gulp.src('./*')
+//     .pipe(exec('git add .', options))
+//     .pipe(exec(`git commit -m "build version: ${version}"`))
+//     // .pipe(exec(`git push heroku master`));
+// });
 
 gulp.task('git:commit', function() {
   gulp.src('./*')
