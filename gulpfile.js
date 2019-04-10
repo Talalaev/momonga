@@ -51,10 +51,13 @@ gulp.task('deploy', function() {
 
 gulp.task('git:add', function (cb) {
   exec('git add .', function (err, stdout, stderr) {
+    console.log(1);
     if (err) cb(err);
     exec(`git commit -m "build version: ${version}"`, function (err, stdout, stderr) {
+      console.log(2);
       if (err) cb(err);
       exec('git push heroku master', function (err, stdout, stderr) {
+        console.log(3);
         cb(err);
       });
     });
