@@ -43,49 +43,21 @@ gulp.task('deploy', function() {
     'change-version-pkg',
     'change-version-readme',
     // 'build-prod:app',
-    'git:add',
-    // 'git:commit',
-    // 'push:heroku'
+    'git:add'
   );
 });
 
 gulp.task('git:add', function (cb) {
   exec('git add .', function (err, stdout, stderr) {
-    console.log(1);
     if (err) cb(err);
     exec(`git commit -m "build version: ${version}"`, function (err, stdout, stderr) {
-      console.log(2);
       if (err) cb(err);
       exec('git push heroku master', function (err, stdout, stderr) {
         console.log(stdout);
-        console.log(stderr);
-        console.log(3);
+        console.error(stderr);
         cb(err);
       });
     });
-  });
-});
-
-// gulp.task('git:add', function() {
-//   var options = {
-//     continueOnError: false, // default = false, true means don't emit error event
-//     pipeStdout: false, // default = false, true means stdout is written to file.contents
-//     customTemplatingThing: "test" // content passed to lodash.template()
-//   };
-//   return gulp.src('./*')
-//     .pipe(exec('git add .', options))
-//     .pipe(exec(`git commit -m "build version: ${version}"`))
-//     // .pipe(exec(`git push heroku master`));
-// });
-
-gulp.task('git:commit', function() {
-  gulp.src('./*')
-    .pipe(git.commit(`build version: ${version}`));
-});
-
-gulp.task('push:heroku', function(){
-  git.push('heroku', 'master', {args: " -f"}, function (err) {
-    if (err) throw err;
   });
 });
 
